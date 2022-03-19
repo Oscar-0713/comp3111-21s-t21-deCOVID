@@ -47,8 +47,7 @@ public class MyApplication extends Application {
    		VBox root = (VBox) loader.load();
    		Scene scene =  new Scene(root);
    		stage.setScene(scene);
-   		stage.setTitle("COMP3111 Term Project | Super Team T-21: Data Explorer on COVID-19 (Desmond Task A)");
-
+   		stage.setTitle("COMP3111 Term Project | Super Team T-21: Data Explorer on COVID-19 | Trivial Pull Request");
    		stage.show();
 	}
 
