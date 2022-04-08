@@ -54,8 +54,8 @@
                            <children>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
                                  <children>
-                                    <DatePicker fx:id="taskB1DatePicker" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
-                                    <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task B1 - Enquirt on Total COVID Death">
+                                    <DatePicker fx:id="taskB1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
+                                    <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task B1 - Enquiry on Total COVID Death">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -79,6 +79,7 @@
                                         <TableColumn prefWidth="75.0" text="C2" />
                                       </columns>
                                     </TableView>
+                                    <Label fx:id="taskB1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
                                  </children>
                               </AnchorPane>
                            </children>
