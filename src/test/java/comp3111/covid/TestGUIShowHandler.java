@@ -19,7 +19,7 @@ public class TestGUIShowHandler {
 	private GUIShowHandler testClass;
 	private Date startDate;
 	private Date endDate;
-	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	
 	@Before

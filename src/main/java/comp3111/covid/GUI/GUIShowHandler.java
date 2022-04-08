@@ -31,7 +31,7 @@ public class GUIShowHandler {
 	private ArrayList<CountryCode> availableCountry = new ArrayList<CountryCode>();
 	private HashMap<String, Date> dateRange = new HashMap<String, Date>();
 	
-	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public GUIShowHandler(String dataset) throws ParseException {
 		for (CSVRecord record : DataAnalysis.getFileParser(dataset)) {
