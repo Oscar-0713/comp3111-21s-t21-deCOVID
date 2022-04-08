@@ -38,7 +38,7 @@ public class TestGUIShowHandler {
 	@Test
 	public void testCountry() {
 		assertTrue(testClass.getAvailableCountry().contains(CountryCode.getByCode("CPV")));
-		assertTrue(testClass.getAvailableCountry().contains(CountryCode.getByCode("CHIN")));
+		assertTrue(testClass.getAvailableCountry().contains(CountryCode.getByCode("CHN")));
 		assertTrue(testClass.getAvailableCountry().contains(CountryCode.getByCode("HKG")));
 	}
 	
