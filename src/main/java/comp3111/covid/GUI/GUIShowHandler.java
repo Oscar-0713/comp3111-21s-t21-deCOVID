@@ -13,13 +13,19 @@ import comp3111.covid.DataAnalysis;
 import comp3111.covid.Utilities.CountryCode;
 
 
-/*
+/**
  * 
  * This class is for dynamic showing of GUI based on the available country and the valid date range
- * @author Oscar Tse
- * @param String: dataset
- * @version 1.0
- * @throw ParseException when dateFormat in the CSV is invalid
+ * @author
+ * 	Oscar Tse
+ * @param 
+ * 	String dataset
+ * @version 
+ * 	1.0
+ * @throws
+ * 	ParseException when dateFormat in the CSV is invalid
+ * @see
+ * 	CountryCode
  */
 public class GUIShowHandler {
 	private ArrayList<CountryCode> availableCountry = new ArrayList<CountryCode>();
@@ -29,7 +35,7 @@ public class GUIShowHandler {
 	
 	public GUIShowHandler(String dataset) throws ParseException {
 		for (CSVRecord record : DataAnalysis.getFileParser(dataset)) {
-			if (!availableCountry.contains(CountryCode.getByCode(record.get("iso_code"))) && record.get("iso_code") != null) {
+			if (!availableCountry.contains(CountryCode.getByCode(record.get("iso_code"))) && CountryCode.getByCode(record.get("iso_code")) != null) {
 				availableCountry.add(CountryCode.getByCode(record.get("iso_code")));
 			}
 			String dateString = record.get("date");
@@ -54,7 +60,8 @@ public class GUIShowHandler {
 	}
 	
 	
-	/*
+	/**
+	 *
 	 * Return the available country from given CSV
 	 * 
 	 * @return ArrayList<CountryCode>
@@ -64,7 +71,7 @@ public class GUIShowHandler {
 		return availableCountry;
 	}
 	
-	/*
+	/**
 	 * Return the start Date of the CSN
 	 * 
 	 * @return Date
@@ -74,7 +81,7 @@ public class GUIShowHandler {
 	}
 	
 	
-	/*
+	/**
 	 * Return the end date of the whole CSV
 	 * 
 	 * @return Date

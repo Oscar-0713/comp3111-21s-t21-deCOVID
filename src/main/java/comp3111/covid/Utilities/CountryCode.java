@@ -23,13 +23,13 @@ import java.util.Map;
 
 /**
  * 
- * Note: This source code is refered to translate ISO code to country string
- * This is an open-source code
- * Refer to the following link to see the original Github Page
- * Implemented by Oscar Tse
+ * <p>Note: This source code is referred to translate ISO code to country string.
+ * This is an open-source code.
+ * Refer to the following link to see the original Github Page.
+ * Implemented and extended by Oscar Tse
  * 
  * <a href="https://github.com/TakahikoKawasaki/CountryCode"> GitHub Page </a>
- * 
+ * </p>
  * <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>
  * country code.
  *
@@ -971,5 +971,29 @@ public enum CountryCode
     public static CountryCode getByCode(int code)
     {
         return numericMap.get(code);
+    }
+    
+    /**
+     * Extended by Oscar Tse
+     * Get a CountryCode that corresponds to a given country name.
+     * 
+     * The country name should be exact match to the defined enum
+     * 
+     * 
+     * @param name
+     * 	A country name specified in this enum class
+     * 
+     * @return
+     * 	CountryCode if the match is found, or null if not find
+     * 	
+     */
+    public static CountryCode getByName(String name) {
+		for (CountryCode code : CountryCode.values()) {
+			if (code.getName().equals(name)) {
+				return code;
+			}
+		}
+		return null;
+    	
     }
 }
