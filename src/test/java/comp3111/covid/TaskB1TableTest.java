@@ -1,7 +1,6 @@
 package comp3111.covid;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ import comp3111.covid.GUI.GUISelectTableHandler;
 import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
-
+	
 public class TaskB1TableTest {
 	private ArrayList<String> code;
 	private GUISelectTableHandler handler;

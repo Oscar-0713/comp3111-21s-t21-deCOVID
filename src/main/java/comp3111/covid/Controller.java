@@ -40,6 +40,7 @@ public class Controller {
 	//Handler class
 	private GUIShowHandler handler;
 	
+	
 	/**
 	 * This function will be triggered once the controller is being initialized
 	 * Run once only
@@ -118,6 +119,7 @@ public class Controller {
 
   
 
+
     /**
      *  Task Zero
      *  To be triggered by the "Confirmed Cases" button on the Task Zero Tab 
@@ -161,7 +163,7 @@ public class Controller {
     
     
     @FXML
-    void taskB1OnLoadCountryList(MouseEvent event) {
+    void taskB1OnLoadCountryList(ActionEvent event) {
 
     }
     

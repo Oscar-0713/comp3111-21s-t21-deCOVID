@@ -37,7 +37,7 @@ import javafx.stage.WindowEvent;
 public class MyApplication extends Application {
 
     private static final String UI_FILE = "/ui.fxml";  //file in the folder of src/main/resources/
-	
+	private static final String CSS_SCENE_FILE = "/custom_theme.css"; //file in the folder of src/main/resources/
 	/** 
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 * 
@@ -49,6 +49,7 @@ public class MyApplication extends Application {
     	loader.setLocation(getClass().getResource(UI_FILE));
    		VBox root = (VBox) loader.load();
    		Scene scene =  new Scene(root);
+   		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
    		stage.setTitle("COMP3111 Term Project | Super Team T-21: Data Explorer on COVID-19 | Trivial Pull Request");
    		stage.show();
