@@ -12,9 +12,9 @@ repositories {
 task debug(type:JavaExec) {
 	group 'application'
 	description 'debug'
-   jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
-   main = 'comp3111.covid.MyApplication'
-   classpath = sourceSets.main.runtimeClasspath
+    jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9099'
+    main = 'comp3111.covid.MyApplication'
+    classpath = sourceSets.main.runtimeClasspath
 } 
 
 dependencies {
@@ -22,10 +22,10 @@ dependencies {
 	compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.31'
 
 	// https://mvnrepository.com/artifact/junit/junit
-	testCompile group: 'junit', name: 'junit', version: '4.12'
+	compile group: 'junit', name: 'junit', version: '4.12'
 	
 	// testFX - https://github.com/TestFX/TestFX
-	testCompile  group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
+	compile group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
 	
     testImplementation 'junit:junit:4.12'
     
@@ -53,7 +53,9 @@ run {
 		systemProperty "java.library.path", "C:\tmp"
 		}
 }
-
+jacoco {
+    toolVersion = "0.8.7"
+}
 mainClassName = 'comp3111.covid.MyApplication'
 
 jacoco{
