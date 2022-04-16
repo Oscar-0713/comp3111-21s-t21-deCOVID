@@ -8,6 +8,7 @@ import java.util.Date;
 
 import com.sun.prism.paint.Paint;
 
+import comp3111.covid.GUI.GUIPreventSelection;
 import comp3111.covid.GUI.GUISelectTableHandler;
 import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
@@ -58,6 +59,7 @@ public class Controller {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+    	taskB1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
 	}
 	
 	//This element will NOT hook to fxml

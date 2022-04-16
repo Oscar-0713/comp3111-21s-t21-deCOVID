@@ -65,7 +65,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" onMouseClicked="#taskB1OnLoadCountryList" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
                                     <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
