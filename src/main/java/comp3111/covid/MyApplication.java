@@ -51,7 +51,7 @@ public class MyApplication extends Application {
    		Scene scene =  new Scene(root);
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
-   		stage.setTitle("COMP3111 Term Project | Super Team T-21: Data Explorer on COVID-19 | Trivial Pull Request");
+   		stage.setTitle("Super Team T-21: Data Explorer on COVID-19 (Desmond Task A) Trivia PR");
    		stage.show();
 	}
 
