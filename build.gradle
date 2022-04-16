@@ -28,7 +28,10 @@ dependencies {
 	testCompile  group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
 	
     testImplementation 'junit:junit:4.12'
+    
+    
     compile fileTree(include: ['*.jar'], dir: 'libs')
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 jacocoTestReport {
@@ -52,3 +55,7 @@ run {
 }
 
 mainClassName = 'comp3111.covid.MyApplication'
+
+jacoco{
+	toolVersion = "0.8.7"
+}
