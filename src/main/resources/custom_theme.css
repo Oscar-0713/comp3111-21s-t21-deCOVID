@@ -63,3 +63,147 @@ Extended by Oscar Tse */
   -fx-background-insets: 0, 0 0 1 0;
 	-fx-background-radius: 0;
 }
+
+.date-picker .arrow-button {
+	-fx-background-color: #007acc;
+	-fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+	-fx-background-color: #007acc;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.date-picker .cell {
+	-fx-background-color: white;
+}
+.date-picker .cell:hover {
+	-fx-background-color: #d1d1d1;
+}
+.date-picker .cell:focused {
+	-fx-background-color: #d1d1d1;
+}
+
+.date-picker .date-cell:before-display-month {
+  -fx-background-color: #2a2a2a;
+}
+
+.date-picker .selected {
+	-fx-background-color: #007acc;
+	-fx-text-fill: white;
+}
+.date-picker .selected:focused {
+	-fx-background-color: #007acc;
+	-fx-text-fill: white;
+}
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+.date-picker-popup .month-year-pane {
+	-fx-background-color: #007acc;
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: white;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: #4B6EAF;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: white ;
+
+}
+
+.date-picker .button {
+  -fx-background-color: #007acc;
+}
+.date-picker .button:hover {
+  -fx-background-color: #007acc;
+  -fx-text-fill: #d1d1d1;
+  -fx-effect: none;
+}
+
+.date-picker .button:pressed {
+  -fx-background-color: #007acc;
+  -fx-text-fill: black;
+  -fx-effect: none;
+}
+
+.check-box .box {
+
+  -fx-background-color: white;
+  -fx-border-color:grey;
+  -fx-border-radius:3px; 
+  
+  }
+  
+  .check-box:selected .mark {
+  
+  -fx-background-color: white;
+  
+  }
+  
+  .check-box:selected .box {
+    -fx-background-color: #28a3f4;
+  }
+
+  .list-view, .list-view .split-pane, .list-view .split-pane .split-pane-divider  {
+    -fx-padding: 0px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+  }
+  .list-view .cell:focused, .list-view .cell:hover , .list-view .cell:selected {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+  }
+
+  .scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+ .scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.15em 0.0;
+}
+
+ .scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";    
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color :derive(black,90.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color :derive(#4D4C4F,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
