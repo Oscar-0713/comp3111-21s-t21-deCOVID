@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 
 public class DeathObject {
 	private CountryCode country;
-	private int totalDeath;
+	private long totalDeath;
 	private float totalDeathPerMillion;
 	
 	private StringProperty countryOutput;
@@ -15,7 +15,7 @@ public class DeathObject {
 	
 	
 	
-	public DeathObject(CountryCode country, int totalDeath, float deathPerMillion) {
+	public DeathObject(CountryCode country, long totalDeath, float deathPerMillion) {
 		this.country = country;
 		this.totalDeath = totalDeath;
 		this.totalDeathPerMillion = deathPerMillion;

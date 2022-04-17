@@ -42,8 +42,36 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
                            <children>
-                              <Label layoutX="79.0" layoutY="44.0" />
-                              <TextArea layoutX="14.0" layoutY="12.0" prefHeight="296.0" prefWidth="698.0" text="Task A1: Generate data tables showing the number of confirmed COVID-19 cases by country&#10;&#10;Input&#10;•&#9;Specify the date of interest&#10;•&#9;Specify the countries of interest&#10;&#10;Output&#10;•&#9;Label the data table with a proper title: &quot;Number of Confirmed COVID-19 Cases as of [Date of Interest]&quot;&#10;•&#9;Present data in 3 columns with proper headings of &quot;Country&quot;, &quot;Total Cases&quot;, and &quot;Total Cases (per 1M)&quot;&#10;•&#9;Present data for the countries of interest in rows&#10;&#10;" wrapText="true" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                                 <children>
+                                    <DatePicker fx:id="taskA1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
+                                    <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task A1 - Enquiry on Total COVID Case">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="29.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <ListView fx:id="taskA1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Button layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskA1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskA1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <TableView fx:id="taskA1Table" layoutX="405.0" layoutY="44.0" prefHeight="303.0" prefWidth="386.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="C1" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                    <Label fx:id="taskA1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </AnchorPane>
                     </content>
@@ -65,7 +93,7 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" onMouseClicked="#taskB1OnLoadCountryList" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
                                     <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
@@ -90,9 +118,34 @@
                     <content>
                         <AnchorPane>
                            <children>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="719.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
                                  <children>
-                                    <TextArea layoutX="14.0" layoutY="14.0" prefHeight="292.0" prefWidth="694.0" text="Task C1: Generate data tables showing the rate of vaccination against COVID-19 by country&#10;&#10;Input&#10;•&#9;Specify the date of interest&#10;•&#9;Specify the countries of interest&#10;&#10;Output&#10;•&#9;Label the data table with a proper title: &quot;Rate of Vaccination against COVID-19 as of [Date of Interest]&quot;&#10;•&#9;Present data in 3 columns with proper headings of &quot;Country&quot;, &quot;Fully Vaccinated&quot;, and &quot;Rate of Vaccination&quot;&#10;•&#9;Present data for the countries of interest in rows&#10;&#10;&#10;" wrapText="true" />
+                                    <DatePicker fx:id="taskC1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
+                                    <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task C1 - Enquiry on Total COVID Vaccination">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="29.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <ListView fx:id="taskC1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Text>
+                                    <Button layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskC1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskC1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <TableView fx:id="taskC1Table" layoutX="405.0" layoutY="44.0" prefHeight="303.0" prefWidth="386.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="C1" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                    <Label fx:id="taskC1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
                                  </children>
                               </AnchorPane>
                            </children>

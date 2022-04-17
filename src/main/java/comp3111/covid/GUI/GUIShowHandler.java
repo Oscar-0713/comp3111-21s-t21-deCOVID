@@ -15,17 +15,11 @@ import comp3111.covid.Utilities.CountryCode;
 
 /**
  * 
- * This class is for dynamic showing of GUI based on the available country and the valid date range
- * @author
- * 	Oscar Tse
- * @param 
- * 	String dataset
- * @version 
- * 	1.0
- * @throws
- * 	ParseException when dateFormat in the CSV is invalid
- * @see
- * 	CountryCode
+ * This class is for dynamic showing of GUI based on the available country and the valid date range.
+ * 
+ * @author Oscar Tse
+ * @version 1.0
+ * @see CountryCode
  */
 public class GUIShowHandler {
 	private ArrayList<CountryCode> availableCountry = new ArrayList<CountryCode>();
@@ -64,7 +58,7 @@ public class GUIShowHandler {
 	 *
 	 * Return the available country from given CSV
 	 * 
-	 * @return ArrayList<CountryCode>
+	 * @return A list of CountryCode
 	 * @see CountryCode
 	 */
 	public ArrayList<CountryCode> getAvailableCountry() {
