@@ -17,12 +17,14 @@ import edu.duke.FileResource;
 
 public class DataFetcherTest {
 	private static String downloadUrl;
+	private static int downloaded;
 	private static final String RESOURCE_PATH = "/src/main/resources/dataset/";
 	private static final String absPath = new File("").getAbsolutePath();
 	
 	@Before
 	public void setUp() throws Exception {
 		downloadUrl = DataFetcher.getURL();
+		downloaded = DataFetcher.downloadData();
 	}
 	
 	@After
@@ -38,7 +40,7 @@ public class DataFetcherTest {
 	
 	@Test
 	public static void testDownload() throws Exception {
-		assertEquals(DataFetcher.downloadData(), 0);
+		assertEquals(downloaded, 0);
 	}
 	
 	@Test
