@@ -32,7 +32,7 @@ public class DayDataObject {
 	 * @return DeathObject
 	 */
 	public DeathObject getDeathObject(CountryCode code) {
-		return new DeathObject(code, totalDeath, (float) ((double)(totalDeath) / ((double) (population/ONE_MILLION))));
+		return new DeathObject(code, totalDeath, (float) ((float)(totalDeath) / ((float) (population/ONE_MILLION))));
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class DayDataObject {
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getCaseObject(CountryCode code) {
-		return new CaseObject(code, totalCase, (float) ((double)(totalCase) / ((double) (population/ONE_MILLION))));
+		return new CaseObject(code, totalCase, (float) ((float)(totalCase) / ((float) (population/ONE_MILLION))));
 	}
 	
 	/**
@@ -50,6 +50,6 @@ public class DayDataObject {
 	 * @return The targeted VaccineObject for display
 	 */
 	public VaccineObject getVaccineObject(CountryCode code) {
-		return new VaccineObject(code, fullyVanccinated, (float) ((double)(fullyVanccinated) / ((double) (population)) *100));
+		return new VaccineObject(code, fullyVanccinated, (float) ((float)(fullyVanccinated) / ((float) (population)) *100));
 	}
 }

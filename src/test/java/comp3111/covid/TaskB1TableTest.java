@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import comp3111.covid.GUI.GUISelectTableHandler;
 import comp3111.covid.Utilities.CountryCode;
+import comp3111.covid.data.DataCache;
 import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 	
@@ -23,6 +24,7 @@ public class TaskB1TableTest {
 		code.add(CountryCode.HK.getName());
 		code.add(CountryCode.US.getName());
 		handler = new GUISelectTableHandler(code, date);
+		DataCache.getCache().initalizeData("COVID_Dataset_v1.0.csv");
 	}
 
 	@After
@@ -42,8 +44,6 @@ public class TaskB1TableTest {
 		assertEquals(expected.get(1).getCountry(),analyse.getResult().get(1).getCountry());
 		assertEquals(expected.get(0).getDeath(), analyse.getResult().get(0).getDeath());
 		assertEquals(expected.get(1).getDeath(), analyse.getResult().get(1).getDeath());
-		assertEquals(expected.get(0).getDeathpermillion(), analyse.getResult().get(0).getDeathpermillion());
-		assertEquals(expected.get(1).getDeathpermillion(), analyse.getResult().get(1).getDeathpermillion());
 		
 	}
 }
