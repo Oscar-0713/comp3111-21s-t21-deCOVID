@@ -11,11 +11,17 @@ import java.util.Map;
  
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * This class is used to downlaod the latest dataset from the GitHub repository hosted by OWID
+ * @author Desmond
+ * 
+ */
+
 public class DataFetcher {
 
 	
 	/**
-	 * A function to download the newest COVID-19 dataset from the GitHub repository hosted by OWID
+	 * Downloads latest dataset to src/main/resources/dataset/dataset_new.csv
 	 * @return 0 if the download is successful, 1 otherwise
 	 * @throws IOException
 	 * @throws URISyntaxException
@@ -23,6 +29,7 @@ public class DataFetcher {
 	public static int downloadData()  throws IOException, URISyntaxException {		
 		String downloadUrl = getURL();
 		String targetPath = "src/main/resources/dataset/dataset_new.csv";
+		
 		
 		try {
 			downloadUsingNIO(downloadUrl, targetPath);
@@ -33,7 +40,7 @@ public class DataFetcher {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static String getURL() throws IOException, URISyntaxException{
+	public static String getURL() throws IOException, URISyntaxException{
 		RestTemplate restTemplate = new RestTemplate();
 		List<Map> response = restTemplate.getForObject(
 				"https://api.github.com/repos/{owner}/{repo}/contents/public/data?ref={branch}", 
