@@ -4,6 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.MultipleSelectionModel;
 
+
+/**
+ * This is a class which is for GUI to cancel selection
+ * 
+ * <a ref="https://stackoverflow.com/questions/20621752/javafx-make-listview-not-selectable-via-mouse"> Reference </a>\
+ *
+ * @author Oscar Tse
+ *
+ * @param <T>
+ */
 public class GUIPreventSelection<T> extends MultipleSelectionModel<T> {
 	@Override
     public ObservableList<Integer> getSelectedIndices() {

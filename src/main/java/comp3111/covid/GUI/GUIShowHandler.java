@@ -15,7 +15,8 @@ import comp3111.covid.Utilities.CountryCode;
 
 /**
  * 
- * This class is for dynamic showing of GUI based on the available country and the valid date range
+ * This class is for dynamic showing of GUI based on the available country and the valid date range.
+ * 
  * @author
  * 	Oscar Tse
  * @param 

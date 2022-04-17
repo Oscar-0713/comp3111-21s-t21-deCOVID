@@ -1,7 +1,11 @@
 package comp3111.covid;
 
-import org.apache.commons.csv.*;
-import edu.duke.*;
+import java.io.File;
+
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import edu.duke.FileResource;
 
 /**
  * 
@@ -11,10 +15,11 @@ import edu.duke.*;
  * 
  */
 public class DataAnalysis {
- 
+	private static final String RESOURCE_PATH = "/src/main/resources/dataset/";
 	public static CSVParser getFileParser(String dataset) {
-	     FileResource fr = new FileResource("dataset/" + dataset);
-	     return fr.getCSVParser(true);
+		String absPath = new File("").getAbsolutePath();
+		FileResource resource = new FileResource(absPath + RESOURCE_PATH + dataset);
+		return resource.getCSVParser();
 		}
 	
 
@@ -22,14 +27,13 @@ public class DataAnalysis {
 		String oReport = "";	
 		long confirmedCases = 0;
 		long numRecord = 0;
-		long totalNumRecord = 0;
-		
+		long totalNumRecord = 0;		
 		for (CSVRecord rec : getFileParser(dataset)) {
 			
 			if (rec.get("iso_code").equals(iso_code)) {
 				String s = rec.get("new_cases");
 				if (!s.equals("")) {
-					confirmedCases += Long.parseLong(s);
+					confirmedCases += (long) Double.parseDouble(s);
 					numRecord++;
 				}
 			}		
@@ -55,7 +59,7 @@ public class DataAnalysis {
 				if (rec.get("iso_code").equals(iso_code)) {
 					String s = rec.get("new_deaths");
 					if (!s.equals("")) {
-						confirmedDeaths += Long.parseLong(s);
+						confirmedDeaths += (long) Double.parseDouble(s);
 						numRecord++;
 					}
 				}		
@@ -85,8 +89,8 @@ public class DataAnalysis {
 					String s1 = rec.get("people_fully_vaccinated");
 					String s2 = rec.get("population");		
 					if (!s1.equals("") && !s2.equals("")) {
-						fullyVaccinated = Long.parseLong(s1);
-						population = Long.parseLong(s2);						
+						fullyVaccinated = (long) (Double.parseDouble(s1));
+						population = (long) Double.parseDouble(s2);						
 						numRecord++;
 					}
 				}		

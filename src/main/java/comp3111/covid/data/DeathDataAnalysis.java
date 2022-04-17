@@ -2,6 +2,7 @@ package comp3111.covid.data;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -9,7 +10,13 @@ import comp3111.covid.DataAnalysis;
 import comp3111.covid.GUI.GUISelectTableHandler;
 import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DateUtilities;
-
+/**
+ * This class is for retriving the death data for task B1.
+ * 
+ * This class interact with other main classes, but will NOT do any modify behavior.
+ * @author Oscar Tse
+ *
+ */
 public class DeathDataAnalysis {
 	private ArrayList<DeathObject> result = new ArrayList<DeathObject>();
 	private GUISelectTableHandler handler;
@@ -18,9 +25,15 @@ public class DeathDataAnalysis {
 	public DeathDataAnalysis(String dataset, GUISelectTableHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
-		handlingData();
+		handlingDataWithHashMap();
 	}
 	
+	/**
+	 * This method is the old method to handling data with a for-loop.
+	 * A new HashMap Method has been implemented.
+	 * Use that method instead
+	 */
+	@Deprecated
 	private void handlingData() {
 		for (CountryCode code : handler.getSelectedCountryList()) {
 			String codeName = code.getAlpha3();
@@ -53,6 +66,19 @@ public class DeathDataAnalysis {
 		}
 	}
 	
+	private void handlingDataWithHashMap() {
+		for (CountryCode code : handler.getSelectedCountryList()) {
+			Date selectedDate = handler.getSelectedDate().get("select");
+			DataCache.getCache();
+			DayDataObject data = DataCache.getCache().getData(dataset, code, selectedDate);
+			DeathObject object = data.getDeathObject(code);
+			result.add(object);
+		}
+	}
+	/**
+	 * Get result from the request date and countries
+	 * @return ArryList<DeathObject> for table shower
+	 */
 	public ArrayList<DeathObject> getResult() {
 		return result;
 	}

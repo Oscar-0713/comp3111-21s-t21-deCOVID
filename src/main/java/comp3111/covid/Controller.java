@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.sun.prism.paint.Paint;
-
 import comp3111.covid.GUI.GUIPreventSelection;
 import comp3111.covid.GUI.GUISelectTableHandler;
 import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
+import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.DateUtilities;
+import comp3111.covid.data.DataCache;
 import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 import javafx.collections.FXCollections;
@@ -31,7 +31,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 /**
@@ -48,7 +47,19 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
+		try {
+			DataCache.getCache().initalizeData("COVID_Dataset_v1.0.csv");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		taskB1Table.setVisible(false);
+		textfieldDataset.setEditable(true);
+		//Try download new data
+		try {
+			DataFetcher.downloadData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	try {
 			handler = new GUIShowHandler("COVID_Dataset_v1.0.csv");
 			for (CountryCode code : handler.getAvailableCountry()) {
