@@ -23,7 +23,7 @@ public class DataCache {
 	private static DataCache cache;
 	private static HashMap<String, HashMap<CountryCode, HashMap<Date, DayDataObject>>> dataMap = new HashMap<>();
 	/**
-	 * Get the Cache object to initialize & retrieve data
+	 * Get the Cache object to initialize and retrieve data
 	 * @return DataCache 
 	 */
 	public static DataCache getCache() {
@@ -31,6 +31,12 @@ public class DataCache {
 			cache = new DataCache();
 		}
 		return cache;
+	}
+	/**
+	 * Prevent user construction of this class
+	 */
+	private DataCache() {
+		
 	}
 	
 	/**

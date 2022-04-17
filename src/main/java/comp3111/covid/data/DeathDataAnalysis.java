@@ -65,19 +65,23 @@ public class DeathDataAnalysis {
 			}
 		}
 	}
-	
+	/**
+	 * Retrieve necessary data
+	 */
 	private void handlingDataWithHashMap() {
 		for (CountryCode code : handler.getSelectedCountryList()) {
 			Date selectedDate = handler.getSelectedDate().get("select");
 			DataCache.getCache();
 			DayDataObject data = DataCache.getCache().getData(dataset, code, selectedDate);
-			DeathObject object = data.getDeathObject(code);
-			result.add(object);
+			if (data != null) {
+				DeathObject object = data.getDeathObject(code);
+				result.add(object);
+			}
 		}
 	}
 	/**
 	 * Get result from the request date and countries
-	 * @return ArryList<DeathObject> for table shower
+	 * @return results
 	 */
 	public ArrayList<DeathObject> getResult() {
 		return result;

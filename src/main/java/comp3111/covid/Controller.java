@@ -12,9 +12,13 @@ import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.DateUtilities;
+import comp3111.covid.data.CaseDataAnalysis;
+import comp3111.covid.data.CaseObject;
 import comp3111.covid.data.DataCache;
 import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
+import comp3111.covid.data.VaccineAnalysis;
+import comp3111.covid.data.VaccineObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,6 +57,8 @@ public class Controller {
 			e1.printStackTrace();
 		}
 		taskB1Table.setVisible(false);
+		taskA1Table.setVisible(false);
+		taskC1Table.setVisible(false);
 		textfieldDataset.setEditable(true);
 		//Try download new data
 		try {
@@ -63,18 +69,52 @@ public class Controller {
     	try {
 			handler = new GUIShowHandler("COVID_Dataset_v1.0.csv");
 			for (CountryCode code : handler.getAvailableCountry()) {
-					CheckBox box = new CheckBox(code.getName());
-					taskB1DynamicListView.getItems().add(box);
-					taskB1ErrorLabel.setVisible(false);
+					CheckBox box1 = new CheckBox(code.getName());
+					CheckBox box2 = new CheckBox(code.getName());
+					CheckBox box3 = new CheckBox(code.getName());
+					taskB1DynamicListView.getItems().add(box1);
+					taskA1DynamicListView.getItems().add(box2);
+					taskC1DynamicListView.getItems().add(box3);
 			}
+			taskB1ErrorLabel.setVisible(false);
+			taskA1ErrorLabel.setVisible(false);
+			taskC1ErrorLabel.setVisible(false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
     	taskB1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	taskC1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	taskA1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
 	}
 	
 	//This element will NOT hook to fxml
 	private ObservableList<DeathObject> taskB1TableList;
+	private ObservableList<CaseObject> taskA1TableList;
+	private ObservableList<VaccineObject> taskC1TableList;
+	
+	@FXML
+	private DatePicker taskC1DatePicker;
+	
+	@FXML
+	private ListView<CheckBox> taskC1DynamicListView;
+	
+	@FXML
+	private TableView<VaccineObject> taskC1Table;
+	
+	@FXML
+	private Label taskC1ErrorLabel;
+	
+	@FXML
+	private DatePicker taskA1DatePicker;
+	
+	@FXML
+	private Label taskA1ErrorLabel;
+	
+	@FXML
+	private ListView<CheckBox> taskA1DynamicListView;
+	
+	@FXML
+	private TableView<CaseObject> taskA1Table;
 	
 	@FXML
 	private Label taskB1ErrorLabel;
@@ -184,7 +224,90 @@ public class Controller {
     void onGlobalEnter(ActionEvent event) {
     	
     }
-     
+    /**
+     * Task A1: Reset button click event
+     * @param event
+     */
+    @FXML
+    void onTaskA1ResetClicked(ActionEvent event) {
+    	taskA1DatePicker.getEditor().clear();
+    	for (int i = 0; i < taskA1DynamicListView.getItems().size();i++) {
+    		taskA1DynamicListView.getItems().get(i).setSelected(false);
+    	}
+    }
+    
+    /**
+     * Task A1: Confirm button click event
+     * @param event
+     */
+    @SuppressWarnings("unchecked")
+	@FXML
+    void onTaskA1ConfirmClicked(ActionEvent event) {
+    	taskA1ErrorLabel.setVisible(false);
+    	//User doesn't pick a date
+    	if (taskA1DatePicker.getValue() == null) {
+    		taskA1ErrorLabel.setVisible(true);
+    		taskA1ErrorLabel.setText("Please pick a date!");
+    		taskA1ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Check picked date range
+    	LocalDate localDate = taskA1DatePicker.getValue();
+    	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	
+    	try {
+    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
+    		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
+        		taskA1ErrorLabel.setVisible(true);
+        		taskA1ErrorLabel.setText("Invalid date range!");
+        		taskA1ErrorLabel.setTextFill(Color.RED);
+    			return;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	//Handle the selected date
+
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	for (int i = 0; i < taskA1DynamicListView.getItems().size(); i++) {
+    		if (taskA1DynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(taskA1DynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	if (selectedCountry.isEmpty()) {
+    		taskA1ErrorLabel.setVisible(true);
+    		taskA1ErrorLabel.setText("Please pick at least one country!");
+    		taskA1ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Create handler
+    	GUISelectTableHandler handler = new GUISelectTableHandler(selectedCountry, formattedDates);
+    	CaseDataAnalysis analysis = new CaseDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	
+    	//Handle output
+    	
+    	//Reset Table Column
+    	TableColumn<CaseObject, String> country = new TableColumn<>("Country");
+    	country.setCellValueFactory(new PropertyValueFactory<>("country"));
+    	TableColumn<CaseObject, String> case1 = new TableColumn<>("Total Case");
+    	case1.setCellValueFactory(new PropertyValueFactory<>("case"));
+    	TableColumn<CaseObject, String> casePerMillion = new TableColumn<>("Total Case / 1M");
+    	casePerMillion.setCellValueFactory(new PropertyValueFactory<>("casepermillion"));
+    	taskA1Table.getColumns().setAll(country, case1, casePerMillion);
+    	
+    	//Reset Observable List
+    	taskA1TableList = FXCollections.observableList(analysis.getResult());
+    	taskA1Table.setItems(taskA1TableList);
+    	//System.out.print(taskB1TableList.isEmpty());
+    	taskA1Table.setVisible(true);
+    }
+    
+    
     /**
      * Task B1: Reset button click event
      * Reset the checked country and date
@@ -270,5 +393,83 @@ public class Controller {
     	taskB1Table.setVisible(true);
     }
     
+    /**
+     * Task C1: Reset button event
+     * @param event
+     */
+    @FXML
+    void onTaskC1ResetClicked(ActionEvent event) {
+    	taskC1DatePicker.getEditor().clear();
+    	for (int i = 0; i < taskC1DynamicListView.getItems().size();i++) {
+    		taskC1DynamicListView.getItems().get(i).setSelected(false);
+    	}
+    }
+    
+    @SuppressWarnings("unchecked")
+	@FXML
+    void onTaskC1ConfirmClicked(ActionEvent event) {
+    	taskC1ErrorLabel.setVisible(false);
+    	//User doesn't pick a date
+    	if (taskC1DatePicker.getValue() == null) {
+    		taskC1ErrorLabel.setVisible(true);
+    		taskC1ErrorLabel.setText("Please pick a date!");
+    		taskC1ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Check picked date range
+    	LocalDate localDate = taskC1DatePicker.getValue();
+    	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	
+    	try {
+    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
+    		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
+        		taskC1ErrorLabel.setVisible(true);
+        		taskC1ErrorLabel.setText("Invalid date range!");
+        		taskC1ErrorLabel.setTextFill(Color.RED);
+    			return;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	//Handle the selected date
+
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	for (int i = 0; i < taskC1DynamicListView.getItems().size(); i++) {
+    		if (taskC1DynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(taskC1DynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	if (selectedCountry.isEmpty()) {
+    		taskC1ErrorLabel.setVisible(true);
+    		taskC1ErrorLabel.setText("Please pick at least one country!");
+    		taskC1ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Create handler
+    	GUISelectTableHandler handler = new GUISelectTableHandler(selectedCountry, formattedDates);
+    	VaccineAnalysis analysis = new VaccineAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	
+    	//Handle output
+    	
+    	//Reset Table Column
+    	TableColumn<VaccineObject, String> country = new TableColumn<>("Country");
+    	country.setCellValueFactory(new PropertyValueFactory<>("country"));
+    	TableColumn<VaccineObject, String> fullyVaccinated = new TableColumn<>("Fully Vaccinated");
+    	fullyVaccinated.setCellValueFactory(new PropertyValueFactory<>("fullyvaccinated"));
+    	TableColumn<VaccineObject, String> percentageVaccinated = new TableColumn<>("Rate of Vaccination");
+    	percentageVaccinated.setCellValueFactory(new PropertyValueFactory<>("percentagevaccinated"));
+    	taskC1Table.getColumns().setAll(country, fullyVaccinated, percentageVaccinated);
+    	
+    	//Reset Observable List
+    	taskC1TableList = FXCollections.observableList(analysis.getResult());
+    	taskC1Table.setItems(taskC1TableList);
+    	//System.out.print(taskB1TableList.isEmpty());
+    	taskC1Table.setVisible(true);
+    }
 }
 

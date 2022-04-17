@@ -585,7 +585,7 @@ public enum CountryCode
     /** <a href="http://en.wikipedia.org/wiki/New_Zealand">New Zealand</a> */
     NZ("New Zealand", "NZL", 554),
 
-    /** <a href=http://en.wikipedia.org/wiki/Oman"">Oman</a> */
+    /** <a href="http://en.wikipedia.org/wiki/Oman"> Oman </a> */
     OM("Oman", "OMN", 512),
 
     /** <a href="http://en.wikipedia.org/wiki/Panama">Panama</a> */
