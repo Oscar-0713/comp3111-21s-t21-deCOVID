@@ -23,7 +23,7 @@ public class GUISelectTableHandler extends GUISelectHandler {
 				selectedCountry.add(code);
 			}
 			try {
-				date = DateUtilities.getDateFormat().parse(selectedDate);
+				date = DateUtilities.getDateFormatMMDDYYYY().parse(selectedDate);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

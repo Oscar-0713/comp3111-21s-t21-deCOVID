@@ -230,7 +230,7 @@ public class Controller {
      */
     @FXML
     void onTaskA1ResetClicked(ActionEvent event) {
-    	taskA1DatePicker.getEditor().clear();
+    	taskA1DatePicker.setValue(null);
     	for (int i = 0; i < taskA1DynamicListView.getItems().size();i++) {
     		taskA1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -257,7 +257,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
         		taskA1ErrorLabel.setVisible(true);
         		taskA1ErrorLabel.setText("Invalid date range!");
@@ -315,7 +315,7 @@ public class Controller {
      */
     @FXML
     void onTaskB1ResetClicked(ActionEvent event) {
-    	taskB1DatePicker.getEditor().clear();
+    	taskB1DatePicker.setValue(null);
     	for (int i = 0; i < taskB1DynamicListView.getItems().size();i++) {
     		taskB1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -343,7 +343,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
         		taskB1ErrorLabel.setVisible(true);
         		taskB1ErrorLabel.setText("Invalid date range!");
@@ -399,7 +399,7 @@ public class Controller {
      */
     @FXML
     void onTaskC1ResetClicked(ActionEvent event) {
-    	taskC1DatePicker.getEditor().clear();
+    	taskC1DatePicker.setValue(null);
     	for (int i = 0; i < taskC1DynamicListView.getItems().size();i++) {
     		taskC1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -422,7 +422,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
         		taskC1ErrorLabel.setVisible(true);
         		taskC1ErrorLabel.setText("Invalid date range!");
