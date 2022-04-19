@@ -86,7 +86,7 @@ public class Controller {
 // 		taskA2Chart.setVisible(false);
 // 		taskC2Chart.setVisible(false);
 		
-		textfieldDataset.setEditable(true);
+// 		textfieldDataset.setEditable(true);
     //End of conflict
 		//Try download new data
 		try {
