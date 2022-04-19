@@ -32,6 +32,8 @@ public class GUIShowHandler {
 			if (!availableCountry.contains(CountryCode.getByCode(record.get("iso_code"))) && CountryCode.getByCode(record.get("iso_code")) != null) {
 				availableCountry.add(CountryCode.getByCode(record.get("iso_code")));
 			}
+			
+			
 			String dateString = record.get("date");
 			Date date = dateFormat.parse(dateString);
 			

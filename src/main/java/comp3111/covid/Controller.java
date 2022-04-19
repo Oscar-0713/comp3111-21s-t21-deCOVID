@@ -1,11 +1,13 @@
 package comp3111.covid;
 
+import java.io.File;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import comp3111.covid.GUI.GUIPreventSelection;
 import comp3111.covid.GUI.GUISelectTableHandler;
@@ -34,6 +36,7 @@ import javafx.scene.chart.XYChart;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -52,7 +55,9 @@ import javafx.scene.paint.Color;
  */
 public class Controller {
 	//Handler class
-	private GUIShowHandler handler;
+	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
+	private static String defaultDataset;
+	private static GUIShowHandler handler;
 	
 	
 	/**
@@ -61,28 +66,46 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
-		try {
-			DataCache.getCache().initalizeData("COVID_Dataset_v1.0.csv");
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-		taskB1Table.setVisible(false);
-		taskA1Table.setVisible(false);
-		taskC1Table.setVisible(false);
-		
+			
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
 		taskC2Chart.setVisible(false);
-		
-		textfieldDataset.setEditable(true);
+
 		//Try download new data
 		try {
 			DataFetcher.downloadData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	try {
-			handler = new GUIShowHandler("COVID_Dataset_v1.0.csv");
+    	
+		//Fetch all available files from dataset directory, then initialize choicebox, GUIShowHandlers, DataCache and defaultDataset
+		try {
+	    	//Add choicebox for dataset
+	    	File[] files = new File(new File("").getAbsolutePath() + "/src/main/resources/dataset").listFiles();
+	    	//If this pathname does not denote a directory, then listFiles() returns null. 
+	
+	    	for (File file : files) {
+	    	    if (file.isFile()) {
+	    	    	String filename = file.getName();
+	    	    	choicefieldDataset.getItems().add(filename);
+	    			DataCache.getCache().initalizeData(filename);
+	    			GUIShowHandler curHand = new GUIShowHandler(filename);
+	    			handlerList.put(filename, curHand);
+	    			System.out.println(filename);
+	    	    }
+	    	}
+	    	
+	    	defaultDataset = "COVID_Dataset_v1.0.csv";
+	    	choicefieldDataset.setValue("COVID_Dataset_v1.0.csv");
+	    	handler = handlerList.get(defaultDataset);
+	    	
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+		
+		//Initialize tasks with default datset
+		try {
+			
 			for (CountryCode code : handler.getAvailableCountry()) {
 					CheckBox box1 = new CheckBox(code.getName());
 					CheckBox box2 = new CheckBox(code.getName());
@@ -101,21 +124,14 @@ public class Controller {
 			taskB1ErrorLabel.setVisible(false);
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
-			/*
-			taskB2ErrorLabel.setVisible(false);
-			taskA2ErrorLabel.setVisible(false);
-			taskC2ErrorLabel.setVisible(false);
-			*/
-		} catch (ParseException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	
     	taskB1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskC1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskA1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
-    	
-    	taskB2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
-    	taskC2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
-    	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
 	}
 	
 	//This element will NOT hook to fxml
@@ -217,13 +233,16 @@ public class Controller {
     private Button buttonConfirmedDeaths;
 
     @FXML
-    private TextField textfieldDataset;
-
-    @FXML
     private Button buttonRateOfVaccination;
 
     @FXML
     private Button buttonConfirmedCases;
+    
+    @FXML
+    private Button buttonSwitchData;
+    
+    @FXML
+    private ChoiceBox<String> choicefieldDataset;
 
     @FXML
     private Tab tabReport1;
@@ -247,7 +266,37 @@ public class Controller {
     private TextArea textAreaConsole;
 
   
-
+    @FXML
+    void doSwitchData(ActionEvent event) {
+    	
+    	try {
+	    	defaultDataset = choicefieldDataset.getValue();
+	    	handler = handlerList.get(defaultDataset);
+	    	taskB1DynamicListView.getItems().clear();
+	    	taskA1DynamicListView.getItems().clear();
+	    	taskC1DynamicListView.getItems().clear();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+	    	
+	    	
+    	try {
+			
+			for (CountryCode code : handler.getAvailableCountry()) {
+					CheckBox box1 = new CheckBox(code.getName());
+					CheckBox box2 = new CheckBox(code.getName());
+					CheckBox box3 = new CheckBox(code.getName());
+					taskB1DynamicListView.getItems().add(box1);
+					taskA1DynamicListView.getItems().add(box2);
+					taskC1DynamicListView.getItems().add(box3);
+			}
+			taskB1ErrorLabel.setVisible(false);
+			taskA1ErrorLabel.setVisible(false);
+			taskC1ErrorLabel.setVisible(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 
     /**
      *  Task Zero
@@ -256,7 +305,7 @@ public class Controller {
      */
     @FXML
     void doConfirmedCases(ActionEvent event) {
-    	String iDataset = textfieldDataset.getText();
+    	String iDataset = choicefieldDataset.getValue();
     	String iISO = textfieldISO.getText();
     	String oReport = DataAnalysis.getConfirmedCases(iDataset, iISO);
     	textAreaConsole.setText(oReport);
@@ -270,7 +319,7 @@ public class Controller {
      */
     @FXML
     void doConfirmedDeaths(ActionEvent event) {
-    	String iDataset = textfieldDataset.getText();
+    	String iDataset = choicefieldDataset.getValue();
     	String iISO = textfieldISO.getText();
     	String oReport = DataAnalysis.getConfirmedDeaths(iDataset, iISO);
     	textAreaConsole.setText(oReport);
@@ -284,7 +333,7 @@ public class Controller {
      */
     @FXML
     void doRateOfVaccination(ActionEvent event) {
-    	String iDataset = textfieldDataset.getText();
+    	String iDataset = choicefieldDataset.getValue();
     	String iISO = textfieldISO.getText();
     	String oReport = DataAnalysis.getRateOfVaccination(iDataset, iISO);
     	textAreaConsole.setText(oReport);
@@ -306,7 +355,7 @@ public class Controller {
      */
     @FXML
     void onTaskA1ResetClicked(ActionEvent event) {
-    	taskA1DatePicker.getEditor().clear();
+    	taskA1DatePicker.setValue(null);
     	for (int i = 0; i < taskA1DynamicListView.getItems().size();i++) {
     		taskA1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -335,6 +384,7 @@ public class Controller {
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
+
         		taskA1ErrorLabel.setVisible(true);
         		taskA1ErrorLabel.setText("Invalid date range!");
         		taskA1ErrorLabel.setTextFill(Color.RED);
@@ -363,7 +413,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectTableHandler handler = new GUISelectTableHandler(selectedCountry, formattedDates);
-    	CaseDataAnalysis analysis = new CaseDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
     	
@@ -391,7 +441,7 @@ public class Controller {
      */
     @FXML
     void onTaskB1ResetClicked(ActionEvent event) {
-    	taskB1DatePicker.getEditor().clear();
+    	taskB1DatePicker.setValue(null);
     	for (int i = 0; i < taskB1DynamicListView.getItems().size();i++) {
     		taskB1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -421,6 +471,7 @@ public class Controller {
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
+
         		taskB1ErrorLabel.setVisible(true);
         		taskB1ErrorLabel.setText("Invalid date range!");
         		taskB1ErrorLabel.setTextFill(Color.RED);
@@ -449,7 +500,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectTableHandler handler = new GUISelectTableHandler(selectedCountry, formattedDates);
-    	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	DeathDataAnalysis analysis = new DeathDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
     	
@@ -475,7 +526,7 @@ public class Controller {
      */
     @FXML
     void onTaskC1ResetClicked(ActionEvent event) {
-    	taskC1DatePicker.getEditor().clear();
+    	taskC1DatePicker.setValue(null);
     	for (int i = 0; i < taskC1DynamicListView.getItems().size();i++) {
     		taskC1DynamicListView.getItems().get(i).setSelected(false);
     	}
@@ -504,6 +555,7 @@ public class Controller {
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
+
         		taskC1ErrorLabel.setVisible(true);
         		taskC1ErrorLabel.setText("Invalid date range!");
         		taskC1ErrorLabel.setTextFill(Color.RED);
@@ -532,7 +584,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectTableHandler handler = new GUISelectTableHandler(selectedCountry, formattedDates);
-    	VaccineAnalysis analysis = new VaccineAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
     	
