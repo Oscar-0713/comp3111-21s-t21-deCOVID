@@ -34,17 +34,17 @@ public class DataFetcherTest {
 	}
 
 	@Test
-	public static void testGetURL() throws Exception {
+	public void testGetURL() throws Exception {
 		assertNotEquals(downloadUrl, null);
 	}
 	
 	@Test
-	public static void testDownload() throws Exception {
+	public void testDownload() throws Exception {
 		assertEquals(downloaded, 0);
 	}
 	
 	@Test
-	public static void testFileExists() throws Exception {
+	public void testFileExists() throws Exception {
 		FileResource resource = new FileResource(absPath + RESOURCE_PATH + "dataset_new.csv");
 		assertNotEquals(resource, null);
 	}
