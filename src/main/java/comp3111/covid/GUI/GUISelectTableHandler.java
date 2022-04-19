@@ -9,7 +9,7 @@ import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DateUtilities;
 
 /**
- * This class is for use to pack required information from GUI to other classes to retrieve data.
+ * This class is for use to pack required information from GUI to other classes to retrieve data for generating table.
  * 
  * @author Oscar Tse
  *
