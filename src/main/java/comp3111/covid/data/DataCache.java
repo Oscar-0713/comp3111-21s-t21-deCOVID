@@ -54,7 +54,7 @@ public class DataCache {
 			}
 			
 			HashMap<Date, DayDataObject> map = tempMap.get(code);
-			Date date = DateUtilities.getDateFormat().parse(record.get("date"));
+			Date date = DateUtilities.getDateFormatMMDDYYYY().parse(record.get("date"));
 			
 			String newCase = record.get("new_cases");
 			String newDeath = record.get("new_deaths");
