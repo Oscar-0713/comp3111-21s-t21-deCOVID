@@ -318,7 +318,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
 
         		taskA1ErrorLabel.setVisible(true);
@@ -405,7 +405,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
 
         		taskB1ErrorLabel.setVisible(true);
@@ -485,7 +485,7 @@ public class Controller {
     	String formattedDates = localDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	try {
-    		Date selectedDate = DateUtilities.getDateFormatMMDDYYYY().parse(formattedDates);
+    		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
     		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
 
         		taskC1ErrorLabel.setVisible(true);
