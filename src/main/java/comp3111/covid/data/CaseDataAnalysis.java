@@ -19,14 +19,18 @@ public class CaseDataAnalysis {
 	
 	private void handlingDataWithHashMap() {
 		for (CountryCode code : handler.getSelectedCountryList()) {
-			Date selectedDate = handler.getSelectedDate().get("select");
-			DataCache.getCache();
-			DayDataObject data = DataCache.getCache().getData(dataset, code, selectedDate);
-			if (data != null) {
-				CaseObject object = data.getCaseObject(code);
-				result.add(object);
+			if (handler.getSelectedDate().get("select") != null) {
+				Date selectedDate = handler.getSelectedDate().get("select");
+				DataCache.getCache();
+				DayDataObject data = DataCache.getCache().getData(dataset, code, selectedDate);
+				if (data != null) {
+					CaseObject object = data.getCaseObject(code);
+					result.add(object);
+				}
 			}
+			
 		}
+		
 	}
 	/**
 	 * Return the result of the requested countries and date
@@ -35,4 +39,9 @@ public class CaseDataAnalysis {
 	public ArrayList<CaseObject> getResult() {
 		return result;
 	}
+	
+	public String getDataSet() {
+		return dataset;
+	}
+	
 }
