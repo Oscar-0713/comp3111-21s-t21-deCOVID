@@ -55,8 +55,9 @@ import javafx.scene.paint.Color;
  */
 public class Controller {
 	//Handler class
-	private static HashMap<String, GUIShowHandler> handler = new HashMap<>();
+	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
 	private static String defaultDataset;
+	private static GUIShowHandler handler;
 	
 	
 	/**
@@ -69,8 +70,6 @@ public class Controller {
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
 		taskC2Chart.setVisible(false);
-		
-		textfieldDataset.setEditable(true);
 
 		//Try download new data
 		try {
@@ -91,13 +90,14 @@ public class Controller {
 	    	    	choicefieldDataset.getItems().add(filename);
 	    			DataCache.getCache().initalizeData(filename);
 	    			GUIShowHandler curHand = new GUIShowHandler(filename);
-	    			handler.put(filename, curHand);
+	    			handlerList.put(filename, curHand);
 	    			System.out.println(filename);
 	    	    }
 	    	}
 	    	
 	    	defaultDataset = "COVID_Dataset_v1.0.csv";
 	    	choicefieldDataset.setValue("COVID_Dataset_v1.0.csv");
+	    	handler = handlerList.get(defaultDataset);
 	    	
     	} catch (Exception e) {
     		e.printStackTrace();
@@ -106,7 +106,7 @@ public class Controller {
 		//Initialize tasks with default datset
 		try {
 			
-			for (CountryCode code : handler.get(defaultDataset).getAvailableCountry()) {
+			for (CountryCode code : handler.getAvailableCountry()) {
 					CheckBox box1 = new CheckBox(code.getName());
 					CheckBox box2 = new CheckBox(code.getName());
 					CheckBox box3 = new CheckBox(code.getName());
@@ -125,7 +125,7 @@ public class Controller {
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
 
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	
@@ -271,6 +271,7 @@ public class Controller {
     	
     	try {
 	    	defaultDataset = choicefieldDataset.getValue();
+	    	handler = handlerList.get(defaultDataset);
 	    	taskB1DynamicListView.getItems().clear();
 	    	taskA1DynamicListView.getItems().clear();
 	    	taskC1DynamicListView.getItems().clear();
@@ -281,7 +282,7 @@ public class Controller {
 	    	
     	try {
 			
-			for (CountryCode code : handler.get(defaultDataset).getAvailableCountry()) {
+			for (CountryCode code : handler.getAvailableCountry()) {
 					CheckBox box1 = new CheckBox(code.getName());
 					CheckBox box2 = new CheckBox(code.getName());
 					CheckBox box3 = new CheckBox(code.getName());
@@ -382,7 +383,7 @@ public class Controller {
     	
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
-    		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
+    		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
 
         		taskA1ErrorLabel.setVisible(true);
         		taskA1ErrorLabel.setText("Invalid date range!");
@@ -469,7 +470,7 @@ public class Controller {
     	
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
-    		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
+    		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
 
         		taskB1ErrorLabel.setVisible(true);
         		taskB1ErrorLabel.setText("Invalid date range!");
@@ -553,7 +554,7 @@ public class Controller {
     	
     	try {
     		Date selectedDate = DateUtilities.getDateFormat().parse(formattedDates);
-    		if (selectedDate.compareTo(handler.get(defaultDataset).getStartDate()) < 0 || selectedDate.compareTo(handler.get(defaultDataset).getEndDate()) > 0) {
+    		if (selectedDate.compareTo(handler.getStartDate()) < 0 || selectedDate.compareTo(handler.getEndDate()) > 0) {
 
         		taskC1ErrorLabel.setVisible(true);
         		taskC1ErrorLabel.setText("Invalid date range!");
