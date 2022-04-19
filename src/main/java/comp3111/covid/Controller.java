@@ -66,11 +66,28 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
-			
+
+		//Master
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
 		taskC2Chart.setVisible(false);
 
+    //Task B
+// 		try {
+// 			DataCache.getCache().initalizeData("COVID_Dataset_v1.0.csv");
+// 		} catch (ParseException e1) {
+// 			e1.printStackTrace();
+// 		}
+// 		taskB1Table.setVisible(false);
+// 		taskA1Table.setVisible(false);
+// 		taskC1Table.setVisible(false);
+		
+// 		taskB2Chart.setVisible(false);
+// 		taskA2Chart.setVisible(false);
+// 		taskC2Chart.setVisible(false);
+		
+		textfieldDataset.setEditable(true);
+    //End of conflict
 		//Try download new data
 		try {
 			DataFetcher.downloadData();
@@ -126,12 +143,17 @@ public class Controller {
 			taskC1ErrorLabel.setVisible(false);
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
     	
     	taskB1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskC1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskA1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	
+    	taskB2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	taskC2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
 	}
 	
 	//This element will NOT hook to fxml
