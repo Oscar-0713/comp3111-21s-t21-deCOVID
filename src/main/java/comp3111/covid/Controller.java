@@ -72,7 +72,7 @@ public class Controller {
 		
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
-		taskC2Chart.setVisible(false);
+		taskC2Chart.setVisible(true);
 		
 		textfieldDataset.setEditable(true);
 		//Try download new data
@@ -587,7 +587,7 @@ public class Controller {
     	LocalDate localDate2 = taskA2DatePicker2.getValue();
     	String formattedDates1 = localDate1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	String formattedDates2 = localDate2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    	
+  	
     	try {
     		Date selectedDate1 = DateUtilities.getDateFormat().parse(formattedDates1);
     		Date selectedDate2 = DateUtilities.getDateFormat().parse(formattedDates2);
@@ -621,56 +621,48 @@ public class Controller {
     	
     	//Create handler
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
-    	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	CaseDataAnalysis analysis = new CaseDataAnalysis("COVID_Dataset_v1.0.csv", handler);
     	
     	//Handle output
-    	/*
-    	CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Date");       
-        */
-        // y-axis for the percentage (Number type), x-axis for the Date (String type)
-        //LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
-                
+        //y-axis for the percentage (Number type), x-axis for the Date (String type)
+        taskA2Chart.getData().clear(); // clear previous data first
         taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
         taskA2Chart.getXAxis().setAutoRanging(true);
         taskA2Chart.getYAxis().setAutoRanging(true);
         for (String country : selectedCountry) {
         	XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
         	series.setName(country);
-        	// DeathObjects in result, for each object, need get the 
         	ZoneId defaultZoneId = ZoneId.systemDefault();
         	CountryCode code = CountryCode.getByName(country);
         	String dataSet = analysis.getDataSet();
+        	//loop through each day within the range and get corresponding data
         	for (LocalDate date = localDate1; date.isBefore(localDate2.plusDays(1)); date = date.plusDays(1)) {
         		DataCache.getCache();
 				Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 				DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
 				if (data != null) {
-					DeathObject object = data.getDeathObject(code);
+					CaseObject object = data.getCaseObject(code);
 					String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getDeathpermillion())));
+					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getCasepermillion())));
 				}
         	}
         	taskA2Chart.getData().add(series);
-        	
         }
-        XYChart.Series<String,Number> series1 = new XYChart.Series<String,Number>();
-        series1.getData().add(new XYChart.Data<String,Number>("Dec", 25));
-        taskA2Chart.getData().add(series1);
-        //taskA2Chart = lineChart;
         taskA2Chart.setVisible(true);
     }
     
     @FXML
     void onTaskB2ResetClicked(ActionEvent event) {
-    	
+    	taskB2DatePicker1.getEditor().clear();
+    	taskB2DatePicker2.getEditor().clear();
+    	for (int i = 0; i < taskB2DynamicListView.getItems().size();i++) {
+    		taskB2DynamicListView.getItems().get(i).setSelected(false);
+    	}
     }
     
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
-    	
     	taskB2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB2DatePicker1.getValue() == null || taskB2DatePicker2.getValue() == null) {
@@ -685,7 +677,7 @@ public class Controller {
     	LocalDate localDate2 = taskB2DatePicker2.getValue();
     	String formattedDates1 = localDate1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	String formattedDates2 = localDate2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    	
+  	
     	try {
     		Date selectedDate1 = DateUtilities.getDateFormat().parse(formattedDates1);
     		Date selectedDate2 = DateUtilities.getDateFormat().parse(formattedDates2);
@@ -722,22 +714,18 @@ public class Controller {
     	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
     	
     	//Handle output
-    	
-    	CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Date");       
-        
-        // y-axis for the percentage (Number type), x-axis for the Date (String type)
-        LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
-                
-        taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
+        //y-axis for the percentage (Number type), x-axis for the Date (String type)
+        taskB2Chart.getData().clear(); // clear previous data first
+        taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Deaths (per 1M)");
+        taskB2Chart.getXAxis().setAutoRanging(true);
+        taskB2Chart.getYAxis().setAutoRanging(true);
         for (String country : selectedCountry) {
         	XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
         	series.setName(country);
-        	// DeathObjects in result, for each object, need get the 
         	ZoneId defaultZoneId = ZoneId.systemDefault();
         	CountryCode code = CountryCode.getByName(country);
         	String dataSet = analysis.getDataSet();
+        	//loop through each day within the range and get corresponding data
         	for (LocalDate date = localDate1; date.isBefore(localDate2.plusDays(1)); date = date.plusDays(1)) {
         		DataCache.getCache();
 				Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
@@ -748,25 +736,99 @@ public class Controller {
 					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getDeathpermillion())));
 				}
         	}
-        	lineChart.getData().add(series);
+        	taskB2Chart.getData().add(series);
         }
-        XYChart.Series<String,Number> series1 = new XYChart.Series<String,Number>();
-        series1.getData().add(new XYChart.Data<String,Number>("Dec", 25));
-        lineChart.getData().add(series1);
-        taskB2Chart = lineChart;
         taskB2Chart.setVisible(true);
-
     }
     
     @FXML
     void onTaskC2ResetClicked(ActionEvent event) {
-    	
+    	taskC2DatePicker1.getEditor().clear();
+    	taskC2DatePicker2.getEditor().clear();
+    	for (int i = 0; i < taskC2DynamicListView.getItems().size();i++) {
+    		taskC2DynamicListView.getItems().get(i).setSelected(false);
+    	}
     }
     
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
+    	taskC2ErrorLabel.setVisible(false);
+    	//User doesn't pick a date
+    	if (taskC2DatePicker1.getValue() == null || taskC2DatePicker2.getValue() == null) {
+    		taskC2ErrorLabel.setVisible(true);
+    		taskC2ErrorLabel.setText("Please pick a date!");
+    		taskC2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
     	
+    	//Check picked date range
+    	LocalDate localDate1 = taskC2DatePicker1.getValue();
+    	LocalDate localDate2 = taskC2DatePicker2.getValue();
+    	String formattedDates1 = localDate1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	String formattedDates2 = localDate2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+  	
+    	try {
+    		Date selectedDate1 = DateUtilities.getDateFormat().parse(formattedDates1);
+    		Date selectedDate2 = DateUtilities.getDateFormat().parse(formattedDates2);
+    		if (selectedDate1.compareTo(handler.getStartDate()) < 0 || selectedDate1.compareTo(handler.getEndDate()) > 0
+    			|| selectedDate2.compareTo(handler.getStartDate()) < 0 || selectedDate2.compareTo(handler.getEndDate()) > 0 || selectedDate1.compareTo(selectedDate2) > 0) {
+        		taskC2ErrorLabel.setVisible(true);
+        		taskC2ErrorLabel.setText("Invalid date range!");
+        		taskC2ErrorLabel.setTextFill(Color.RED);
+    			return;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	//Handle the selected date
+
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	for (int i = 0; i < taskC2DynamicListView.getItems().size(); i++) {
+    		if (taskC2DynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(taskC2DynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	if (selectedCountry.isEmpty()) {
+    		taskC2ErrorLabel.setVisible(true);
+    		taskC2ErrorLabel.setText("Please pick at least one country!");
+    		taskC2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Create handler
+    	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
+    	VaccineAnalysis analysis = new VaccineAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	
+    	//Handle output
+        //y-axis for the percentage (Number type), x-axis for the Date (String type)
+        taskC2Chart.getData().clear(); // clear previous data first
+        taskC2Chart.setTitle("Cumulative Rate of Vaccination against COVID-19");
+        taskC2Chart.getXAxis().setAutoRanging(true);
+        taskC2Chart.getYAxis().setAutoRanging(true);
+        for (String country : selectedCountry) {
+        	XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
+        	series.setName(country);
+        	ZoneId defaultZoneId = ZoneId.systemDefault();
+        	CountryCode code = CountryCode.getByName(country);
+        	String dataSet = analysis.getDataSet();
+        	//loop through each day within the range and get corresponding data
+        	for (LocalDate date = localDate1; date.isBefore(localDate2.plusDays(1)); date = date.plusDays(1)) {
+        		DataCache.getCache();
+				Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+				DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
+				if (data != null) {
+					VaccineObject object = data.getVaccineObject(code);
+					String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getPercentagevaccinated())));
+				} 
+        	}
+        	taskC2Chart.getData().add(series);
+        }
+        taskC2Chart.setVisible(true);
     }
 }
 
