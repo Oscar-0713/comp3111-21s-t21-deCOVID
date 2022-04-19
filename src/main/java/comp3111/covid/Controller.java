@@ -3,6 +3,7 @@ package comp3111.covid;
 import java.io.File;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 
 import comp3111.covid.GUI.GUIPreventSelection;
 import comp3111.covid.GUI.GUISelectTableHandler;
+import comp3111.covid.GUI.GUISelectChartHandler;
 import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DataFetcher;
@@ -17,6 +19,7 @@ import comp3111.covid.Utilities.DateUtilities;
 import comp3111.covid.data.CaseDataAnalysis;
 import comp3111.covid.data.CaseObject;
 import comp3111.covid.data.DataCache;
+import comp3111.covid.data.DayDataObject;
 import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 import comp3111.covid.data.VaccineAnalysis;
@@ -25,6 +28,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -37,6 +46,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseDragEvent; // not sure if this needed, it just show up in skeleton from scene builder, to be confirmed
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 
@@ -55,10 +65,13 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
+			
+		taskB2Chart.setVisible(false);
+		taskA2Chart.setVisible(false);
+		taskC2Chart.setVisible(false);
 		
-		taskB1Table.setVisible(false);
-		taskA1Table.setVisible(false);
-		taskC1Table.setVisible(false);
+		textfieldDataset.setEditable(true);
+
 		//Try download new data
 		try {
 			DataFetcher.downloadData();
@@ -100,26 +113,76 @@ public class Controller {
 					taskB1DynamicListView.getItems().add(box1);
 					taskA1DynamicListView.getItems().add(box2);
 					taskC1DynamicListView.getItems().add(box3);
+					
+					CheckBox box4 = new CheckBox(code.getName());
+					CheckBox box5 = new CheckBox(code.getName());
+					CheckBox box6 = new CheckBox(code.getName());
+					taskB2DynamicListView.getItems().add(box4);
+					taskA2DynamicListView.getItems().add(box5);
+					taskC2DynamicListView.getItems().add(box6);
 			}
 			taskB1ErrorLabel.setVisible(false);
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
-		} catch (Exception e) {
+
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
     	
     	taskB1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskC1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskA1DynamicListView.setSelectionModel(new GUIPreventSelection<>());
-    	
-    	
-    	
 	}
 	
 	//This element will NOT hook to fxml
 	private ObservableList<DeathObject> taskB1TableList;
 	private ObservableList<CaseObject> taskA1TableList;
 	private ObservableList<VaccineObject> taskC1TableList;
+	
+	@FXML
+	private DatePicker taskC2DatePicker1;
+	
+	@FXML
+	private DatePicker taskC2DatePicker2;
+	
+	@FXML
+	private ListView<CheckBox> taskC2DynamicListView;
+	
+	@FXML
+	private LineChart<String, Number> taskC2Chart;
+	
+	@FXML
+	private Label taskC2ErrorLabel;
+	
+	@FXML
+	private DatePicker taskB2DatePicker1;
+	
+	@FXML
+	private DatePicker taskB2DatePicker2;
+	
+	@FXML
+	private ListView<CheckBox> taskB2DynamicListView;
+	
+	@FXML
+	private LineChart<String, Number> taskB2Chart;
+	
+	@FXML
+	private Label taskB2ErrorLabel;
+	
+	@FXML
+	private DatePicker taskA2DatePicker1;
+	
+	@FXML
+	private DatePicker taskA2DatePicker2;
+	
+	@FXML
+	private ListView<CheckBox> taskA2DynamicListView;
+	
+	@FXML
+	private LineChart<String, Number> taskA2Chart;
+	
+	@FXML
+	private Label taskA2ErrorLabel;
 	
 	@FXML
 	private DatePicker taskC1DatePicker;
@@ -468,6 +531,10 @@ public class Controller {
     	}
     }
     
+    /**
+     * Task C1: Confirm button click event
+     * @param event
+     */
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskC1ConfirmClicked(ActionEvent event) {
@@ -534,6 +601,223 @@ public class Controller {
     	taskC1Table.setItems(taskC1TableList);
     	//System.out.print(taskB1TableList.isEmpty());
     	taskC1Table.setVisible(true);
+    }
+    
+    
+    /**
+     * Task A2: Reset button event
+     * @param event
+     */
+    @FXML
+    void onTaskA2ResetClicked(ActionEvent event) {
+    	taskA2DatePicker1.getEditor().clear();
+    	taskA2DatePicker2.getEditor().clear();
+    	for (int i = 0; i < taskA2DynamicListView.getItems().size();i++) {
+    		taskA2DynamicListView.getItems().get(i).setSelected(false);
+    	}
+    }
+    
+    /**
+     * Task A2: Confirm button click event
+     * @param event
+     */
+    @SuppressWarnings("unchecked")
+	@FXML
+    void onTaskA2ConfirmClicked(ActionEvent event) {
+    	taskA2ErrorLabel.setVisible(false);
+    	//User doesn't pick a date
+    	if (taskA2DatePicker1.getValue() == null || taskA2DatePicker2.getValue() == null) {
+    		taskA2ErrorLabel.setVisible(true);
+    		taskA2ErrorLabel.setText("Please pick a date!");
+    		taskA2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Check picked date range
+    	LocalDate localDate1 = taskA2DatePicker1.getValue();
+    	LocalDate localDate2 = taskA2DatePicker2.getValue();
+    	String formattedDates1 = localDate1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	String formattedDates2 = localDate2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	
+    	try {
+    		Date selectedDate1 = DateUtilities.getDateFormat().parse(formattedDates1);
+    		Date selectedDate2 = DateUtilities.getDateFormat().parse(formattedDates2);
+    		if (selectedDate1.compareTo(handler.getStartDate()) < 0 || selectedDate1.compareTo(handler.getEndDate()) > 0
+    			|| selectedDate2.compareTo(handler.getStartDate()) < 0 || selectedDate2.compareTo(handler.getEndDate()) > 0 || selectedDate1.compareTo(selectedDate2) > 0) {
+        		taskA2ErrorLabel.setVisible(true);
+        		taskA2ErrorLabel.setText("Invalid date range!");
+        		taskA2ErrorLabel.setTextFill(Color.RED);
+    			return;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	//Handle the selected date
+
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	for (int i = 0; i < taskA2DynamicListView.getItems().size(); i++) {
+    		if (taskA2DynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(taskA2DynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	if (selectedCountry.isEmpty()) {
+    		taskA2ErrorLabel.setVisible(true);
+    		taskA2ErrorLabel.setText("Please pick at least one country!");
+    		taskA2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Create handler
+    	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
+    	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	
+    	//Handle output
+    	/*
+    	CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Date");       
+        */
+        // y-axis for the percentage (Number type), x-axis for the Date (String type)
+        //LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+                
+        taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
+        taskA2Chart.getXAxis().setAutoRanging(true);
+        taskA2Chart.getYAxis().setAutoRanging(true);
+        for (String country : selectedCountry) {
+        	XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
+        	series.setName(country);
+        	// DeathObjects in result, for each object, need get the 
+        	ZoneId defaultZoneId = ZoneId.systemDefault();
+        	CountryCode code = CountryCode.getByName(country);
+        	String dataSet = analysis.getDataSet();
+        	for (LocalDate date = localDate1; date.isBefore(localDate2.plusDays(1)); date = date.plusDays(1)) {
+        		DataCache.getCache();
+				Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+				DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
+				if (data != null) {
+					DeathObject object = data.getDeathObject(code);
+					String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getDeathpermillion())));
+				}
+        	}
+        	taskA2Chart.getData().add(series);
+        	
+        }
+        XYChart.Series<String,Number> series1 = new XYChart.Series<String,Number>();
+        series1.getData().add(new XYChart.Data<String,Number>("Dec", 25));
+        taskA2Chart.getData().add(series1);
+        //taskA2Chart = lineChart;
+        taskA2Chart.setVisible(true);
+    }
+    
+    @FXML
+    void onTaskB2ResetClicked(ActionEvent event) {
+    	
+    }
+    
+    @SuppressWarnings("unchecked")
+	@FXML
+    void onTaskB2ConfirmClicked(ActionEvent event) {
+    	
+    	taskB2ErrorLabel.setVisible(false);
+    	//User doesn't pick a date
+    	if (taskB2DatePicker1.getValue() == null || taskB2DatePicker2.getValue() == null) {
+    		taskB2ErrorLabel.setVisible(true);
+    		taskB2ErrorLabel.setText("Please pick a date!");
+    		taskB2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Check picked date range
+    	LocalDate localDate1 = taskB2DatePicker1.getValue();
+    	LocalDate localDate2 = taskB2DatePicker2.getValue();
+    	String formattedDates1 = localDate1.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	String formattedDates2 = localDate2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	
+    	try {
+    		Date selectedDate1 = DateUtilities.getDateFormat().parse(formattedDates1);
+    		Date selectedDate2 = DateUtilities.getDateFormat().parse(formattedDates2);
+    		if (selectedDate1.compareTo(handler.getStartDate()) < 0 || selectedDate1.compareTo(handler.getEndDate()) > 0
+    			|| selectedDate2.compareTo(handler.getStartDate()) < 0 || selectedDate2.compareTo(handler.getEndDate()) > 0 || selectedDate1.compareTo(selectedDate2) > 0) {
+        		taskB2ErrorLabel.setVisible(true);
+        		taskB2ErrorLabel.setText("Invalid date range!");
+        		taskB2ErrorLabel.setTextFill(Color.RED);
+    			return;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	//Handle the selected date
+
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	for (int i = 0; i < taskB2DynamicListView.getItems().size(); i++) {
+    		if (taskB2DynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(taskB2DynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	if (selectedCountry.isEmpty()) {
+    		taskB2ErrorLabel.setVisible(true);
+    		taskB2ErrorLabel.setText("Please pick at least one country!");
+    		taskB2ErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	//Create handler
+    	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
+    	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	
+    	//Handle output
+    	
+    	CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Date");       
+        
+        // y-axis for the percentage (Number type), x-axis for the Date (String type)
+        LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+                
+        taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
+        for (String country : selectedCountry) {
+        	XYChart.Series<String,Number> series = new XYChart.Series<String,Number>();
+        	series.setName(country);
+        	// DeathObjects in result, for each object, need get the 
+        	ZoneId defaultZoneId = ZoneId.systemDefault();
+        	CountryCode code = CountryCode.getByName(country);
+        	String dataSet = analysis.getDataSet();
+        	for (LocalDate date = localDate1; date.isBefore(localDate2.plusDays(1)); date = date.plusDays(1)) {
+        		DataCache.getCache();
+				Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+				DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
+				if (data != null) {
+					DeathObject object = data.getDeathObject(code);
+					String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+					series.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Float.parseFloat(object.getDeathpermillion())));
+				}
+        	}
+        	lineChart.getData().add(series);
+        }
+        XYChart.Series<String,Number> series1 = new XYChart.Series<String,Number>();
+        series1.getData().add(new XYChart.Data<String,Number>("Dec", 25));
+        lineChart.getData().add(series1);
+        taskB2Chart = lineChart;
+        taskB2Chart.setVisible(true);
+
+    }
+    
+    @FXML
+    void onTaskC2ResetClicked(ActionEvent event) {
+    	
+    }
+    
+    @SuppressWarnings("unchecked")
+	@FXML
+    void onTaskC2ConfirmClicked(ActionEvent event) {
+    	
     }
 }
 
