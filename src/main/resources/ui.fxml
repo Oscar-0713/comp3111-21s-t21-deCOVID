@@ -302,7 +302,7 @@
       <Label text="Console" />
       <ScrollPane prefHeight="340.0" prefWidth="853.0">
          <content>
-            <TextArea fx:id="textAreaConsole" prefHeight="324.0" prefWidth="844.0" />
+            <TextArea fx:id="textAreaConsole" prefHeight="300.0" prefWidth="844.0" />
          </content>
       </ScrollPane>
   </children>
