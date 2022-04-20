@@ -44,7 +44,7 @@ public class DeathDataAnalysis {
 //					System.out.print(handler.getSelectedDate().get("select").toString());
 //					System.out.print(DateUtilities.getDateFormat().parse(record.get("date")).toString());
 					if (record.get("iso_code").equalsIgnoreCase(codeName) && 
-							handler.getSelectedDate().get("select").compareTo(DateUtilities.getDateFormatMMDDYYYY().parse(record.get("date"))) == 0) {
+							handler.getSelectedDate().get("select").compareTo(DateUtilities.getDateFormat().parse(record.get("date"))) == 0) {
 							String totalDeath = record.get("total_deaths");
 							String deathPerMillion = record.get("total_deaths_per_million");
 							int intTotalDeath = 0;
