@@ -8,7 +8,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -20,15 +19,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox onMouseDragEntered="#onGlobalEnter" prefHeight="847.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.covid.Controller">
+<VBox onMouseDragEntered="#onGlobalEnter" prefHeight="748.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp3111.covid.Controller">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="437.0" prefWidth="719.0">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="583.0" prefWidth="853.0">
       <children>
-            <TabPane fx:id="globalTabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="437.0" prefWidth="853.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="globalTabPane" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="585.0" prefWidth="1173.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="tabTaskZero" text="Task Zero">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="719.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="853.0">
                            <children>
                               <Label layoutX="114.0" layoutY="81.0" prefHeight="18.0" prefWidth="58.0" text="ISO Code" />
                               <TextField fx:id="textfieldISO" layoutX="185.0" layoutY="77.0" prefHeight="26.0" prefWidth="43.0" promptText="e.g 1830 (18: yr 18-19; 30: Spring)" text="HKG" />
@@ -47,7 +46,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="561.0" prefWidth="1177.0">
                                  <children>
                                     <DatePicker fx:id="taskA1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task A1 - Enquiry on Total COVID Case">
@@ -60,21 +59,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskA1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskA1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="300.0" prefWidth="238.0" />
                                     <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskA1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskA1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
-                                    <TableView fx:id="taskA1Table" layoutX="405.0" layoutY="44.0" prefHeight="303.0" prefWidth="386.0">
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <TableView fx:id="taskA1Table" layoutX="367.0" layoutY="44.0" prefHeight="458.0" prefWidth="754.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="C1" />
                                           <TableColumn prefWidth="75.0" text="C2" />
                                        </columns>
                                     </TableView>
-                                    <Label fx:id="taskA1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskA1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -85,7 +84,7 @@
                   <content>
                         <AnchorPane>
                            <children>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="1177.0">
                                  <children>
                                     <DatePicker fx:id="taskB1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task B1 - Enquiry on Total COVID Death">
@@ -98,21 +97,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskB1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="300.0" prefWidth="238.0" />
                                     <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskB1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskB1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
-                                    <TableView fx:id="taskB1Table" layoutX="405.0" layoutY="44.0" prefHeight="303.0" prefWidth="386.0">
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskB1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskB1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <TableView fx:id="taskB1Table" layoutX="367.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
                                       <columns>
                                         <TableColumn prefWidth="75.0" text="C1" />
                                         <TableColumn prefWidth="75.0" text="C2" />
                                       </columns>
                                     </TableView>
-                                    <Label fx:id="taskB1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskB1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -123,7 +122,7 @@
                     <content>
                         <AnchorPane>
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="1177.0">
                                  <children>
                                     <DatePicker fx:id="taskC1DatePicker" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task C1 - Enquiry on Total COVID Vaccination">
@@ -136,21 +135,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskC1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskC1DynamicListView" layoutX="96.0" layoutY="86.0" prefHeight="300.0" prefWidth="238.0" />
                                     <Text layoutX="16.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskC1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="300.0" mnemonicParsing="false" onAction="#onTaskC1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
-                                    <TableView fx:id="taskC1Table" layoutX="405.0" layoutY="44.0" prefHeight="303.0" prefWidth="386.0">
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskC1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskC1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <TableView fx:id="taskC1Table" layoutX="367.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="C1" />
                                           <TableColumn prefWidth="75.0" text="C2" />
                                        </columns>
                                     </TableView>
-                                    <Label fx:id="taskC1ErrorLabel" layoutX="29.0" layoutY="343.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskC1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -161,7 +160,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="1181.0">
                                  <children>
                                     <DatePicker fx:id="taskA2DatePicker1" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task A2 - Enquiry on Total COVID Case">
@@ -174,21 +173,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskA2DynamicListView" layoutX="94.0" layoutY="111.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskA2DynamicListView" layoutX="90.0" layoutY="111.0" prefHeight="270.0" prefWidth="238.0" />
                                     <Text layoutX="15.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskA2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskA2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
                                     <Text layoutX="28.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
                                     <DatePicker fx:id="taskA2DatePicker2" editable="false" layoutX="90.0" layoutY="78.0" prefHeight="26.0" prefWidth="245.0" />
-                                    <LineChart fx:id="taskA2Chart" layoutX="381.0" layoutY="38.0" prefHeight="327.0" prefWidth="428.0">
+                                    <LineChart fx:id="taskA2Chart" layoutX="358.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
@@ -198,7 +197,7 @@
                                     </LineChart>
                                  </children>
                               </AnchorPane>
-                              <Label fx:id="taskA2ErrorLabel" layoutX="29.0" layoutY="364.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                              <Label fx:id="taskA2ErrorLabel" layoutX="29.0" layoutY="417.0" prefHeight="24.0" prefWidth="328.0" textFill="RED" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -207,7 +206,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="1175.0">
                                  <children>
                                     <DatePicker fx:id="taskB2DatePicker1" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task B2 - Enquiry on Total COVID Death">
@@ -220,21 +219,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskB2DynamicListView" layoutX="94.0" layoutY="111.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskB2DynamicListView" layoutX="90.0" layoutY="111.0" prefHeight="270.0" prefWidth="238.0" />
                                     <Text layoutX="15.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskB2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskB2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskB2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskB2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
                                     <Text layoutX="28.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
                                     <DatePicker fx:id="taskB2DatePicker2" editable="false" layoutX="90.0" layoutY="78.0" prefHeight="26.0" prefWidth="245.0" />
-                                    <LineChart fx:id="taskB2Chart" layoutX="381.0" layoutY="38.0" prefHeight="327.0" prefWidth="428.0">
+                                    <LineChart fx:id="taskB2Chart" layoutX="358.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
@@ -244,7 +243,7 @@
                                     </LineChart>
                                  </children>
                               </AnchorPane>
-                              <Label fx:id="taskB2ErrorLabel" layoutX="29.0" layoutY="364.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                              <Label fx:id="taskB2ErrorLabel" layoutX="29.0" layoutY="417.0" prefHeight="24.0" prefWidth="328.0" textFill="RED" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -253,7 +252,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="719.0">
                            <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="375.0" prefWidth="853.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="559.0" prefWidth="1171.0">
                                  <children>
                                     <DatePicker fx:id="taskC2DatePicker1" editable="false" layoutX="90.0" layoutY="44.0" prefHeight="26.0" prefWidth="245.0" />
                                     <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task C2 - Enquiry on Total COVID Vaccination">
@@ -266,21 +265,21 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <ListView fx:id="taskC2DynamicListView" layoutX="94.0" layoutY="111.0" prefHeight="200.0" prefWidth="238.0" />
+                                    <ListView fx:id="taskC2DynamicListView" layoutX="90.0" layoutY="111.0" prefHeight="270.0" prefWidth="238.0" />
                                     <Text layoutX="15.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
-                                    <Button layoutX="90.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskC2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
-                                    <Button layoutX="178.0" layoutY="328.0" mnemonicParsing="false" onAction="#onTaskC2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                                    <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskC2ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                                    <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskC2ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
                                     <Text layoutX="28.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Text>
                                     <DatePicker fx:id="taskC2DatePicker2" editable="false" layoutX="90.0" layoutY="78.0" prefHeight="26.0" prefWidth="245.0" />
-                                    <LineChart fx:id="taskC2Chart" layoutX="381.0" layoutY="38.0" prefHeight="327.0" prefWidth="428.0">
+                                    <LineChart fx:id="taskC2Chart" layoutX="358.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" />
                                        </xAxis>
@@ -290,20 +289,16 @@
                                     </LineChart>
                                  </children>
                               </AnchorPane>
-                              <Label fx:id="taskC2ErrorLabel" layoutX="29.0" layoutY="364.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                              <Label fx:id="taskC2ErrorLabel" layoutX="29.0" layoutY="417.0" prefHeight="24.0" prefWidth="328.0" textFill="RED" />
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
               </tabs>
             </TabPane>
+            <Label layoutX="14.0" layoutY="561.0" prefHeight="17.0" prefWidth="59.0" text="Console" />
       </children>
     </AnchorPane>
-      <Label text="Console" />
-      <ScrollPane prefHeight="340.0" prefWidth="853.0">
-         <content>
-            <TextArea fx:id="textAreaConsole" prefHeight="300.0" prefWidth="844.0" />
-         </content>
-      </ScrollPane>
+      <TextArea fx:id="textAreaConsole" prefHeight="163.0" prefWidth="1185.0" />
   </children>
 </VBox>

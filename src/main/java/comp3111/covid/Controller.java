@@ -108,7 +108,7 @@ public class Controller {
 	    			DataCache.getCache().initalizeData(filename);
 	    			GUIShowHandler curHand = new GUIShowHandler(filename);
 	    			handlerList.put(filename, curHand);
-	    			System.out.println(filename);
+	    			//System.out.println(filename);
 	    	    }
 	    	}
 	    	
