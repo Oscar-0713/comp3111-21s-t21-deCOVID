@@ -106,7 +106,7 @@ public class DataCache {
 	 * @param dataset
 	 * @param code
 	 * @param date
-	 * @return DayDataObject if the object is found, otherwise, reutn null
+	 * @return DayDataObject if the object is found, otherwise, return null
 	 */
 	public DayDataObject getData(String dataset, CountryCode code, Date date) {
 		if (dataMap.containsKey(dataset)) {
