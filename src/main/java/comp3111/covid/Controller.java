@@ -691,6 +691,8 @@ public class Controller {
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskA2Chart.getData().clear(); // clear previous data first
+        taskA2Chart.setAnimated(false);
+        taskA2Chart.getXAxis().setLabel("Date");
         taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
         taskA2Chart.getXAxis().setAutoRanging(true);
         taskA2Chart.getYAxis().setAutoRanging(true);
@@ -781,6 +783,8 @@ public class Controller {
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskB2Chart.getData().clear(); // clear previous data first
+        taskB2Chart.setAnimated(false);
+        taskB2Chart.getXAxis().setLabel("Date");
         taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Deaths (per 1M)");
         taskB2Chart.getXAxis().setAutoRanging(true);
         taskB2Chart.getYAxis().setAutoRanging(true);
@@ -871,6 +875,9 @@ public class Controller {
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskC2Chart.getData().clear(); // clear previous data first
+        taskC2Chart.setAnimated(false);
+        taskC2Chart.getXAxis().setLabel("Date");
+        taskC2Chart.getYAxis().setLabel("Percentage(%)");
         taskC2Chart.setTitle("Cumulative Rate of Vaccination against COVID-19");
         taskC2Chart.getXAxis().setAutoRanging(true);
         taskC2Chart.getYAxis().setAutoRanging(true);
