@@ -3,15 +3,15 @@ package comp3111.covid.data;
 import java.util.ArrayList;
 import java.util.Date;
 
-import comp3111.covid.GUI.GUISelectTableHandler;
+import comp3111.covid.GUI.GUISelectHandler;
 import comp3111.covid.Utilities.CountryCode;
 
 public class CaseDataAnalysis {
 	private ArrayList<CaseObject> result = new ArrayList<CaseObject>();
-	private GUISelectTableHandler handler;
+	private GUISelectHandler handler;
 	private String dataset;
 	
-	public CaseDataAnalysis(String dataset, GUISelectTableHandler handler) {
+	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
 		handlingDataWithHashMap();

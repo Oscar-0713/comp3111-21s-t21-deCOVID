@@ -31,7 +31,8 @@ public class VaccineObject {
 		this.fullyVaccinatedOutput.setValue(Long.toString(fullyVaccinated));
 		
 		this.percentageVaccinatedOutput = new SimpleStringProperty(this, "percentagevaccinated");
-		this.percentageVaccinatedOutput.setValue(Float.toString(percentageVaccinated) + "%");
+		//this.percentageVaccinatedOutput.setValue(Float.toString(percentageVaccinated) + "%");
+		this.percentageVaccinatedOutput.setValue(Float.toString(percentageVaccinated));
 	}
 	
 	//String property getter
