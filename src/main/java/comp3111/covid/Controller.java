@@ -72,7 +72,7 @@ public class Controller {
 		
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
-		taskC2Chart.setVisible(true);
+		taskC2Chart.setVisible(false);
 		
 		textfieldDataset.setEditable(true);
 		//Try download new data
