@@ -71,6 +71,10 @@ public class DeathDataAnalysis {
 		return result;
 	}
 	
+	/**
+	 * Get the current dataset
+	 * @return dataset
+	 */
 	public String getDataSet() {
 		return dataset;
 	}

@@ -3,7 +3,11 @@ package comp3111.covid.data;
 import comp3111.covid.Utilities.CountryCode;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+/**
+ * Death Object for table output
+ * @author Oscar Tse
+ *
+ */
 public class DeathObject {
 	private CountryCode country;
 	private long totalDeath;
@@ -14,7 +18,12 @@ public class DeathObject {
 	private StringProperty deathPerMillsionOutput;
 	
 	
-	
+	/**
+	 * Constructor
+	 * @param country
+	 * @param totalDeath
+	 * @param deathPerMillion
+	 */
 	public DeathObject(CountryCode country, long totalDeath, float deathPerMillion) {
 		this.country = country;
 		this.totalDeath = totalDeath;
@@ -35,26 +44,51 @@ public class DeathObject {
 	}
 	
 	//String property getter
+	
+	/**
+	 * Get the string property for country
+	 * @return country string property
+	 */
 	public StringProperty countryProperty() {
 		return this.countryOutput;
 	}
 	
+	/**
+	 * Get the total death case string property
+	 * @return death case string property
+	 */
 	public StringProperty totalDeathProperty() {
 		return totalDeathOutput;
 	}
 	
+	/**
+	 * Get the death case / M string property
+	 * @return death case / M string property
+	 */
 	public StringProperty deathPerMillionProperty() {
 		return deathPerMillsionOutput;
 	}
 	
+	/**
+	 * Get the object current country name
+	 * @return country name
+	 */
 	public String getCountry() {
 		return countryOutput.get();
 	}
 	
+	/**
+	 * Get the death string
+	 * @return death string
+	 */
 	public String getDeath() {
 		return totalDeathOutput.get();
 	}
 	
+	/**
+	 * Get the death / M string
+	 * @return death / M string
+	 */
 	public String getDeathpermillion() {
 		return deathPerMillsionOutput.get();
 	}
