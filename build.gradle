@@ -28,8 +28,9 @@ dependencies {
 	compile group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
 	
     testImplementation 'junit:junit:4.12'
-    
-    
+    testCompile "org.testfx:testfx-junit:4.0.16-alpha"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
