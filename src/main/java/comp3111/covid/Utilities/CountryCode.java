@@ -818,7 +818,59 @@ public enum CountryCode
 
     /** <a href="http://en.wikipedia.org/wiki/Zimbabwe">Zimbabwe</a> */
     ZW("Zimbabwe", "ZWE", 716),
-    ;
+    
+	
+	//Extend the country code from here
+    /**Africa Region **/
+	OWID_AFR("Africa Region", "OWID_AFR",10001),
+	
+	/**Asia Region, from Our World Data Code */
+	OWID_ASI("Asia Region","OWID_ASI",10002),
+	
+	/** Europe Region, from Our World Data Code */
+	OWID_EUR("Europe Region", "OWID_EUR", 10003),
+	
+	/** European Reigon, from Our World Data Code */
+	OWID_EUN("European Region","OWID_EUN",10004),
+	
+	/** International, from Our World Data Code, use World instead*/
+	OWID_INT("International", "OWID_INT",10005),
+	
+	/** Republic of Kosovo, from Our World Data Code */
+	OWID_KOS("Kosovo","OWID_KOS",10006),
+	
+	/** North America Region, from Our World Data Code  */
+	OWID_NAM("North America", "OWID_NAM",10007),
+	
+	/** Northern Cyprus, from Our World Data Code */
+	OWID_CYN("Northern Cyprus", "OWID_CYN",10008),
+	
+	/** Oceania, from Our World Data Code */
+	OWID_OCE("Oceania","OWID_OCE",10009),
+	
+	/** South America Region, from Our World Data Code */
+	OWID_SAM("South America Region","OWID_SAM",10010),
+	
+	/** World data from Our World Data Code */
+	OWID_WRL("World","OWID_WRL",10011),
+	
+	
+	//Downwards is the income seperated countries
+	/**High income countries */
+	OWID_HIC("High income countries","OWID_HIC",20001),
+	
+	/**Low income countries */
+	OWID_LIC("Low income countries","OWID_LIC",20002),
+	
+	/** Low middle income countries */
+	OWID_LMC("Low middle income countries","OWID_LMC",20003),
+	
+	/** Upper middle income countries */
+	OWID_UMC("Upper middle income countries","OWID_UMC",20004)
+	
+	//Delete if needed
+	
+	;
     // @formatter:on
 
 
@@ -930,7 +982,10 @@ public enum CountryCode
 
             case 3:
                 return getByAlpha3Code(code);
-
+            
+            case 8:
+            	return getByAlpha3Code(code);
+            	
             default:
                 return null;
         }

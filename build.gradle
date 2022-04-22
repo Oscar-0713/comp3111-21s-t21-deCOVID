@@ -28,8 +28,7 @@ dependencies {
 	compile group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
 	
     testImplementation 'junit:junit:4.12'
-    
-    
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
