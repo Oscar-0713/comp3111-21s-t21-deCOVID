@@ -16,6 +16,7 @@ import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.DateUtilities;
+import comp3111.covid.Utilities.DevelopmentUtilities;
 import comp3111.covid.data.CaseDataAnalysis;
 import comp3111.covid.data.CaseObject;
 import comp3111.covid.data.DataCache;
@@ -67,6 +68,7 @@ public class Controller {
 	@FXML
 	public void initialize() {
 
+
 		//Master
 		taskB1Table.setVisible(false);
 		taskA1Table.setVisible(false);
@@ -99,14 +101,18 @@ public class Controller {
 	    			DataCache.getCache().initalizeData(filename);
 	    			GUIShowHandler curHand = new GUIShowHandler(filename);
 	    			handlerList.put(filename, curHand);
-	    			System.out.println(filename);
+	    			//System.out.println(filename);
 	    	    }
 	    	}
 	    	
 	    	defaultDataset = "COVID_Dataset_v1.0.csv";
 	    	choicefieldDataset.setValue("COVID_Dataset_v1.0.csv");
 	    	handler = handlerList.get(defaultDataset);
-	    	
+	    	//See the missing countries
+	    	//Commented out after development
+//	    	for (String dataset : choicefieldDataset.getItems()) {
+//	    		DevelopmentUtilities.findMissingCountryCode(dataset);
+//	    	}
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
