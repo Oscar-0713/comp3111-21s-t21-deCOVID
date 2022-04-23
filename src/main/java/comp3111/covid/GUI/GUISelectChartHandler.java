@@ -17,6 +17,13 @@ import comp3111.covid.Utilities.DateUtilities;
 public class GUISelectChartHandler extends GUISelectHandler {
 	private Date startDate;
 	private Date endDate;
+	
+	/**
+	 * Constructor for class GUISelectChartHandler
+	 * @param selectedCountryName a list of string containing the selected countries
+	 * @param selectedStartDate the selected starting date of interest
+	 * @param selectedEndDate the selected ending date of interest
+	 */
 	public GUISelectChartHandler(ArrayList<String> selectedCountryName, String selectedStartDate, String selectedEndDate) {
 		for (String country: selectedCountryName) {
 			CountryCode code = CountryCode.getByName(country);

@@ -27,16 +27,17 @@ import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 import comp3111.covid.data.VaccineAnalysis;
 import comp3111.covid.data.VaccineObject;
+
 import comp3111.covid.data.DataForecast;
 import javafx.application.Platform;
+import javafx.application.Preloader;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import javafx.scene.control.Button;
@@ -71,7 +72,6 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
-
 
 		//Master
 		taskB1Table.setVisible(false);
@@ -169,6 +169,7 @@ public class Controller {
     	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	
     	forecastDynamicListView.setSelectionModel(new GUIPreventSelection<>());
+
 	}
 	
 	//This element will NOT hook to fxml

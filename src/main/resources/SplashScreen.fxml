@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+   <children>
+      <Pane prefHeight="271.0" prefWidth="469.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Line endX="100.0" layoutX="-92.0" layoutY="196.0" startX="553.0" />
+            <Label layoutX="187.0" layoutY="47.0" prefHeight="47.0" prefWidth="275.0" style="-fx-font-size: 24; -fx-background-color: #FFFFFF; -fx-font-family: Helvetica;" text="COVID-19 Data Visualizer" />
+            <Label fx:id="LoadLabel" layoutX="169.0" layoutY="226.0" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="182.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@screenImage.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
