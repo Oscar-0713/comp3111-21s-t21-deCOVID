@@ -4,6 +4,7 @@ package comp3111.covid;
 
 import com.sun.javafx.application.LauncherImpl;
 
+import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.ProgressMessage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,11 +41,23 @@ public class MyApplication extends Application {
 
     private static final String UI_FILE = "/ui.fxml";  //file in the folder of src/main/resources/
 	private static final String CSS_SCENE_FILE = "/custom_theme.css"; //file in the folder of src/main/resources/
-	
+	private static final int COUNT_LIMIT = 250000;
 	/**
 	 * This is the initiation method for the whole application
 	 */
 	public void init() throws Exception {
+		notifyPreloader(new ProgressMessage(0.0, "Fetching newest data from Internet...."));
+		//Try download new data
+		try {
+			DataFetcher.downloadData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i <COUNT_LIMIT;i++) {
+			double progress = (100*i) / COUNT_LIMIT;
+			notifyPreloader(new ProgressMessage(progress, "Finalizing data...\t" + Double.toString(progress) + "%"));
+		}
+		
 	}
 	
 	/** 
@@ -57,13 +70,12 @@ public class MyApplication extends Application {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(getClass().getResource(UI_FILE));
    		VBox root = (VBox) loader.load();
-   		notifyPreloader(ProgressMessage.SUCESS);
    		Scene scene =  new Scene(root);
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
-   		stage.setTitle("Super Team T-21: Data Explorer on COVID-19 (Desmond Task A) Trivia PR");
+   		notifyPreloader(ProgressMessage.SUCESS);
+   		stage.setTitle("Mirror T-21: Data Explorer on COVID-19 (Desmond Task A) Trivia PR");
    		stage.show();
-
 	}
 
 	/**

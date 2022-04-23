@@ -81,12 +81,12 @@ public class Controller {
 		
 // 		textfieldDataset.setEditable(true);
 
-		//Try download new data
-		try {
-			DataFetcher.downloadData();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		//Try download new data
+//		try {
+//			DataFetcher.downloadData();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
     	
 		//Fetch all available files from dataset directory, then initialize choicebox, GUIShowHandlers, DataCache and defaultDataset
 		try {
