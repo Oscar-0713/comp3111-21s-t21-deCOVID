@@ -78,6 +78,7 @@ public class DeathDataAnalysis {
 	/**
 	 * Get the name of the data set
 	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;

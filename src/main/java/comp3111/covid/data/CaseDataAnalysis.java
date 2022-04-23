@@ -7,17 +7,23 @@ import java.util.Date;
 
 import comp3111.covid.GUI.GUISelectHandler;
 import comp3111.covid.Utilities.CountryCode;
-
+/**
+ * This class is for A1/2, which can handle total case scanerio
+ * @author Oscar Tse
+ *
+ */
 public class CaseDataAnalysis {
 	private ArrayList<CaseObject> result = new ArrayList<CaseObject>();
 	private GUISelectHandler handler;
 	private String dataset;
+
 	
 	/**
 	 * Constructor for class CaseDataAnalysis
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */
+  
 	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -69,6 +75,7 @@ public class CaseDataAnalysis {
 	/**
 	 * Get the name of the data set
 	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;

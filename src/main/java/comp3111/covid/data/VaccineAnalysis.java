@@ -7,11 +7,16 @@ import java.util.Date;
 
 import comp3111.covid.GUI.GUISelectHandler;
 import comp3111.covid.Utilities.CountryCode;
-
+/**
+ * Analysis the vaccination and its rate
+ * @author Oscar Tse
+ *
+ */
 public class VaccineAnalysis {
 	private ArrayList<VaccineObject> result = new ArrayList<VaccineObject>();
 	private GUISelectHandler handler;
 	private String dataset;
+
 	
 	/**
 	 * Constructor for class VaccineAnalysis
@@ -66,6 +71,7 @@ public class VaccineAnalysis {
 	/**
 	 * Get the name of the data set
 	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;
