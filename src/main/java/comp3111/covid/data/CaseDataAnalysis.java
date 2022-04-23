@@ -13,6 +13,11 @@ public class CaseDataAnalysis {
 	private GUISelectHandler handler;
 	private String dataset;
 	
+	/**
+	 * constructor for class CaseDataAnalysis
+	 * @param dataset the data set from which the data is retrieved
+	 * @param handler the handler used to handle inputs
+	 */
 	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -61,6 +66,10 @@ public class CaseDataAnalysis {
 		return result;
 	}
 	
+	/**
+	 * Get the name of the data set
+	 * @return the name
+	 */
 	public String getDataSet() {
 		return dataset;
 	}

@@ -20,6 +20,11 @@ public class DeathDataAnalysis {
 	private GUISelectHandler handler;
 	private String dataset;
 	
+	/**
+	 * constructor for class DeathDataAnalysis
+	 * @param dataset the data set from which the data is retrieved
+	 * @param handler the handler used to handle inputs
+	 */
 	public DeathDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -70,6 +75,10 @@ public class DeathDataAnalysis {
 		return result;
 	}
 	
+	/**
+	 * Get the name of the data set
+	 * @return the name
+	 */
 	public String getDataSet() {
 		return dataset;
 	}
