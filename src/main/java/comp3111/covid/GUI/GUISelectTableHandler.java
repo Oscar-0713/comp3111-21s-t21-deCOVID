@@ -16,6 +16,12 @@ import comp3111.covid.Utilities.DateUtilities;
  */
 public class GUISelectTableHandler extends GUISelectHandler {
 	private Date date;
+	
+	/**
+	 * 
+	 * @param selectedCountryName a list of string containing the selected countries
+	 * @param selectedDate the selected date of interest
+	 */
 	public GUISelectTableHandler(ArrayList<String> selectedCountryName, String selectedDate) {
 		for (String country: selectedCountryName) {
 			CountryCode code = CountryCode.getByName(country);

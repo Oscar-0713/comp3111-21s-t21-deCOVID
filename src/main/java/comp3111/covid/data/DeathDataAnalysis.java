@@ -2,6 +2,8 @@ package comp3111.covid.data;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import comp3111.covid.GUI.GUISelectHandler;
 import comp3111.covid.Utilities.CountryCode;
@@ -18,6 +20,11 @@ public class DeathDataAnalysis {
 	private GUISelectHandler handler;
 	private String dataset;
 	
+	/**
+	 * Constructor for class DeathDataAnalysis
+	 * @param dataset the data set from which the data is retrieved
+	 * @param handler the handler used to handle inputs
+	 */
 	public DeathDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -39,7 +46,7 @@ public class DeathDataAnalysis {
 				}
 			} 
 			//moved to Controller
-			/* 
+			 
 			else {
 				// replicated in the controller part as easier to handle the chart (at least for me XD)
 				Date selectedDate1 = handler.getSelectedDate().get("selectStart");
@@ -47,8 +54,8 @@ public class DeathDataAnalysis {
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				LocalDate startDate = selectedDate1.toInstant().atZone(defaultZoneId).toLocalDate();
 				LocalDate endDate = selectedDate2.toInstant().atZone(defaultZoneId).toLocalDate();
+				DataCache.getCache();
 				for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
-					DataCache.getCache();
 					Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
 					DayDataObject data = DataCache.getCache().getData(dataset, code, dateDate);
 					if (data != null) {
@@ -56,10 +63,7 @@ public class DeathDataAnalysis {
 						result.add(object);
 					}
 				}
-				*/
-			
-			
-			
+			}
 		}
 	}
 	
@@ -72,8 +76,9 @@ public class DeathDataAnalysis {
 	}
 	
 	/**
-	 * Get the current dataset
-	 * @return dataset
+	 * Get the name of the data set
+	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;
