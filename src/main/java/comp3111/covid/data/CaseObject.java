@@ -8,6 +8,7 @@ public class CaseObject {
 	private CountryCode country;
 	private long totalCase;
 	private float totalDeathPerMillion;
+	private float newCases;
 	
 	private StringProperty countryOutput;
 	private StringProperty totalCaseOutput;
@@ -20,6 +21,15 @@ public class CaseObject {
 		this.totalCase = totalCase;
 		this.totalDeathPerMillion = casePerMillion;
 		constructString();
+	}
+	
+	public CaseObject(CountryCode country, long totalCase, float casePerMillion, float newCases) {
+		this.country = country;
+		this.totalCase = totalCase;
+		this.totalDeathPerMillion = casePerMillion;
+		constructString();
+		
+		this.newCases = newCases;
 	}
 	
 	private void constructString() {
@@ -58,4 +68,9 @@ public class CaseObject {
 	public String getCasepermillion() {
 		return casePerMillsionOutput.get();
 	}
+	
+	public float getNewCase() {
+		return newCases;
+	}
+	
 }

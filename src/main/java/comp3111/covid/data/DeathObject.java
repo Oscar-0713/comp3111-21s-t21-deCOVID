@@ -8,6 +8,7 @@ public class DeathObject {
 	private CountryCode country;
 	private long totalDeath;
 	private float totalDeathPerMillion;
+	private float newDeaths;
 	
 	private StringProperty countryOutput;
 	private StringProperty totalDeathOutput;
@@ -20,6 +21,15 @@ public class DeathObject {
 		this.totalDeath = totalDeath;
 		this.totalDeathPerMillion = deathPerMillion;
 		constructString();
+	}
+	
+	public DeathObject(CountryCode country, long totalDeath, float deathPerMillion, float newDeaths) {
+		this.country = country;
+		this.totalDeath = totalDeath;
+		this.totalDeathPerMillion = deathPerMillion;
+		constructString();
+		
+		this.newDeaths = newDeaths;
 	}
 	
 	private void constructString() {
@@ -57,5 +67,9 @@ public class DeathObject {
 	
 	public String getDeathpermillion() {
 		return deathPerMillsionOutput.get();
+	}
+	
+	public float getNewDeaths() {
+		return newDeaths;
 	}
 }

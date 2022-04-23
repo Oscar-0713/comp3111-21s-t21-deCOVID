@@ -56,8 +56,8 @@ public class DataCache {
 			HashMap<Date, DayDataObject> map = tempMap.get(code);
 			Date date = DateUtilities.getDateFormat().parse(record.get("date"));
 			
-			String newCase = record.get("new_cases");
-			String newDeath = record.get("new_deaths");
+			String newCase = record.get("new_cases_smoothed");
+			String newDeath = record.get("new_deaths_smoothed");
 			String fullyVaccinated = record.get("people_fully_vaccinated");
 			String population = record.get("population");
 			String totalCase = record.get("total_cases");
