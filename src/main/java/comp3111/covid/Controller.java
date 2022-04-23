@@ -25,6 +25,7 @@ import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 import comp3111.covid.data.VaccineAnalysis;
 import comp3111.covid.data.VaccineObject;
+import javafx.application.Preloader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,7 +68,6 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
-
 
 		//Master
 		taskB1Table.setVisible(false);
@@ -151,6 +151,8 @@ public class Controller {
     	taskB2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskC2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+	
+    	
 	}
 	
 	//This element will NOT hook to fxml
