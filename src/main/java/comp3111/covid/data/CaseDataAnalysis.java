@@ -14,7 +14,7 @@ public class CaseDataAnalysis {
 	private String dataset;
 	
 	/**
-	 * constructor for class CaseDataAnalysis
+	 * Constructor for class CaseDataAnalysis
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */

@@ -14,7 +14,7 @@ public class VaccineAnalysis {
 	private String dataset;
 	
 	/**
-	 * constructor for class VaccineAnalysis
+	 * Constructor for class VaccineAnalysis
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */

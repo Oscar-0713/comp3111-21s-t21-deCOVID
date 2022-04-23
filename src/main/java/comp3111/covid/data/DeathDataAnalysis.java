@@ -21,7 +21,7 @@ public class DeathDataAnalysis {
 	private String dataset;
 	
 	/**
-	 * constructor for class DeathDataAnalysis
+	 * Constructor for class DeathDataAnalysis
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */
