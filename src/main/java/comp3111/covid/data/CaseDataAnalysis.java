@@ -1,5 +1,7 @@
 package comp3111.covid.data;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,6 +28,25 @@ public class CaseDataAnalysis {
 				if (data != null) {
 					CaseObject object = data.getCaseObject(code);
 					result.add(object);
+				}
+			}
+			//moved to Controller
+			 
+			else {
+				// replicated in the controller part as easier to handle the chart (at least for me XD)
+				Date selectedDate1 = handler.getSelectedDate().get("selectStart");
+				Date selectedDate2 = handler.getSelectedDate().get("selectEnd");
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				LocalDate startDate = selectedDate1.toInstant().atZone(defaultZoneId).toLocalDate();
+				LocalDate endDate = selectedDate2.toInstant().atZone(defaultZoneId).toLocalDate();
+				DataCache.getCache();
+				for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+					Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+					DayDataObject data = DataCache.getCache().getData(dataset, code, dateDate);
+					if (data != null) {
+						CaseObject object = data.getCaseObject(code);
+						result.add(object);
+					}
 				}
 			}
 			
