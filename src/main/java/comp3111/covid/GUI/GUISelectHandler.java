@@ -19,7 +19,10 @@ abstract public class GUISelectHandler {
 	public ArrayList<CountryCode> getSelectedCountryList() {
 		return selectedCountry;
 	}
-	
+	/**
+	 * Return the number of available country
+	 * @return available country
+	 */
 	public int getSelectedCountryNum() {
 		return selectedCountry.size();
 	}

@@ -28,15 +28,7 @@ dependencies {
 	compile group: 'org.testfx', name: 'testfx-junit', version : '4.0.15-alpha'
 	
     testImplementation 'junit:junit:4.12'
-    
-    compile 'com.github.signaflo:timeseries:0.4'
-    compileOnly 'org.projectlombok:lombok:1.18.0'
 
-    implementation 'com.google.guava:guava:21.0'
-    implementation 'org.ejml:all:0.30'
-    implementation 'org.knowm.xchart:xchart:3.2.2'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
-    
     
     compile fileTree(include: ['*.jar'], dir: 'libs')
 }

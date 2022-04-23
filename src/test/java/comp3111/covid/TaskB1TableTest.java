@@ -44,6 +44,7 @@ public class TaskB1TableTest {
 		assertEquals(expected.get(1).getCountry(),analyse.getResult().get(1).getCountry());
 		assertEquals(expected.get(0).getDeath(), analyse.getResult().get(0).getDeath());
 		assertEquals(expected.get(1).getDeath(), analyse.getResult().get(1).getDeath());
-		
+		assertEquals(Float.parseFloat(expected.get(0).getDeathpermillion()) ,Float.parseFloat(analyse.getResult().get(0).getDeathpermillion()) ,0.01);
+		assertEquals(Float.parseFloat(expected.get(1).getDeathpermillion()) ,Float.parseFloat(analyse.getResult().get(1).getDeathpermillion()) ,0.01);
 	}
 }

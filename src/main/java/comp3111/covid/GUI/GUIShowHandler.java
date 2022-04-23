@@ -26,7 +26,11 @@ public class GUIShowHandler {
 	private HashMap<String, Date> dateRange = new HashMap<String, Date>();
 	
 	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	
+	/**
+	 * Constructor
+	 * @param dataset
+	 * @throws ParseException
+	 */
 	public GUIShowHandler(String dataset) throws ParseException {
 		for (CSVRecord record : DataAnalysis.getFileParser(dataset)) {
 			if (!availableCountry.contains(CountryCode.getByCode(record.get("iso_code"))) && CountryCode.getByCode(record.get("iso_code")) != null) {
