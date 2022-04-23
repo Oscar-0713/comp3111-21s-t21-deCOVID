@@ -2,6 +2,9 @@ package comp3111.covid;
 
 
 
+import com.sun.javafx.application.LauncherImpl;
+
+import comp3111.covid.Utilities.ProgressMessage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,6 +40,13 @@ public class MyApplication extends Application {
 
     private static final String UI_FILE = "/ui.fxml";  //file in the folder of src/main/resources/
 	private static final String CSS_SCENE_FILE = "/custom_theme.css"; //file in the folder of src/main/resources/
+	
+	/**
+	 * This is the initiation method for the whole application
+	 */
+	public void init() throws Exception {
+	}
+	
 	/** 
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 * 
@@ -47,11 +57,13 @@ public class MyApplication extends Application {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(getClass().getResource(UI_FILE));
    		VBox root = (VBox) loader.load();
+   		notifyPreloader(ProgressMessage.SUCESS);
    		Scene scene =  new Scene(root);
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
    		stage.setTitle("Super Team T-21: Data Explorer on COVID-19 (Desmond Task A) Trivia PR");
    		stage.show();
+
 	}
 
 	/**
@@ -59,7 +71,8 @@ public class MyApplication extends Application {
 	 * @param args - not used.
 	 */
 	public static void main(String args[]) {
-		Application.launch(args);
+		System.setProperty("javafx.preloader",MyPreLoader.class.getCanonicalName());
+		launch(args);
 	}
 
 
