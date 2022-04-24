@@ -18,7 +18,7 @@ public class MyPreLoader extends Preloader{
 	private static final String SPLASH_UI_FILE = "/SplashScreen.fxml";
 	
 	@FXML
-	private Label LoadLabel;
+	private Label loadingLabel;
 	
 	/**
 	 * Constructor
@@ -29,7 +29,9 @@ public class MyPreLoader extends Preloader{
 	
 	@Override
 	public void init() throws Exception {
-		Parent root1 = FXMLLoader.load(getClass().getResource(SPLASH_UI_FILE));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(SPLASH_UI_FILE));
+		loader.setController(this);
+		Parent root1 = loader.load();
 		scene = new Scene(root1);
 	}
 	
@@ -57,6 +59,9 @@ public class MyPreLoader extends Preloader{
 			}
 			if (((ProgressMessage) info).isFailed()) {
 				preLoaderStage.hide();
+			}
+			if (((ProgressMessage) info).getMessage() != null) {
+				loadingLabel.setText(((ProgressMessage) info).getMessage());
 			}
 		}
 	}
