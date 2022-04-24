@@ -1,5 +1,7 @@
 package comp3111.covid.data;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,10 +16,12 @@ public class VaccineAnalysis {
 	private ArrayList<VaccineObject> result = new ArrayList<VaccineObject>();
 	private GUISelectHandler handler;
 	private String dataset;
+
+	
 	/**
-	 * Constructor
-	 * @param dataset
-	 * @param handler
+	 * Constructor for class VaccineAnalysis
+	 * @param dataset the data set from which the data is retrieved
+	 * @param handler the handler used to handle inputs
 	 */
 	public VaccineAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
@@ -37,6 +41,23 @@ public class VaccineAnalysis {
 				}
 			}
 			
+			else {
+				// replicated in the controller part as easier to handle the chart (at least for me XD)
+				Date selectedDate1 = handler.getSelectedDate().get("selectStart");
+				Date selectedDate2 = handler.getSelectedDate().get("selectEnd");
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				LocalDate startDate = selectedDate1.toInstant().atZone(defaultZoneId).toLocalDate();
+				LocalDate endDate = selectedDate2.toInstant().atZone(defaultZoneId).toLocalDate();
+				DataCache.getCache();
+				for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+					Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+					DayDataObject data = DataCache.getCache().getData(dataset, code, dateDate);
+					if (data != null) {
+						VaccineObject object = data.getVaccineObject(code);
+						result.add(object);
+					}
+				}
+			}
 		}
 	}
 	/**
@@ -48,8 +69,9 @@ public class VaccineAnalysis {
 	}
 	
 	/**
-	 * Get the current dataset
-	 * @return
+	 * Get the name of the data set
+	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;

@@ -36,12 +36,30 @@ public class DayDataObject {
 	}
 	
 	/**
+	 * compatibility interface to get DeathObject, specialized for new death data
+	 * @param code
+	 * @return DeathObject
+	 */
+	public DeathObject getNewDeathObject(CountryCode code) {
+		return new DeathObject(code, totalDeath, (float) ((float)(totalDeath) / ((float) (population/ONE_MILLION))), (float) newDeath);
+	}
+	
+	/**
 	 * compatibility interface to get CaseObject
 	 * @param code
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getCaseObject(CountryCode code) {
 		return new CaseObject(code, totalCase, (float) ((float)(totalCase) / ((float) (population/ONE_MILLION))));
+	}
+	
+	/**
+	 * compatibility interface to get CaseObject, specialized for new case data
+	 * @param code
+	 * @return The targeted CaseObject for display
+	 */
+	public CaseObject getNewCaseObject(CountryCode code) {
+		return new CaseObject(code, totalCase, (float) ((float)(totalCase) / ((float) (population/ONE_MILLION))), (float) newCase);
 	}
 	
 	/**

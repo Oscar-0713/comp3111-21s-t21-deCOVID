@@ -84,8 +84,9 @@ public class MyApplication extends Application {
    		Scene scene =  new Scene(root);
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
+
    		notifyPreloader(ProgressMessage.SUCESS);
-   		stage.setTitle("Mirror T-21: Data Explorer on COVID-19 (Desmond Task A) Trivia PR");
+   		stage.setTitle("Team T-21: COVID-19 Data Explorer");
    		stage.show();
 	}
 

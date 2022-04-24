@@ -1,5 +1,7 @@
 package comp3111.covid.data;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,11 +16,14 @@ public class CaseDataAnalysis {
 	private ArrayList<CaseObject> result = new ArrayList<CaseObject>();
 	private GUISelectHandler handler;
 	private String dataset;
+
+	
 	/**
-	 * Constructor
-	 * @param dataset
-	 * @param handler
+	 * Constructor for class CaseDataAnalysis
+	 * @param dataset the data set from which the data is retrieved
+	 * @param handler the handler used to handle inputs
 	 */
+  
 	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -36,6 +41,25 @@ public class CaseDataAnalysis {
 					result.add(object);
 				}
 			}
+			//moved to Controller
+			 
+			else {
+				// replicated in the controller part as easier to handle the chart (at least for me XD)
+				Date selectedDate1 = handler.getSelectedDate().get("selectStart");
+				Date selectedDate2 = handler.getSelectedDate().get("selectEnd");
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				LocalDate startDate = selectedDate1.toInstant().atZone(defaultZoneId).toLocalDate();
+				LocalDate endDate = selectedDate2.toInstant().atZone(defaultZoneId).toLocalDate();
+				DataCache.getCache();
+				for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)) {
+					Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+					DayDataObject data = DataCache.getCache().getData(dataset, code, dateDate);
+					if (data != null) {
+						CaseObject object = data.getCaseObject(code);
+						result.add(object);
+					}
+				}
+			}
 			
 		}
 		
@@ -47,9 +71,11 @@ public class CaseDataAnalysis {
 	public ArrayList<CaseObject> getResult() {
 		return result;
 	}
+	
 	/**
-	 * Get the current using dataset
-	 * @return the dataset using
+	 * Get the name of the data set
+	 * @return the name
+
 	 */
 	public String getDataSet() {
 		return dataset;
