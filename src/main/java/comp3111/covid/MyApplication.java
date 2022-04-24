@@ -2,8 +2,6 @@ package comp3111.covid;
 
 
 
-import com.sun.javafx.application.LauncherImpl;
-
 import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.ProgressMessage;
 import javafx.application.Application;
@@ -38,25 +36,38 @@ import javafx.stage.Stage;
  * 
  */
 public class MyApplication extends Application {
-
+	private Thread progressThread = new Thread() {
+		public void run() {
+			for (int i = 0; i <COUNT_LIMIT;i++) {
+				if (isDownlaoded) {
+					return;
+				}
+				double progress = (100*i) / COUNT_LIMIT;
+				notifyPreloader(new ProgressMessage(progress, "Finalizing data...\t" + Double.toString(progress) + "%"));
+			}
+		}
+	};
+	private static boolean isDownlaoded = false;
     private static final String UI_FILE = "/ui.fxml";  //file in the folder of src/main/resources/
 	private static final String CSS_SCENE_FILE = "/custom_theme.css"; //file in the folder of src/main/resources/
-	private static final int COUNT_LIMIT = 250000;
+	private static final int COUNT_LIMIT = 1000000;
 	/**
 	 * This is the initiation method for the whole application
 	 */
 	public void init() throws Exception {
-		notifyPreloader(new ProgressMessage(0.0, "Fetching newest data from Internet...."));
+		//notifyPreloader(new ProgressMessage(0.0, "Fetching newest data from Internet...."));
 		//Try download new data
 		try {
+			progressThread.start();
 			DataFetcher.downloadData();
+			isDownlaoded = true;
+			notifyPreloader(new ProgressMessage(100, "Finalizing data...\t100%"));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (int i = 0; i <COUNT_LIMIT;i++) {
-			double progress = (100*i) / COUNT_LIMIT;
-			notifyPreloader(new ProgressMessage(progress, "Finalizing data...\t" + Double.toString(progress) + "%"));
-		}
+		
+
 		
 	}
 	
