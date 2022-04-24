@@ -2,8 +2,7 @@ package comp3111.covid;
 
 
 
-import com.sun.javafx.application.LauncherImpl;
-
+import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.ProgressMessage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,14 +36,39 @@ import javafx.stage.Stage;
  * 
  */
 public class MyApplication extends Application {
-
+	private Thread progressThread = new Thread() {
+		public void run() {
+			for (int i = 0; i <COUNT_LIMIT;i++) {
+				if (isDownlaoded) {
+					return;
+				}
+				double progress = (100*i) / COUNT_LIMIT;
+				notifyPreloader(new ProgressMessage(progress, "Finalizing data...\t" + Double.toString(progress) + "%"));
+			}
+		}
+	};
+	private static boolean isDownlaoded = false;
     private static final String UI_FILE = "/ui.fxml";  //file in the folder of src/main/resources/
 	private static final String CSS_SCENE_FILE = "/custom_theme.css"; //file in the folder of src/main/resources/
-	
+	private static final int COUNT_LIMIT = 1000000;
 	/**
 	 * This is the initiation method for the whole application
 	 */
 	public void init() throws Exception {
+		//notifyPreloader(new ProgressMessage(0.0, "Fetching newest data from Internet...."));
+		//Try download new data
+		try {
+			progressThread.start();
+			DataFetcher.downloadData();
+			isDownlaoded = true;
+			notifyPreloader(new ProgressMessage(100, "Finalizing data...\t100%"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		
 	}
 	
 	/** 
@@ -57,13 +81,13 @@ public class MyApplication extends Application {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(getClass().getResource(UI_FILE));
    		VBox root = (VBox) loader.load();
-   		notifyPreloader(ProgressMessage.SUCESS);
    		Scene scene =  new Scene(root);
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
+
+   		notifyPreloader(ProgressMessage.SUCESS);
    		stage.setTitle("Team T-21: COVID-19 Data Explorer");
    		stage.show();
-
 	}
 
 	/**
