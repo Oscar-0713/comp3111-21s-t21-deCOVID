@@ -13,7 +13,16 @@ import com.github.signaflo.timeseries.model.arima.Arima.FittingStrategy;
 import com.github.signaflo.timeseries.forecast.Forecast;
 import com.github.signaflo.timeseries.forecast.Forecaster;
 
+/**
+ * This class uses the timeseries forecasting library developed by signaflo to perform prediction on daily COVID cases and deaths
+ * https://github.com/signaflo/java-timeseries.git
+ * @author Desmond Lau 
+ * 
+ */
 public class DataForecast {
+	/**
+	 * Function to test forecasting prediction, for internal development uses only
+	 */
 	public static void test() {
 		ArrayList<Float> inputs = new ArrayList<Float>(Arrays.asList(0.0f, 0.0f, 2.0f, 3.0f, 5.0f, 8.0f, 9.0f, 8.0f));
 		List<Double> outputs = predictValues(5, inputs, 2, 1, 2).get('P');
@@ -24,14 +33,14 @@ public class DataForecast {
 	}
 	
 	/**
-	 * Uses the ARIMA forecasting model to produce point estimate forecasts for the given data
+	 * Uses the ARIMA forecasting model to produce 7-day forecasts for the given data points
 	 * @param numDays, the number of days ahead for prediction
 	 * @param inputs, the data points used for forecasting
 	 * @param p, the AR parameter for ARIMA
 	 * @param d, the I parameter for ARIMA
 	 * @param q, the MA parameter for ARIMA
-	 * @return the list containing forecast results
-	 */
+	 * @return hashmap containing point estimates, 95% upperbound points and 95% lowerbound points
+	 */	
 	public static HashMap<Character, List<Double>> predictValues(int numDays, ArrayList<Float> inputs, int p, int d, int q){
 		
 		TimeSeries historical = TimeSeries.from(tofloat(inputs));

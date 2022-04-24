@@ -383,6 +383,9 @@ public class Controller {
 	    ForecastChart.getXAxis().setAutoRanging(true);
 	    ForecastChart.getYAxis().setAutoRanging(true);
 	    ForecastChart.setCreateSymbols(false);
+	    ForecastChart.setAnimated(false);
+        ForecastChart.getXAxis().setLabel("Date");
+        ForecastChart.getYAxis().setLabel("Number of new COVID deaths");
 		String country = selectedCountry.get(0);
 	    
 	    XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
@@ -445,6 +448,7 @@ public class Controller {
 		pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
 		
 		ForecastChart.setVisible(true);
+		ForecastChart.setLegendVisible(false);
 	}
 
     void ForecastCase(ArrayList<String> selectedCountry) {
@@ -468,6 +472,9 @@ public class Controller {
         ForecastChart.getXAxis().setAutoRanging(true);
         ForecastChart.getYAxis().setAutoRanging(true);
         ForecastChart.setCreateSymbols(false);
+        ForecastChart.setAnimated(false);
+        ForecastChart.getXAxis().setLabel("Date");
+        ForecastChart.getYAxis().setLabel("Number of new COVID cases");
     	String country = selectedCountry.get(0);
         
     	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
@@ -531,10 +538,11 @@ public class Controller {
 	    	useries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 200, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
 			lseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(200, 0.0, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
 			pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
-			useries.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: #FFFFFF, white;");
+			//useries.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: #FFFFFF, white;");
     	});
     	
 		ForecastChart.setVisible(true);
+		ForecastChart.setLegendVisible(false);
         
     }
 

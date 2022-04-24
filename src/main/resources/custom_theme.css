@@ -156,6 +156,8 @@ Extended by Oscar Tse */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
   }
+  
+
 
   .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
@@ -207,3 +209,12 @@ Extended by Oscar Tse */
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
+
+.table-view {
+	-fx-background-color: #f0f9ff;
+}
+
+.table-column .column-header-background{
+    -fx-background-color: white;
+}
+
