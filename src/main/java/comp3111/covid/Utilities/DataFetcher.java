@@ -27,31 +27,24 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * This class is used to downlaod the latest dataset from the GitHub repository hosted by OWID
- * @author Desmond
+ * https://github.com/owid/covid-19-data.git
+ * @author Desmond Lau
  * 
  */
 
 public class DataFetcher {
-	/**
-	 * Downloads latest dataset to src/main/resources/dataset/dataset_new.csv
-	 * @return 0 if the download is successful, 1 otherwise
-	 * @throws IOException
-	 * @throws URISyntaxException
-	 */
 	
 	private static final String RESOURCE_PATH = "/src/main/resources/dataset/";
 	private static final String absPath = new File("").getAbsolutePath();
 	private static final String oldname = "dataset_pre.csv";
 	private static final String newname = "dataset_new.csv";
 	
-	public static void main(String arges[]) {
-		try {
-			processData("dataset_new.csv");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+	/**
+	 * Downloads latest dataset to src/main/resources/dataset/dataset_new.csv
+	 * @return 0 if the download is successful, -1 otherwise
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
 	public static int downloadData()  throws IOException, URISyntaxException {		
 		String downloadUrl = getURL();
 		String targetPath = absPath + RESOURCE_PATH + oldname;
@@ -66,6 +59,12 @@ public class DataFetcher {
 		}
 	}
 	
+	/**
+	 * Function to fetch newest dataset from OWID's database from github
+	 * @return download url
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static String getURL() throws IOException, URISyntaxException{
 		RestTemplate restTemplate = new RestTemplate();
@@ -101,7 +100,7 @@ public class DataFetcher {
         return 0;
     }
 	
-	public static void processData(String dataset) throws Exception{
+	private static void processData(String dataset) throws Exception{
 		Reader reader = Files.newBufferedReader(Paths.get(absPath + RESOURCE_PATH + dataset));
         CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                 .withFirstRecordAsHeader().withIgnoreHeaderCase(false));
