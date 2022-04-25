@@ -45,14 +45,10 @@ public class MyPreLoader extends Preloader{
 		preLoaderStage.initStyle(StageStyle.UNDECORATED);
 		preLoaderStage.show();
 	}
-	
+
 	@Override
 	public void handleApplicationNotification(Preloader.PreloaderNotification info) {
-		if (info instanceof ProgressNotification) {
-			//Change the label
-			//Like ... setText
-		}
-		
+
 		if (info instanceof ProgressMessage) {
 			if (((ProgressMessage) info).isDone()) {
 				preLoaderStage.hide();
