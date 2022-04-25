@@ -6,8 +6,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import comp3111.covid.GUI.GUIPreventSelection;
 import comp3111.covid.GUI.GUISelectTableHandler;
@@ -25,6 +27,11 @@ import comp3111.covid.data.DeathDataAnalysis;
 import comp3111.covid.data.DeathObject;
 import comp3111.covid.data.VaccineAnalysis;
 import comp3111.covid.data.VaccineObject;
+
+import comp3111.covid.data.DataForecast;
+import javafx.application.Platform;
+import javafx.application.Preloader;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,7 +64,7 @@ public class Controller {
 	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
 	private static String defaultDataset;
 	private static GUIShowHandler handler;
-	
+	private static HashMap<String, Character> dataChoice = new HashMap<>();
 	
 	/**
 	 * This function will be triggered once the controller is being initialized
@@ -65,7 +72,6 @@ public class Controller {
 	 */
 	@FXML
 	public void initialize() {
-
 
 		//Master
 		taskB1Table.setVisible(false);
@@ -75,16 +81,17 @@ public class Controller {
 		taskB2Chart.setVisible(false);
 		taskA2Chart.setVisible(false);
 		taskC2Chart.setVisible(false);
+		ForecastChart.setVisible(false);
 
 		
 // 		textfieldDataset.setEditable(true);
 
-		//Try download new data
-		try {
-			DataFetcher.downloadData();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		//Try download new data
+//		try {
+//			DataFetcher.downloadData();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
     	
 		//Fetch all available files from dataset directory, then initialize choicebox, GUIShowHandlers, DataCache and defaultDataset
 		try {
@@ -115,6 +122,13 @@ public class Controller {
     		e.printStackTrace();
     	}
 		
+		dataChoice.put("Total COVID Deaths", 'D');
+		dataChoice.put("Total COVID Cases", 'C');
+		
+		for(String choice : dataChoice.keySet()) {
+			forecastChoiceData.getItems().add(choice);
+		}
+		
 		//Initialize tasks with default datset
 		try {
 			
@@ -132,10 +146,14 @@ public class Controller {
 					taskB2DynamicListView.getItems().add(box4);
 					taskA2DynamicListView.getItems().add(box5);
 					taskC2DynamicListView.getItems().add(box6);
+					
+					CheckBox box7 = new CheckBox(code.getName());
+					forecastDynamicListView.getItems().add(box7);
 			}
 			taskB1ErrorLabel.setVisible(false);
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
+			ForecastErrorLabel.setVisible(false);
 
 		} catch (Exception e) {
 
@@ -149,12 +167,25 @@ public class Controller {
     	taskB2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskC2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
+    	
+    	forecastDynamicListView.setSelectionModel(new GUIPreventSelection<>());
+
 	}
 	
 	//This element will NOT hook to fxml
 	private ObservableList<DeathObject> taskB1TableList;
 	private ObservableList<CaseObject> taskA1TableList;
 	private ObservableList<VaccineObject> taskC1TableList;
+	
+	
+	@FXML
+    private ListView<CheckBox> forecastDynamicListView;
+	
+	@FXML
+    private LineChart<String, Number> ForecastChart;
+	
+	@FXML
+    private Label ForecastErrorLabel;
 	
 	@FXML
 	private DatePicker taskC2DatePicker1;
@@ -260,6 +291,9 @@ public class Controller {
     
     @FXML
     private ChoiceBox<String> choicefieldDataset;
+    
+    @FXML
+    private ChoiceBox<String> forecastChoiceData;
 
     @FXML
     private Tab tabReport1;
@@ -278,11 +312,252 @@ public class Controller {
 
     @FXML
     private Tab tabApp3;
+    
+    @FXML
+    private Tab tabForecast;
 
     @FXML
     private TextArea textAreaConsole;
 
+    @FXML
+    void ForecastConfirmClicked(ActionEvent event) {
+    	//Add picked countries to the list
+    	//Terminate the operation if the user has NOT picked any country
+    	ForecastErrorLabel.setVisible(false);
+    	ForecastChart.getData().clear();
+    	
+    	ArrayList<String> selectedCountry = new ArrayList<String>();
+    	
+    	for (int i = 0; i < forecastDynamicListView.getItems().size(); i++) {
+    		if (forecastDynamicListView.getItems().get(i).isSelected()) {
+    			selectedCountry.add(forecastDynamicListView.getItems().get(i).getText());
+    		}
+    	}
+    	
+    	//Handle input validation on date and datatype
+    	String choice = forecastChoiceData.getValue();
+    	
+    	if (selectedCountry.size() != 1) {
+    		ForecastErrorLabel.setVisible(true);
+    		ForecastErrorLabel.setText("Please pick only one country!");
+    		ForecastErrorLabel.setTextFill(Color.RED);
+    		return;
+    	} else if (choice == null) {
+    		ForecastErrorLabel.setVisible(true);
+    		ForecastErrorLabel.setText("Please select the forecast data type!");
+    		ForecastErrorLabel.setTextFill(Color.RED);
+    		return;
+    	}
+    	
+    	
+    	switch (dataChoice.get(choice)) {
+    		case 'D':
+    			ForecastDeath(selectedCountry);
+    			break;
+    		case 'C':
+    			ForecastCase(selectedCountry);
+    			break;
+    	}
+    	
+    	return;
+    	
+    }
+    
+    void ForecastDeath(ArrayList<String> selectedCountry) {
+    	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate startDate = endDate.plusDays(-21);
+		LocalDate displayStart = endDate.plusDays(-3);
+		
+		String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+		String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+		String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+		
+		
+		GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
+		DeathDataAnalysis analysis = new DeathDataAnalysis(defaultDataset, handler);
+		
+		//Handle output
+	    //y-axis for (Number type), x-axis for the Date (String type)
+	    ForecastChart.getData().clear(); // clear previous data first
+	    ForecastChart.setTitle("7 day forecast of new COVID deaths per day");
+	    ForecastChart.getXAxis().setAutoRanging(true);
+	    ForecastChart.getYAxis().setAutoRanging(true);
+	    ForecastChart.setCreateSymbols(false);
+	    ForecastChart.setAnimated(false);
+        ForecastChart.getXAxis().setLabel("Date");
+        ForecastChart.getYAxis().setLabel("Number of new COVID deaths");
+		String country = selectedCountry.get(0);
+	    
+	    XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
+	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
+	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
+	    
+		pseries.setName(country);
+		useries.setName("Upper Bound");
+		lseries.setName("Lower Bound");	
+		
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		CountryCode code = CountryCode.getByName(country);
+		String dataSet = analysis.getDataSet();
+		
+		ArrayList<Float> inputDates = new ArrayList<>();
+		
+		//loop through each day within the range and add to inputDates for forecasting
+		for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+			DataCache.getCache();
+			Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+			DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
+			Float previous = 0f;
+			String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+			if (data != null) {
+				DeathObject object = data.getNewDeathObject(code);
+				Float num = object.getNewDeaths();
+				if (num == 0) {
+					inputDates.add(previous);
+				} else {
+					previous = num;
+					inputDates.add(num);
+				}
+			} else {
+				inputDates.add(previous);
+			}
+			
+			if (date.isAfter(displayStart)) {
+				pseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, previous));
+			}
+		}
+		
+		HashMap<Character, List<Double>> forecastResults = DataForecast.predictValues(7, inputDates, 7, 2, 3);
+    	List<Double> fPoints = forecastResults.get('P');
+    	List<Double> uInterval = forecastResults.get('U');
+    	List<Double> lInterval = forecastResults.get('L');
+		
+		for(int i = 0; i < 7; i++) {
+			LocalDate date = endDate.plusDays(i);
+			String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+			pseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, fPoints.get(i))));
+			useries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, uInterval.get(i))));
+			lseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, lInterval.get(i))));
+		}
+		
+		
+		ForecastChart.getData().addAll(pseries, useries, lseries);
+		
+		useries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 200, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
+		lseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(200, 0.0, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
+		pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
+		
+		ForecastChart.setVisible(true);
+		ForecastChart.setLegendVisible(false);
+	}
+
+    void ForecastCase(ArrayList<String> selectedCountry) {
+ 
+    	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    	LocalDate startDate = endDate.plusDays(-21);
+    	LocalDate displayStart = endDate.plusDays(-3);
+    	
+    	String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    	
+    	
+    	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
+    	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
+    	
+    	//Handle output
+        //y-axis for (Number type), x-axis for the Date (String type)
+        ForecastChart.getData().clear(); // clear previous data first
+        ForecastChart.setTitle("7 day forecast of new COVID cases per day");
+        ForecastChart.getXAxis().setAutoRanging(true);
+        ForecastChart.getYAxis().setAutoRanging(true);
+        ForecastChart.setCreateSymbols(false);
+        ForecastChart.setAnimated(false);
+        ForecastChart.getXAxis().setLabel("Date");
+        ForecastChart.getYAxis().setLabel("Number of new COVID cases");
+    	String country = selectedCountry.get(0);
+        
+    	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
+	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
+	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
+	    
+		pseries.setName(country);
+		useries.setName("Upper Bound");
+		lseries.setName("Lower Bound");
+    	
+    	
+    	ZoneId defaultZoneId = ZoneId.systemDefault();
+    	CountryCode code = CountryCode.getByName(country);
+    	String dataSet = analysis.getDataSet();
+    	
+    	ArrayList<Float> inputDates = new ArrayList<>();
+    	
+    	//loop through each day within the range and add to inputDates for forecasting
+    	for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+    		DataCache.getCache();
+			Date dateDate = Date.from(date.atStartOfDay(defaultZoneId).toInstant());
+			DayDataObject data = DataCache.getCache().getData(dataSet, code, dateDate);
+			Float previous = 0f;
+			String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+			if (data != null) {
+				CaseObject object = data.getNewCaseObject(code);
+				Float num = object.getNewCase();
+				if (num == 0) {
+					inputDates.add(previous);
+				} else {
+					previous = num;
+					inputDates.add(num);
+				}
+			} else {
+				inputDates.add(previous);
+			}
+			
+			if (date.isAfter(displayStart)) {
+				pseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, previous));
+			}
+    	}
+    	
+    	HashMap<Character, List<Double>> forecastResults = DataForecast.predictValues(7, inputDates, 7, 2, 3);
+    	List<Double> fPoints = forecastResults.get('P');
+    	List<Double> uInterval = forecastResults.get('U');
+    	List<Double> lInterval = forecastResults.get('L');
+    	
+    	for(int i = 0; i < 7; i++) {
+    		LocalDate date = endDate.plusDays(i);
+    		String formattedDateForX = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    		pseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, fPoints.get(i))));
+			useries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, uInterval.get(i))));
+			lseries.getData().add(new XYChart.Data<String,Number>(formattedDateForX, Double.max(0.0, lInterval.get(i))));
+    	}
+    	
+    	
+    	ForecastChart.getData().addAll(pseries, useries, lseries);
+		
   
+    	Platform.runLater(() -> {
+	    	useries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 200, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
+			lseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(200, 0.0, 0.0, 1.0); -fx-stroke-dash-array: 10 10 10 10;");
+			pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
+			//useries.getNode().lookup(".chart-line-symbol").setStyle("-fx-background-color: #FFFFFF, white;");
+    	});
+    	
+		ForecastChart.setVisible(true);
+		ForecastChart.setLegendVisible(false);
+        
+    }
+
+    @FXML
+    void ForecastResetClicked(ActionEvent event) {
+    	for (int i = 0; i < forecastDynamicListView.getItems().size();i++) {
+    		forecastDynamicListView.getItems().get(i).setSelected(false);
+    	}
+    	forecastChoiceData.setValue(null);
+    	ForecastErrorLabel.setVisible(false);
+    	ForecastChart.getData().clear();
+    	ForecastChart.setVisible(false);
+    }
+    
+    
     @FXML
     void doSwitchData(ActionEvent event) {
     	
@@ -690,7 +965,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
-    	CaseDataAnalysis analysis = new CaseDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
@@ -782,7 +1057,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
-    	DeathDataAnalysis analysis = new DeathDataAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	DeathDataAnalysis analysis = new DeathDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
@@ -874,7 +1149,7 @@ public class Controller {
     	
     	//Create handler
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, formattedDates1, formattedDates2);
-    	VaccineAnalysis analysis = new VaccineAnalysis("COVID_Dataset_v1.0.csv", handler);
+    	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
@@ -907,4 +1182,5 @@ public class Controller {
         taskC2Chart.setVisible(true);
     }
 }
+
 

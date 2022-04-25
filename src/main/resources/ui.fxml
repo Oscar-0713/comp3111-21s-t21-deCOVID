@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -27,7 +28,7 @@
               <tabs>
                 <Tab fx:id="tabTaskZero" text="Task Zero">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="853.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="358.0" prefWidth="853.0" style="-fx-background-image: #2;" styleClass="arrow">
                            <children>
                               <Label layoutX="114.0" layoutY="81.0" prefHeight="18.0" prefWidth="58.0" text="ISO Code" />
                               <TextField fx:id="textfieldISO" layoutX="185.0" layoutY="77.0" prefHeight="26.0" prefWidth="43.0" promptText="e.g 1830 (18: yr 18-19; 30: Spring)" text="HKG" />
@@ -37,7 +38,7 @@
                               <Button fx:id="buttonRateOfVaccination" layoutX="535.0" layoutY="134.0" mnemonicParsing="false" onAction="#doRateOfVaccination" text="Rate of Vaccination" />
                               <Button fx:id="buttonConfirmedCases" layoutX="185.0" layoutY="134.0" mnemonicParsing="false" onAction="#doConfirmedCases" text="Confirmed Cases" />
                               <Button fx:id="buttonSwitchData" layoutX="422.0" layoutY="33.0" mnemonicParsing="false" onAction="#doSwitchData" prefHeight="25.0" prefWidth="175.0" text="Select as Default Dataset" />
-                              <ChoiceBox fx:id="choicefieldDataset" layoutX="185.0" layoutY="32.0" prefHeight="25.0" prefWidth="182.0" />
+                              <ChoiceBox fx:id="choicefieldDataset" layoutX="185.0" layoutY="32.0" prefHeight="25.0" prefWidth="182.0" styleClass="arrow-button" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -67,7 +68,7 @@
                                     </Text>
                                     <Button layoutX="90.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA1ResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
                                     <Button layoutX="178.0" layoutY="450.0" mnemonicParsing="false" onAction="#onTaskA1ConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
-                                    <TableView fx:id="taskA1Table" layoutX="367.0" layoutY="44.0" prefHeight="458.0" prefWidth="754.0">
+                                    <TableView fx:id="taskA1Table" layoutX="367.0" layoutY="44.0" prefHeight="458.0" prefWidth="754.0" style="-fx-background-color: #f0f9ff;" styleClass="list-view">
                                        <columns>
                                           <TableColumn prefWidth="75.0" text="C1" />
                                           <TableColumn prefWidth="75.0" text="C2" />
@@ -293,6 +294,46 @@
                            </children>
                         </AnchorPane>
                      </content>
+                  </Tab>
+                  <Tab fx:id="tabForecast" text="Forecast">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Additional Feature: COVID Forecasting">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="14.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="106.0" layoutY="472.0" mnemonicParsing="false" onAction="#ForecastResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
+                              <Button layoutX="194.0" layoutY="472.0" mnemonicParsing="false" onAction="#ForecastConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
+                              <ListView fx:id="forecastDynamicListView" layoutX="100.0" layoutY="100.0" prefHeight="300.0" prefWidth="238.0" />
+                              <LineChart fx:id="ForecastChart" layoutX="358.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                                 <styleClass>
+                                    <String fx:value="upper" />
+                                    <String fx:value="lower" />
+                                 </styleClass>
+                              </LineChart>
+                              <Text layoutX="14.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datatype">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                              <ChoiceBox fx:id="forecastChoiceData" layoutX="100.0" layoutY="61.0" prefHeight="25.0" prefWidth="238.0" />
+                              <Label fx:id="ForecastErrorLabel" layoutX="106.0" layoutY="435.0" prefHeight="24.0" prefWidth="238.0" textFill="RED" />
+                           </children>
+                        </AnchorPane>
+                    </content>
                   </Tab>
               </tabs>
             </TabPane>
