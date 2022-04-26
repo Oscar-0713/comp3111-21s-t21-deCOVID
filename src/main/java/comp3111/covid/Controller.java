@@ -233,28 +233,28 @@ public class Controller {
 	private Label taskA2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskC1DatePicker;
+	DatePicker taskC1DatePicker;
 	
 	@FXML
-	private ListView<CheckBox> taskC1DynamicListView;
+	ListView<CheckBox> taskC1DynamicListView;
 	
 	@FXML
 	private TableView<VaccineObject> taskC1Table;
 	
 	@FXML
-	private Label taskC1ErrorLabel;
+	Label taskC1ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA1DatePicker;
+	DatePicker taskA1DatePicker;
 	
 	@FXML
-	private Label taskA1ErrorLabel;
+	Label taskA1ErrorLabel;
 	
 	@FXML
-	private ListView<CheckBox> taskA1DynamicListView;
+	ListView<CheckBox> taskA1DynamicListView;
 	
 	@FXML
-	private TableView<CaseObject> taskA1Table;
+	TableView<CaseObject> taskA1Table;
 	
 	@FXML
 	private Label taskB1ErrorLabel;
@@ -290,7 +290,7 @@ public class Controller {
     private Button buttonSwitchData;
     
     @FXML
-    private ChoiceBox<String> choicefieldDataset;
+    ChoiceBox<String> choicefieldDataset;
     
     @FXML
     private ChoiceBox<String> forecastChoiceData;
