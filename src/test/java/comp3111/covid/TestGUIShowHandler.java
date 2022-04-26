@@ -1,6 +1,7 @@
 package comp3111.covid;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,8 +10,6 @@ import java.util.Date;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-
 
 import comp3111.covid.GUI.GUIShowHandler;
 import comp3111.covid.Utilities.CountryCode;
@@ -47,5 +46,7 @@ public class TestGUIShowHandler {
 		assertTrue(testClass.getStartDate().compareTo(startDate) > 0);
 		assertTrue(testClass.getEndDate().compareTo(endDate) < 0);
 	}
+	
+
 
 }

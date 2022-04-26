@@ -42,5 +42,9 @@
 	<classpathentry kind="lib" path="libs/simple-0.30.jar"/>
 	<classpathentry kind="lib" path="libs/smile-core-2.6.0.jar"/>
 	<classpathentry kind="lib" path="libs/smile-math-2.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/oscar/git/comp3111-21s-t21-eclipse/libs/assertj-core-3.13.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/oscar/Downloads/assertj-core-3.13.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/oscar/Downloads/testfx-junit-4.0.15-alpha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/oscar/Downloads/testfx-core-4.0.15-alpha.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
