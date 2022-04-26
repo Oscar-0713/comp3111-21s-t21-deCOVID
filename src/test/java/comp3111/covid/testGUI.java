@@ -46,7 +46,7 @@ public class testGUI extends ApplicationTest {
 		assertTrue(true);
 	}
 	
-	@Test
+	
 	public void testButton() {
 		 controller.onTaskC2ResetClicked(null);
 		 controller.onTaskA1ResetClicked(null);
