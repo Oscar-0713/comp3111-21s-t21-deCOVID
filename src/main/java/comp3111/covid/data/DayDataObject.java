@@ -15,8 +15,8 @@ public class DayDataObject {
 	private long population;
 	private long totalCase;
 	private long totalDeath;
+	private boolean isMissing;
 	private static double ONE_MILLION = 1000000;
-	
 	public DayDataObject(long newCase, long newDeath, long fullyVanccinated, long population, long totalCase, long totalDeath) {
 		this.newCase = newCase;
 		this.newDeath = newDeath;

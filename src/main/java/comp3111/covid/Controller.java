@@ -203,13 +203,13 @@ public class Controller {
 	private Label taskC2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskB2DatePicker1;
+	DatePicker taskB2DatePicker1;
 	
 	@FXML
-	private DatePicker taskB2DatePicker2;
+	DatePicker taskB2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskB2DynamicListView;
+	ListView<CheckBox> taskB2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskB2Chart;
@@ -266,10 +266,10 @@ public class Controller {
 	private TabPane globalTabPane;
 	
 	@FXML
-	private ListView<CheckBox> taskB1DynamicListView;
+	ListView<CheckBox> taskB1DynamicListView;
 
 	@FXML
-	private DatePicker taskB1DatePicker;
+	DatePicker taskB1DatePicker;
 	
     @FXML
     private Tab tabTaskZero;
@@ -363,7 +363,8 @@ public class Controller {
     	
     }
     
-    void ForecastDeath(ArrayList<String> selectedCountry) {
+    @SuppressWarnings("unchecked")
+	void ForecastDeath(ArrayList<String> selectedCountry) {
     	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate startDate = endDate.plusDays(-21);
 		LocalDate displayStart = endDate.plusDays(-3);
