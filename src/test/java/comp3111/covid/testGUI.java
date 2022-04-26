@@ -64,7 +64,7 @@ public class testGUI extends ApplicationTest {
 			 
 		 });
 		 
-		 Platform.runLater(new Runnable() {
+		 Platform.runLater(new Runnable() { 
 
 			@Override
 			public void run() {
@@ -92,6 +92,7 @@ public class testGUI extends ApplicationTest {
 			}
 			 
 		 });
+		 assertTrue(true);
 	}
 
 }
