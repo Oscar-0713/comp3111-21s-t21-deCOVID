@@ -23,7 +23,6 @@ public class CaseDataAnalysis {
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */
-  
 	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;

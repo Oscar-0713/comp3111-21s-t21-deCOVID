@@ -37,6 +37,9 @@ import javafx.stage.Stage;
  * 
  */
 public class MyApplication extends Application {
+	/**
+	 * This thread is for pretending processing data
+	 */
 	private Thread progressThread = new Thread() {
 		public void run() {
 			for (int i = 0; i <COUNT_LIMIT;i++) {

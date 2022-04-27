@@ -21,9 +21,9 @@ public class CaseObject {
 	
 	/**
 	 * Constructor
-	 * @param country
-	 * @param totalCase
-	 * @param casePerMillion
+	 * @param country Country code of that object
+	 * @param totalCase number of total case
+	 * @param casePerMillion case per million
 	 */
 	public CaseObject(CountryCode country, long totalCase, float casePerMillion) {
 		this.country = country;
@@ -31,7 +31,13 @@ public class CaseObject {
 		this.totalDeathPerMillion = casePerMillion;
 		constructString();
 	}
-	
+	/**
+	 * Another constructor
+	 * @param country Country code of this object
+	 * @param totalCase number of total case
+	 * @param casePerMillion case per million 
+	 * @param newCases number of new cases
+	 */
 	public CaseObject(CountryCode country, long totalCase, float casePerMillion, float newCases) {
 		this.country = country;
 		this.totalCase = totalCase;
@@ -102,7 +108,10 @@ public class CaseObject {
 	public String getCasepermillion() {
 		return casePerMillsionOutput.get();
 	}
-	
+	/**
+	 * Get number of new cases
+	 * @return the number of new cases
+	 */
 	public float getNewCase() {
 		return newCases;
 	}

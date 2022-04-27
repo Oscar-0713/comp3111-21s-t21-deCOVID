@@ -19,12 +19,12 @@ public class DayDataObject {
 	private static double ONE_MILLION = 1000000;
 	/**
 	 * This the original constructor, default as true in "isMissing"
-	 * @param newCase
-	 * @param newDeath
-	 * @param fullyVanccinated
-	 * @param population
-	 * @param totalCase
-	 * @param totalDeath
+	 * @param newCase number of new case
+	 * @param newDeath number of new Death
+	 * @param fullyVanccinated number of new vaccinated
+	 * @param population number of population
+	 * @param totalCase number of total case
+	 * @param totalDeath number of total case
 	 */
 	public DayDataObject(long newCase, long newDeath, long fullyVanccinated, long population, long totalCase, long totalDeath) {
 		this.newCase = newCase;
@@ -34,7 +34,16 @@ public class DayDataObject {
 		this.totalCase = totalCase;
 		this.totalDeath = totalDeath;
 	}
-	
+	/**
+	 * New constructor to make record of data missing
+	 * @param newCase number of new case
+	 * @param newDeath number of new Death
+	 * @param fullyVanccinated number of new vaccinated
+	 * @param population number of population
+	 * @param totalCase number of total case
+	 * @param totalDeath number of total case
+	 * @param isMissing whether the data is missing
+	 */
 	public DayDataObject(long newCase, long newDeath, long fullyVanccinated, long population, long totalCase, long totalDeath, boolean isMissing) {
 		this.newCase = newCase;
 		this.newDeath = newDeath;
