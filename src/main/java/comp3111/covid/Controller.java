@@ -122,8 +122,8 @@ public class Controller {
     		e.printStackTrace();
     	}
 		
-		dataChoice.put("Total COVID Deaths", 'D');
-		dataChoice.put("Total COVID Cases", 'C');
+		dataChoice.put("Daily COVID Deaths", 'D');
+		dataChoice.put("Daily COVID Cases", 'C');
 		
 		for(String choice : dataChoice.keySet()) {
 			forecastChoiceData.getItems().add(choice);
@@ -475,8 +475,15 @@ public class Controller {
         ForecastChart.setAnimated(false);
         ForecastChart.getXAxis().setLabel("Date");
         ForecastChart.getYAxis().setLabel("Number of new COVID cases");
-    	String country = selectedCountry.get(0);
+    	
+        String country = null;
         
+        try {
+        	country = selectedCountry.get(0);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        	
     	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
