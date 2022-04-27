@@ -19,6 +19,7 @@ public class DeathDataAnalysis {
 	private ArrayList<DeathObject> result = new ArrayList<DeathObject>();
 	private GUISelectHandler handler;
 	private String dataset;
+	private boolean isMissing = false;
 	
 	/**
 	 * Constructor for class DeathDataAnalysis
@@ -43,6 +44,9 @@ public class DeathDataAnalysis {
 				if (data != null) {
 					DeathObject object = data.getDeathObject(code);
 					result.add(object);
+					if (data.isMissing()) {
+						isMissing = true;
+					}
 				}
 			} 
 			//moved to Controller
@@ -84,5 +88,11 @@ public class DeathDataAnalysis {
 		return dataset;
 	}
 	
-	
+	/**
+	 * Return whether the data is missing
+	 * @return true if missing, false otherwise
+	 */
+	public boolean getIsMissing() {
+		return isMissing;
+	}
 }

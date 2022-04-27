@@ -75,6 +75,8 @@
                                        </columns>
                                     </TableView>
                                     <Label fx:id="taskA1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskA1TitleLabel" layoutX="600.0" layoutY="11.0" style="-fx-font-size: 24;" text="COVID-19 Total Case Table" visible="false" />
+                                    <Label fx:id="taskA1WarnMissingLabel" layoutX="374.0" layoutY="508.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -113,6 +115,8 @@
                                       </columns>
                                     </TableView>
                                     <Label fx:id="taskB1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskB1TitleLabel" layoutX="595.0" layoutY="11.0" style="-fx-font-size: 24;" text="COVID-19 Total Death Table" visible="false" />
+                                    <Label fx:id="taskB1WarnMissingLabel" layoutX="367.0" layoutY="502.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -151,6 +155,8 @@
                                        </columns>
                                     </TableView>
                                     <Label fx:id="taskC1ErrorLabel" layoutX="29.0" layoutY="400.0" prefHeight="36.0" prefWidth="328.0" textFill="RED" />
+                                    <Label fx:id="taskC1TitleLabel" layoutX="631.0" layoutY="11.0" style="-fx-font-size: 24;" text="COVID-19 Total Vaccination Table" visible="false" />
+                                    <Label fx:id="taskC1WarnMissingLabel" layoutX="367.0" layoutY="502.0" />
                                  </children>
                               </AnchorPane>
                            </children>

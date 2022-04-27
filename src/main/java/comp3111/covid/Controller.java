@@ -19,6 +19,7 @@ import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.DateUtilities;
 import comp3111.covid.Utilities.DevelopmentUtilities;
+import comp3111.covid.Utilities.GUIUtiltities;
 import comp3111.covid.data.CaseDataAnalysis;
 import comp3111.covid.data.CaseObject;
 import comp3111.covid.data.DataCache;
@@ -177,6 +178,15 @@ public class Controller {
 	private ObservableList<CaseObject> taskA1TableList;
 	private ObservableList<VaccineObject> taskC1TableList;
 	
+	@FXML
+	private Label taskB1WarnMissingLabel;
+	
+	@FXML
+	private Label taskA1WarnMissingLabel;
+	
+	@FXML
+	private Label taskC1WarnMissingLabel;
+	
 	
 	@FXML
     private ListView<CheckBox> forecastDynamicListView;
@@ -233,28 +243,28 @@ public class Controller {
 	private Label taskA2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskC1DatePicker;
+	DatePicker taskC1DatePicker;
 	
 	@FXML
-	private ListView<CheckBox> taskC1DynamicListView;
+	ListView<CheckBox> taskC1DynamicListView;
 	
 	@FXML
 	private TableView<VaccineObject> taskC1Table;
 	
 	@FXML
-	private Label taskC1ErrorLabel;
+	Label taskC1ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA1DatePicker;
+	DatePicker taskA1DatePicker;
 	
 	@FXML
-	private Label taskA1ErrorLabel;
+	Label taskA1ErrorLabel;
 	
 	@FXML
-	private ListView<CheckBox> taskA1DynamicListView;
+	ListView<CheckBox> taskA1DynamicListView;
 	
 	@FXML
-	private TableView<CaseObject> taskA1Table;
+	TableView<CaseObject> taskA1Table;
 	
 	@FXML
 	private Label taskB1ErrorLabel;
@@ -290,7 +300,7 @@ public class Controller {
     private Button buttonSwitchData;
     
     @FXML
-    private ChoiceBox<String> choicefieldDataset;
+    ChoiceBox<String> choicefieldDataset;
     
     @FXML
     private ChoiceBox<String> forecastChoiceData;
@@ -319,6 +329,15 @@ public class Controller {
     @FXML
     private TextArea textAreaConsole;
 
+    @FXML
+    private Label taskA1TitleLabel;
+    
+    @FXML
+    private Label taskB1TitleLabel;
+    
+    @FXML
+    private Label taskC1TitleLabel;
+    
     @FXML
     void ForecastConfirmClicked(ActionEvent event) {
     	//Add picked countries to the list
@@ -648,10 +667,7 @@ public class Controller {
      */
     @FXML
     void onTaskA1ResetClicked(ActionEvent event) {
-    	taskA1DatePicker.setValue(null);
-    	for (int i = 0; i < taskA1DynamicListView.getItems().size();i++) {
-    		taskA1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskA1DatePicker, taskA1DynamicListView);
     }
     
     /**
@@ -661,6 +677,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskA1ConfirmClicked(ActionEvent event) {
+    	taskA1WarnMissingLabel.setVisible(false);
     	taskA1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskA1DatePicker.getValue() == null) {
@@ -709,7 +726,7 @@ public class Controller {
     	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
-    	
+    	taskA1TitleLabel.setVisible(true);
     	//Reset Table Column
     	TableColumn<CaseObject, String> country = new TableColumn<>("Country");
     	country.setCellValueFactory(new PropertyValueFactory<>("country"));
@@ -718,6 +735,11 @@ public class Controller {
     	TableColumn<CaseObject, String> casePerMillion = new TableColumn<>("Total Case / 1M");
     	casePerMillion.setCellValueFactory(new PropertyValueFactory<>("casepermillion"));
     	taskA1Table.getColumns().setAll(country, case1, casePerMillion);
+    	
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskA1WarnMissingLabel);
+    	}
     	
     	//Reset Observable List
     	taskA1TableList = FXCollections.observableList(analysis.getResult());
@@ -730,24 +752,22 @@ public class Controller {
     /**
      * Task B1: Reset button click event
      * Reset the checked country and date
-     * @param event
+     * @param event GUI Build-in event
      */
     @FXML
     void onTaskB1ResetClicked(ActionEvent event) {
-    	taskB1DatePicker.setValue(null);
-    	for (int i = 0; i < taskB1DynamicListView.getItems().size();i++) {
-    		taskB1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskB1DatePicker, taskB1DynamicListView);
     }
     
     /**
      * Task B1: Confirm button click event.
      * Confirm and generate table
-     * @param event
+     * @param event GUI Build-in event
      */
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskB1ConfirmClicked(ActionEvent event) {
+    	
     	taskB1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB1DatePicker.getValue() == null) {
@@ -797,6 +817,11 @@ public class Controller {
     	
     	//Handle output
     	
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskB1WarnMissingLabel);
+    	}
+    	taskB1TitleLabel.setVisible(true);
     	//Reset Table Column
     	TableColumn<DeathObject, String> country = new TableColumn<>("Country");
     	country.setCellValueFactory(new PropertyValueFactory<>("country"));
@@ -819,10 +844,7 @@ public class Controller {
      */
     @FXML
     void onTaskC1ResetClicked(ActionEvent event) {
-    	taskC1DatePicker.setValue(null);
-    	for (int i = 0; i < taskC1DynamicListView.getItems().size();i++) {
-    		taskC1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskC1DatePicker, taskC1DynamicListView);
     }
     
     /**
@@ -880,6 +902,11 @@ public class Controller {
     	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	taskC1TitleLabel.setVisible(true);
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskC1WarnMissingLabel);
+    	}
     	
     	//Reset Table Column
     	TableColumn<VaccineObject, String> country = new TableColumn<>("Country");
