@@ -47,6 +47,6 @@ public class TestGUIShowHandler {
 		assertTrue(testClass.getEndDate().compareTo(endDate) < 0);
 	}
 	
-	
+
 
 }

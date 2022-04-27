@@ -16,7 +16,7 @@ public class VaccineAnalysis {
 	private ArrayList<VaccineObject> result = new ArrayList<VaccineObject>();
 	private GUISelectHandler handler;
 	private String dataset;
-
+	private boolean isMissing = false;
 	
 	/**
 	 * Constructor for class VaccineAnalysis
@@ -38,6 +38,9 @@ public class VaccineAnalysis {
 				if (data != null) {
 					VaccineObject object = data.getVaccineObject(code);
 					result.add(object);
+					if (data.isMissing()) {
+						isMissing = true;
+					}
 				}
 			}
 			
@@ -75,5 +78,13 @@ public class VaccineAnalysis {
 	 */
 	public String getDataSet() {
 		return dataset;
+	}
+	
+	/**
+	 * Return whether corresponding data is missing
+	 * @return true if missing, false otherwise
+	 */
+	public boolean getIsMissing() {
+		return isMissing;
 	}
 }

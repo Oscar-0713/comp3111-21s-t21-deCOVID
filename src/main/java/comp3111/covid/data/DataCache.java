@@ -70,7 +70,12 @@ public class DataCache {
 			long longPopulation = 1;
 			long longTotalCase = 0;
 			long longTotalDeath = 0;
-			
+			boolean isMissing = true;
+			if (!newCase.equals("") && !newDeath.equals("") && !fullyVaccinated.equals("") &&
+					!population.equals("") && !totalCase.equals("") && !totalDeath.equals("")) {
+				isMissing = false;
+			}
+				
 			if (!newCase.equals("")) {
 				longNewCase = (long) Double.parseDouble(newCase);
 			}
@@ -95,7 +100,7 @@ public class DataCache {
 				longTotalDeath = (long) Double.parseDouble(totalDeath);
 			}
 			
-			DayDataObject object = new DayDataObject(longNewCase, longNewDeath, longFullyVaccinated, longPopulation, longTotalCase, longTotalDeath);
+			DayDataObject object = new DayDataObject(longNewCase, longNewDeath, longFullyVaccinated, longPopulation, longTotalCase, longTotalDeath, isMissing);
 			map.put(date, object);
 		}
 		dataMap.put(dataset, tempMap);
