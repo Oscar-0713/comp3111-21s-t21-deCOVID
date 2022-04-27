@@ -63,7 +63,7 @@ public class CaseObject {
 	
 	/**
 	 * Get country String Property
-	 * @return
+	 * @return Corresponding String Property
 	 */
 	public StringProperty countryProperty() {
 		return this.countryOutput;

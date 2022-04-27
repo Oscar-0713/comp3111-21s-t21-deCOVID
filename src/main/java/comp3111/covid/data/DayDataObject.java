@@ -57,7 +57,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get DeathObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return DeathObject
 	 */
 	public DeathObject getDeathObject(CountryCode code) {
@@ -66,7 +66,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get DeathObject, specialized for new death data
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return DeathObject
 	 */
 	public DeathObject getNewDeathObject(CountryCode code) {
@@ -75,7 +75,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get CaseObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getCaseObject(CountryCode code) {
@@ -84,7 +84,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get CaseObject, specialized for new case data
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getNewCaseObject(CountryCode code) {
@@ -93,7 +93,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get VaccineObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted VaccineObject for display
 	 */
 	public VaccineObject getVaccineObject(CountryCode code) {
