@@ -1,6 +1,8 @@
 package comp3111.covid;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -161,6 +163,31 @@ public class testGUI extends ApplicationTest {
 			 
 		 });
 		 assertTrue(true);
+	}
+	
+	@Test
+	public void testForecastController() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				controller.forecastDynamicListView.getItems().get(1).setSelected(true);
+				controller.forecastChoiceData.setValue("Daily COVID Cases");
+				controller.ForecastConfirmClicked(null);
+				assertNotNull(controller.ForecastChart.getData());
+				
+				controller.ForecastResetClicked(null);
+				for(CheckBox i : controller.forecastDynamicListView.getItems()) {
+					assertFalse(i.isSelected());
+				}
+				
+				assertNull(controller.forecastChoiceData.getValue());
+				
+				controller.forecastDynamicListView.getItems().get(1).setSelected(true);
+				controller.forecastChoiceData.setValue("Daily COVID Deaths");
+				controller.ForecastConfirmClicked(null);
+				assertNotNull(controller.ForecastChart.getData());			
+			}
+		});
 	}
 
 }
