@@ -38,7 +38,11 @@
                               <Button fx:id="buttonRateOfVaccination" layoutX="535.0" layoutY="134.0" mnemonicParsing="false" onAction="#doRateOfVaccination" text="Rate of Vaccination" />
                               <Button fx:id="buttonConfirmedCases" layoutX="185.0" layoutY="134.0" mnemonicParsing="false" onAction="#doConfirmedCases" text="Confirmed Cases" />
                               <Button fx:id="buttonSwitchData" layoutX="422.0" layoutY="33.0" mnemonicParsing="false" onAction="#doSwitchData" prefHeight="25.0" prefWidth="175.0" text="Select as Default Dataset" />
-                              <ChoiceBox fx:id="choicefieldDataset" layoutX="185.0" layoutY="32.0" prefHeight="25.0" prefWidth="182.0" styleClass="arrow-button" />
+                              <ChoiceBox fx:id="choicefieldDataset" layoutX="185.0" layoutY="32.0" prefHeight="25.0" prefWidth="182.0" stylesheets="@custom_theme.css">
+                                 <styleClass>
+                                    <String fx:value="arrow-button" />
+                                    <String fx:value="arrow" />
+                                 </styleClass></ChoiceBox>
                            </children>
                         </AnchorPane>
                   </content>

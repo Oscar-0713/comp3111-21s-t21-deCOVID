@@ -65,7 +65,7 @@ public class Controller {
 	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
 	private static String defaultDataset;
 	private static GUIShowHandler handler;
-	private static HashMap<String, Character> dataChoice = new HashMap<>();
+	private static HashMap<String, String> dataChoice = new HashMap<>();
 	
 	/**
 	 * This function will be triggered once the controller is being initialized
@@ -123,8 +123,8 @@ public class Controller {
     		e.printStackTrace();
     	}
 		
-		dataChoice.put("Total COVID Deaths", 'D');
-		dataChoice.put("Total COVID Cases", 'C');
+		dataChoice.put("Daily COVID Deaths", "deaths");
+		dataChoice.put("Daily COVID Cases", "cases");
 		
 		for(String choice : dataChoice.keySet()) {
 			forecastChoiceData.getItems().add(choice);
@@ -189,13 +189,13 @@ public class Controller {
 	
 	
 	@FXML
-    private ListView<CheckBox> forecastDynamicListView;
+    ListView<CheckBox> forecastDynamicListView;
 	
 	@FXML
-    private LineChart<String, Number> ForecastChart;
+    LineChart<String, Number> ForecastChart;
 	
 	@FXML
-    private Label ForecastErrorLabel;
+    Label ForecastErrorLabel;
 	
 	@FXML
 	private DatePicker taskC2DatePicker1;
@@ -303,7 +303,7 @@ public class Controller {
     ChoiceBox<String> choicefieldDataset;
     
     @FXML
-    private ChoiceBox<String> forecastChoiceData;
+    ChoiceBox<String> forecastChoiceData;
 
     @FXML
     private Tab tabReport1;
@@ -370,10 +370,10 @@ public class Controller {
     	
     	
     	switch (dataChoice.get(choice)) {
-    		case 'D':
+    		case "deaths":
     			ForecastDeath(selectedCountry);
     			break;
-    		case 'C':
+    		case "cases":
     			ForecastCase(selectedCountry);
     			break;
     	}
@@ -390,7 +390,6 @@ public class Controller {
 		
 		String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-		String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		
 		
 		GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -471,7 +470,8 @@ public class Controller {
 		ForecastChart.setLegendVisible(false);
 	}
 
-    void ForecastCase(ArrayList<String> selectedCountry) {
+    @SuppressWarnings("unchecked")
+	void ForecastCase(ArrayList<String> selectedCountry) {
  
     	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     	LocalDate startDate = endDate.plusDays(-21);
@@ -479,7 +479,6 @@ public class Controller {
     	
     	String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    	String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -495,8 +494,15 @@ public class Controller {
         ForecastChart.setAnimated(false);
         ForecastChart.getXAxis().setLabel("Date");
         ForecastChart.getYAxis().setLabel("Number of new COVID cases");
-    	String country = selectedCountry.get(0);
+    	
+        String country = null;
         
+        try {
+        	country = selectedCountry.get(0);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        	
     	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
@@ -942,8 +948,7 @@ public class Controller {
      * Task A2: Confirm button click event
      * @param event
      */
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskA2ConfirmClicked(ActionEvent event) {
     	taskA2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
@@ -1034,8 +1039,7 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
     	taskB2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
@@ -1126,8 +1130,7 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
     	taskC2ErrorLabel.setVisible(false);
     	//User doesn't pick a date

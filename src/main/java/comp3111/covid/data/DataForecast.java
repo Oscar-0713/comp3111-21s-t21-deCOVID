@@ -20,17 +20,7 @@ import com.github.signaflo.timeseries.forecast.Forecaster;
  * 
  */
 public class DataForecast {
-	/**
-	 * Function to test forecasting prediction, for internal development uses only
-	 */
-	public static void test() {
-		ArrayList<Float> inputs = new ArrayList<Float>(Arrays.asList(0.0f, 0.0f, 2.0f, 3.0f, 5.0f, 8.0f, 9.0f, 8.0f));
-		List<Double> outputs = predictValues(5, inputs, 2, 1, 2).get('P');
-		
-		System.out.println("Inputs: " + inputs.toString());
-		System.out.println("Outputs: " + outputs.toString());
-		
-	}
+	
 	
 	/**
 	 * Uses the ARIMA forecasting model to produce 7-day forecasts for the given data points
