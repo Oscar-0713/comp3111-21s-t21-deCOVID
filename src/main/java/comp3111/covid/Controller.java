@@ -198,13 +198,13 @@ public class Controller {
     Label ForecastErrorLabel;
 	
 	@FXML
-	private DatePicker taskC2DatePicker1;
+	DatePicker taskC2DatePicker1;
 	
 	@FXML
-	private DatePicker taskC2DatePicker2;
+	DatePicker taskC2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskC2DynamicListView;
+	ListView<CheckBox> taskC2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskC2Chart;
@@ -228,13 +228,13 @@ public class Controller {
 	private Label taskB2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA2DatePicker1;
+	DatePicker taskA2DatePicker1;
 	
 	@FXML
-	private DatePicker taskA2DatePicker2;
+	DatePicker taskA2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskA2DynamicListView;
+	ListView<CheckBox> taskA2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskA2Chart;
@@ -1005,6 +1005,7 @@ public class Controller {
         taskA2Chart.getData().clear(); // clear previous data first
         taskA2Chart.setAnimated(false);
         taskA2Chart.getXAxis().setLabel("Date");
+        taskA2Chart.getYAxis().setLabel("Number");
         taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
         taskA2Chart.getXAxis().setAutoRanging(true);
         taskA2Chart.getYAxis().setAutoRanging(true);
@@ -1096,6 +1097,7 @@ public class Controller {
         taskB2Chart.getData().clear(); // clear previous data first
         taskB2Chart.setAnimated(false);
         taskB2Chart.getXAxis().setLabel("Date");
+        taskB2Chart.getYAxis().setLabel("Number");
         taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Deaths (per 1M)");
         taskB2Chart.getXAxis().setAutoRanging(true);
         taskB2Chart.getYAxis().setAutoRanging(true);
