@@ -19,6 +19,7 @@ import comp3111.covid.Utilities.CountryCode;
 import comp3111.covid.Utilities.DataFetcher;
 import comp3111.covid.Utilities.DateUtilities;
 import comp3111.covid.Utilities.DevelopmentUtilities;
+import comp3111.covid.Utilities.GUIUtiltities;
 import comp3111.covid.data.CaseDataAnalysis;
 import comp3111.covid.data.CaseObject;
 import comp3111.covid.data.DataCache;
@@ -64,7 +65,7 @@ public class Controller {
 	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
 	private static String defaultDataset;
 	private static GUIShowHandler handler;
-	private static HashMap<String, Character> dataChoice = new HashMap<>();
+	private static HashMap<String, String> dataChoice = new HashMap<>();
 	
 	/**
 	 * This function will be triggered once the controller is being initialized
@@ -122,8 +123,8 @@ public class Controller {
     		e.printStackTrace();
     	}
 		
-		dataChoice.put("Total COVID Deaths", 'D');
-		dataChoice.put("Total COVID Cases", 'C');
+		dataChoice.put("Daily COVID Deaths", "deaths");
+		dataChoice.put("Daily COVID Cases", "cases");
 		
 		for(String choice : dataChoice.keySet()) {
 			forecastChoiceData.getItems().add(choice);
@@ -177,15 +178,24 @@ public class Controller {
 	private ObservableList<CaseObject> taskA1TableList;
 	private ObservableList<VaccineObject> taskC1TableList;
 	
+	@FXML
+	private Label taskB1WarnMissingLabel;
 	
 	@FXML
-    private ListView<CheckBox> forecastDynamicListView;
+	private Label taskA1WarnMissingLabel;
 	
 	@FXML
-    private LineChart<String, Number> ForecastChart;
+	private Label taskC1WarnMissingLabel;
+	
 	
 	@FXML
-    private Label ForecastErrorLabel;
+    ListView<CheckBox> forecastDynamicListView;
+	
+	@FXML
+    LineChart<String, Number> ForecastChart;
+	
+	@FXML
+    Label ForecastErrorLabel;
 	
 	@FXML
 	private DatePicker taskC2DatePicker1;
@@ -203,13 +213,13 @@ public class Controller {
 	private Label taskC2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskB2DatePicker1;
+	DatePicker taskB2DatePicker1;
 	
 	@FXML
-	private DatePicker taskB2DatePicker2;
+	DatePicker taskB2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskB2DynamicListView;
+	ListView<CheckBox> taskB2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskB2Chart;
@@ -233,28 +243,28 @@ public class Controller {
 	private Label taskA2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskC1DatePicker;
+	DatePicker taskC1DatePicker;
 	
 	@FXML
-	private ListView<CheckBox> taskC1DynamicListView;
+	ListView<CheckBox> taskC1DynamicListView;
 	
 	@FXML
 	private TableView<VaccineObject> taskC1Table;
 	
 	@FXML
-	private Label taskC1ErrorLabel;
+	Label taskC1ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA1DatePicker;
+	DatePicker taskA1DatePicker;
 	
 	@FXML
-	private Label taskA1ErrorLabel;
+	Label taskA1ErrorLabel;
 	
 	@FXML
-	private ListView<CheckBox> taskA1DynamicListView;
+	ListView<CheckBox> taskA1DynamicListView;
 	
 	@FXML
-	private TableView<CaseObject> taskA1Table;
+	TableView<CaseObject> taskA1Table;
 	
 	@FXML
 	private Label taskB1ErrorLabel;
@@ -266,10 +276,10 @@ public class Controller {
 	private TabPane globalTabPane;
 	
 	@FXML
-	private ListView<CheckBox> taskB1DynamicListView;
+	ListView<CheckBox> taskB1DynamicListView;
 
 	@FXML
-	private DatePicker taskB1DatePicker;
+	DatePicker taskB1DatePicker;
 	
     @FXML
     private Tab tabTaskZero;
@@ -290,10 +300,10 @@ public class Controller {
     private Button buttonSwitchData;
     
     @FXML
-    private ChoiceBox<String> choicefieldDataset;
+    ChoiceBox<String> choicefieldDataset;
     
     @FXML
-    private ChoiceBox<String> forecastChoiceData;
+    ChoiceBox<String> forecastChoiceData;
 
     @FXML
     private Tab tabReport1;
@@ -319,6 +329,15 @@ public class Controller {
     @FXML
     private TextArea textAreaConsole;
 
+    @FXML
+    private Label taskA1TitleLabel;
+    
+    @FXML
+    private Label taskB1TitleLabel;
+    
+    @FXML
+    private Label taskC1TitleLabel;
+    
     @FXML
     void ForecastConfirmClicked(ActionEvent event) {
     	//Add picked countries to the list
@@ -351,10 +370,10 @@ public class Controller {
     	
     	
     	switch (dataChoice.get(choice)) {
-    		case 'D':
+    		case "deaths":
     			ForecastDeath(selectedCountry);
     			break;
-    		case 'C':
+    		case "cases":
     			ForecastCase(selectedCountry);
     			break;
     	}
@@ -363,14 +382,14 @@ public class Controller {
     	
     }
     
-    void ForecastDeath(ArrayList<String> selectedCountry) {
+    @SuppressWarnings("unchecked")
+	void ForecastDeath(ArrayList<String> selectedCountry) {
     	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate startDate = endDate.plusDays(-21);
 		LocalDate displayStart = endDate.plusDays(-3);
 		
 		String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-		String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		
 		
 		GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -451,7 +470,8 @@ public class Controller {
 		ForecastChart.setLegendVisible(false);
 	}
 
-    void ForecastCase(ArrayList<String> selectedCountry) {
+    @SuppressWarnings("unchecked")
+	void ForecastCase(ArrayList<String> selectedCountry) {
  
     	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     	LocalDate startDate = endDate.plusDays(-21);
@@ -459,7 +479,6 @@ public class Controller {
     	
     	String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    	String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -475,8 +494,15 @@ public class Controller {
         ForecastChart.setAnimated(false);
         ForecastChart.getXAxis().setLabel("Date");
         ForecastChart.getYAxis().setLabel("Number of new COVID cases");
-    	String country = selectedCountry.get(0);
+    	
+        String country = null;
         
+        try {
+        	country = selectedCountry.get(0);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        	
     	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
@@ -647,10 +673,7 @@ public class Controller {
      */
     @FXML
     void onTaskA1ResetClicked(ActionEvent event) {
-    	taskA1DatePicker.setValue(null);
-    	for (int i = 0; i < taskA1DynamicListView.getItems().size();i++) {
-    		taskA1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskA1DatePicker, taskA1DynamicListView);
     }
     
     /**
@@ -660,6 +683,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskA1ConfirmClicked(ActionEvent event) {
+    	taskA1WarnMissingLabel.setVisible(false);
     	taskA1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskA1DatePicker.getValue() == null) {
@@ -708,7 +732,7 @@ public class Controller {
     	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
-    	
+    	taskA1TitleLabel.setVisible(true);
     	//Reset Table Column
     	TableColumn<CaseObject, String> country = new TableColumn<>("Country");
     	country.setCellValueFactory(new PropertyValueFactory<>("country"));
@@ -717,6 +741,11 @@ public class Controller {
     	TableColumn<CaseObject, String> casePerMillion = new TableColumn<>("Total Case / 1M");
     	casePerMillion.setCellValueFactory(new PropertyValueFactory<>("casepermillion"));
     	taskA1Table.getColumns().setAll(country, case1, casePerMillion);
+    	
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskA1WarnMissingLabel);
+    	}
     	
     	//Reset Observable List
     	taskA1TableList = FXCollections.observableList(analysis.getResult());
@@ -729,24 +758,22 @@ public class Controller {
     /**
      * Task B1: Reset button click event
      * Reset the checked country and date
-     * @param event
+     * @param event GUI Build-in event
      */
     @FXML
     void onTaskB1ResetClicked(ActionEvent event) {
-    	taskB1DatePicker.setValue(null);
-    	for (int i = 0; i < taskB1DynamicListView.getItems().size();i++) {
-    		taskB1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskB1DatePicker, taskB1DynamicListView);
     }
     
     /**
      * Task B1: Confirm button click event.
      * Confirm and generate table
-     * @param event
+     * @param event GUI Build-in event
      */
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskB1ConfirmClicked(ActionEvent event) {
+    	
     	taskB1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB1DatePicker.getValue() == null) {
@@ -796,6 +823,11 @@ public class Controller {
     	
     	//Handle output
     	
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskB1WarnMissingLabel);
+    	}
+    	taskB1TitleLabel.setVisible(true);
     	//Reset Table Column
     	TableColumn<DeathObject, String> country = new TableColumn<>("Country");
     	country.setCellValueFactory(new PropertyValueFactory<>("country"));
@@ -818,10 +850,7 @@ public class Controller {
      */
     @FXML
     void onTaskC1ResetClicked(ActionEvent event) {
-    	taskC1DatePicker.setValue(null);
-    	for (int i = 0; i < taskC1DynamicListView.getItems().size();i++) {
-    		taskC1DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskC1DatePicker, taskC1DynamicListView);
     }
     
     /**
@@ -879,6 +908,11 @@ public class Controller {
     	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	taskC1TitleLabel.setVisible(true);
+    	//Set warning label
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskC1WarnMissingLabel);
+    	}
     	
     	//Reset Table Column
     	TableColumn<VaccineObject, String> country = new TableColumn<>("Country");
@@ -914,8 +948,7 @@ public class Controller {
      * Task A2: Confirm button click event
      * @param event
      */
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskA2ConfirmClicked(ActionEvent event) {
     	taskA2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
@@ -1006,8 +1039,7 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
     	taskB2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
@@ -1098,8 +1130,7 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
     	taskC2ErrorLabel.setVisible(false);
     	//User doesn't pick a date

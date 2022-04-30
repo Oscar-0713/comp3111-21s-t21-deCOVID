@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -43,16 +44,13 @@ public class MyPreLoader extends Preloader{
 		//Set preloader scene and show stages
 		preLoaderStage.setScene(scene);
 		preLoaderStage.initStyle(StageStyle.UNDECORATED);
+		preLoaderStage.getIcons().add(new Image("/icon.png"));
 		preLoaderStage.show();
 	}
-	
+
 	@Override
 	public void handleApplicationNotification(Preloader.PreloaderNotification info) {
-		if (info instanceof ProgressNotification) {
-			//Change the label
-			//Like ... setText
-		}
-		
+
 		if (info instanceof ProgressMessage) {
 			if (((ProgressMessage) info).isDone()) {
 				preLoaderStage.hide();

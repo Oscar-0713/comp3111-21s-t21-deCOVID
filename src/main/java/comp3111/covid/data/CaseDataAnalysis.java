@@ -16,7 +16,7 @@ public class CaseDataAnalysis {
 	private ArrayList<CaseObject> result = new ArrayList<CaseObject>();
 	private GUISelectHandler handler;
 	private String dataset;
-
+	private boolean isMissing = false;
 	
 	/**
 	 * Constructor for class CaseDataAnalysis
@@ -39,6 +39,9 @@ public class CaseDataAnalysis {
 				if (data != null) {
 					CaseObject object = data.getCaseObject(code);
 					result.add(object);
+					if (data.isMissing()) {
+						isMissing = true;
+					}
 				}
 			}
 			//moved to Controller
@@ -81,4 +84,11 @@ public class CaseDataAnalysis {
 		return dataset;
 	}
 	
+	/**
+	 * Return whether any data is missing
+	 * @return true if missing, false otherwise
+	 */
+	public boolean getIsMissing() {
+		return isMissing;
+	}
 }
