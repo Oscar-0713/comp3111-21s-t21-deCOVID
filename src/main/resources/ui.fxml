@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -325,7 +326,7 @@
                               <Button layoutX="106.0" layoutY="472.0" mnemonicParsing="false" onAction="#ForecastResetClicked" prefHeight="30.0" prefWidth="70.0" text="Reset" />
                               <Button layoutX="194.0" layoutY="472.0" mnemonicParsing="false" onAction="#ForecastConfirmClicked" prefHeight="30.0" prefWidth="70.0" text="Confirm" />
                               <ListView fx:id="forecastDynamicListView" layoutX="100.0" layoutY="100.0" prefHeight="300.0" prefWidth="238.0" />
-                              <LineChart fx:id="ForecastChart" layoutX="358.0" layoutY="44.0" prefHeight="458.0" prefWidth="753.0">
+                              <LineChart fx:id="ForecastChart" layoutX="358.0" layoutY="44.0" prefHeight="385.0" prefWidth="753.0">
                                  <xAxis>
                                     <CategoryAxis side="BOTTOM" />
                                  </xAxis>
@@ -344,6 +345,35 @@
                               </Text>
                               <ChoiceBox fx:id="forecastChoiceData" layoutX="100.0" layoutY="61.0" prefHeight="25.0" prefWidth="238.0" />
                               <Label fx:id="ForecastErrorLabel" layoutX="106.0" layoutY="435.0" prefHeight="24.0" prefWidth="238.0" textFill="RED" />
+                              <Group fx:id="forecastlabels" layoutX="482.0" layoutY="448.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="▉ Point Estimates " wrappingWidth="138.13677978515625">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="95% Lower Bound " wrappingWidth="167.47012329101562">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" 95% Upper Bound" wrappingWidth="159.47012329101562">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#00c800" layoutX="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="▉">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fill="#c80000" layoutX="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="▉">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Group>
                            </children>
                         </AnchorPane>
                     </content>
