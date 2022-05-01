@@ -58,6 +58,9 @@ public class VaccineAnalysis {
 					if (data != null) {
 						VaccineObject object = data.getVaccineObject(code);
 						result.add(object);
+						if (data.isMissing()) {
+							isMissing = true;
+						}
 					}
 				}
 			}

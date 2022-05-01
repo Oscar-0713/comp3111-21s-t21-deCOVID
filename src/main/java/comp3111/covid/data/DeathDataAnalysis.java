@@ -65,6 +65,9 @@ public class DeathDataAnalysis {
 					if (data != null) {
 						DeathObject object = data.getDeathObject(code);
 						result.add(object);
+						if (data.isMissing()) {
+							isMissing = true;
+						}
 					}
 				}
 			}
