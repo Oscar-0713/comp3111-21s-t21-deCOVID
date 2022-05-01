@@ -63,7 +63,8 @@ public class GUIUtiltities {
 	public static void setErrorLabelO(Label label,ErrorLabel error) {
 		String text = "";
 		switch(error) {
-			case ERROR_INVALID_DATE, ERROR_INVALID_RANGE:
+			case ERROR_INVALID_DATE:
+			case ERROR_INVALID_RANGE:
 				text = "Invalid date range!";
 				break;
 			case ERROR_NO_COUNTRY:
