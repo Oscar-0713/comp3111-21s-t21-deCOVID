@@ -37,7 +37,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
@@ -65,7 +65,7 @@ public class Controller {
 	private static HashMap<String, GUIShowHandler> handlerList = new HashMap<>();
 	private static String defaultDataset;
 	private static GUIShowHandler handler;
-	private static HashMap<String, Character> dataChoice = new HashMap<>();
+	private static HashMap<String, String> dataChoice = new HashMap<>();
 	
 	/**
 	 * This function will be triggered once the controller is being initialized
@@ -123,8 +123,8 @@ public class Controller {
     		e.printStackTrace();
     	}
 		
-		dataChoice.put("Total COVID Deaths", 'D');
-		dataChoice.put("Total COVID Cases", 'C');
+		dataChoice.put("Daily COVID Deaths", "deaths");
+		dataChoice.put("Daily COVID Cases", "cases");
 		
 		for(String choice : dataChoice.keySet()) {
 			forecastChoiceData.getItems().add(choice);
@@ -155,6 +155,7 @@ public class Controller {
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
 			ForecastErrorLabel.setVisible(false);
+			forecastlabels.setVisible(false);
 
 		} catch (Exception e) {
 
@@ -187,24 +188,32 @@ public class Controller {
 	@FXML
 	private Label taskC1WarnMissingLabel;
 	
+	@FXML
+	private Label taskB2WarnMissingLabel;
 	
 	@FXML
-    private ListView<CheckBox> forecastDynamicListView;
+	private Label taskA2WarnMissingLabel;
 	
 	@FXML
-    private LineChart<String, Number> ForecastChart;
+	private Label taskC2WarnMissingLabel;
 	
 	@FXML
-    private Label ForecastErrorLabel;
+    ListView<CheckBox> forecastDynamicListView;
 	
 	@FXML
-	private DatePicker taskC2DatePicker1;
+    LineChart<String, Number> ForecastChart;
 	
 	@FXML
-	private DatePicker taskC2DatePicker2;
+    Label ForecastErrorLabel;
 	
 	@FXML
-	private ListView<CheckBox> taskC2DynamicListView;
+	DatePicker taskC2DatePicker1;
+	
+	@FXML
+	DatePicker taskC2DatePicker2;
+	
+	@FXML
+	ListView<CheckBox> taskC2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskC2Chart;
@@ -228,13 +237,13 @@ public class Controller {
 	private Label taskB2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA2DatePicker1;
+	DatePicker taskA2DatePicker1;
 	
 	@FXML
-	private DatePicker taskA2DatePicker2;
+	DatePicker taskA2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskA2DynamicListView;
+	ListView<CheckBox> taskA2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskA2Chart;
@@ -303,7 +312,7 @@ public class Controller {
     ChoiceBox<String> choicefieldDataset;
     
     @FXML
-    private ChoiceBox<String> forecastChoiceData;
+    ChoiceBox<String> forecastChoiceData;
 
     @FXML
     private Tab tabReport1;
@@ -339,10 +348,14 @@ public class Controller {
     private Label taskC1TitleLabel;
     
     @FXML
+    private Group forecastlabels;
+    
+    @FXML
     void ForecastConfirmClicked(ActionEvent event) {
     	//Add picked countries to the list
     	//Terminate the operation if the user has NOT picked any country
     	ForecastErrorLabel.setVisible(false);
+    	forecastlabels.setVisible(false);
     	ForecastChart.getData().clear();
     	
     	ArrayList<String> selectedCountry = new ArrayList<String>();
@@ -370,10 +383,10 @@ public class Controller {
     	
     	
     	switch (dataChoice.get(choice)) {
-    		case 'D':
+    		case "deaths":
     			ForecastDeath(selectedCountry);
     			break;
-    		case 'C':
+    		case "cases":
     			ForecastCase(selectedCountry);
     			break;
     	}
@@ -390,7 +403,6 @@ public class Controller {
 		
 		String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-		String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		
 		
 		GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -468,10 +480,12 @@ public class Controller {
 		pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
 		
 		ForecastChart.setVisible(true);
+		forecastlabels.setVisible(true);
 		ForecastChart.setLegendVisible(false);
 	}
 
-    void ForecastCase(ArrayList<String> selectedCountry) {
+    @SuppressWarnings("unchecked")
+	void ForecastCase(ArrayList<String> selectedCountry) {
  
     	LocalDate endDate = handler.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     	LocalDate startDate = endDate.plusDays(-21);
@@ -479,7 +493,6 @@ public class Controller {
     	
     	String fendDate = endDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	String fstartDate = startDate.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    	String fdisplayStart = displayStart.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     	
     	
     	GUISelectChartHandler handler = new GUISelectChartHandler(selectedCountry, fstartDate, fendDate);
@@ -495,8 +508,15 @@ public class Controller {
         ForecastChart.setAnimated(false);
         ForecastChart.getXAxis().setLabel("Date");
         ForecastChart.getYAxis().setLabel("Number of new COVID cases");
-    	String country = selectedCountry.get(0);
+    	
+        String country = null;
         
+        try {
+        	country = selectedCountry.get(0);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        	
     	XYChart.Series<String,Number> pseries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> useries = new XYChart.Series<String,Number>();
 	    XYChart.Series<String,Number> lseries = new XYChart.Series<String,Number>();
@@ -562,6 +582,7 @@ public class Controller {
     	});
     	
 		ForecastChart.setVisible(true);
+		forecastlabels.setVisible(true);
 		ForecastChart.setLegendVisible(false);
         
     }
@@ -575,6 +596,7 @@ public class Controller {
     	ForecastErrorLabel.setVisible(false);
     	ForecastChart.getData().clear();
     	ForecastChart.setVisible(false);
+    	forecastlabels.setVisible(false);
     }
     
     
@@ -767,7 +789,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskB1ConfirmClicked(ActionEvent event) {
-    	
+    	taskB1WarnMissingLabel.setVisible(false);
     	taskB1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB1DatePicker.getValue() == null) {
@@ -854,6 +876,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskC1ConfirmClicked(ActionEvent event) {
+    	taskC1WarnMissingLabel.setVisible(false);
     	taskC1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskC1DatePicker.getValue() == null) {
@@ -942,9 +965,9 @@ public class Controller {
      * Task A2: Confirm button click event
      * @param event
      */
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskA2ConfirmClicked(ActionEvent event) {
+    	taskA2WarnMissingLabel.setVisible(false);
     	taskA2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskA2DatePicker1.getValue() == null || taskA2DatePicker2.getValue() == null) {
@@ -996,10 +1019,14 @@ public class Controller {
     	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskA2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskA2Chart.getData().clear(); // clear previous data first
         taskA2Chart.setAnimated(false);
         taskA2Chart.getXAxis().setLabel("Date");
+        taskA2Chart.getYAxis().setLabel("Number");
         taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
         taskA2Chart.getXAxis().setAutoRanging(true);
         taskA2Chart.getYAxis().setAutoRanging(true);
@@ -1034,9 +1061,9 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
+    	taskB2WarnMissingLabel.setVisible(false);
     	taskB2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB2DatePicker1.getValue() == null || taskB2DatePicker2.getValue() == null) {
@@ -1088,10 +1115,14 @@ public class Controller {
     	DeathDataAnalysis analysis = new DeathDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskB2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskB2Chart.getData().clear(); // clear previous data first
         taskB2Chart.setAnimated(false);
         taskB2Chart.getXAxis().setLabel("Date");
+        taskB2Chart.getYAxis().setLabel("Number");
         taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Deaths (per 1M)");
         taskB2Chart.getXAxis().setAutoRanging(true);
         taskB2Chart.getYAxis().setAutoRanging(true);
@@ -1126,9 +1157,9 @@ public class Controller {
     	}
     }
     
-    @SuppressWarnings("unchecked")
-	@FXML
+    @FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
+    	taskC2WarnMissingLabel.setVisible(false);
     	taskC2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskC2DatePicker1.getValue() == null || taskC2DatePicker2.getValue() == null) {
@@ -1159,7 +1190,7 @@ public class Controller {
     	}
     	
     	//Handle the selected date
-
+    	
     	//Add picked countries to the list
     	//Terminate the operation if the user has NOT picked any country
     	ArrayList<String> selectedCountry = new ArrayList<String>();
@@ -1180,6 +1211,9 @@ public class Controller {
     	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskC2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskC2Chart.getData().clear(); // clear previous data first
         taskC2Chart.setAnimated(false);

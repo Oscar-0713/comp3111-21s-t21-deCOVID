@@ -1,6 +1,8 @@
 package comp3111.covid;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -103,6 +105,63 @@ public class testGUI extends ApplicationTest {
 	}
 	
 	@Test
+	public void testTaskA2Buttons() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				controller.taskA2DatePicker1.setValue(LocalDate.of(2020, 12, 23));
+				controller.taskA2DatePicker2.setValue(LocalDate.of(2020, 12, 24));
+				for (CheckBox i : controller.taskA2DynamicListView.getItems()) {
+					i.setSelected(true);
+				}
+				controller.onTaskA2ConfirmClicked(null);
+				controller.onTaskA2ResetClicked(null);
+				for (CheckBox i :controller.taskA2DynamicListView.getItems()) {
+					assertFalse(i.isSelected());
+				}
+			}
+		});
+	}
+	
+	@Test
+	public void testTaskB2Buttons() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				controller.taskB2DatePicker1.setValue(LocalDate.of(2020, 12, 23));
+				controller.taskB2DatePicker2.setValue(LocalDate.of(2020, 12, 24));
+				for (CheckBox i : controller.taskB2DynamicListView.getItems()) {
+					i.setSelected(true);
+				}
+				controller.onTaskB2ConfirmClicked(null);
+				controller.onTaskB2ResetClicked(null);
+				for (CheckBox i :controller.taskB2DynamicListView.getItems()) {
+					assertFalse(i.isSelected());
+				}
+			}
+		});
+	}
+	
+	@Test
+	public void testTaskC2Buttons() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				controller.taskC2DatePicker1.setValue(LocalDate.of(2020, 12, 23));
+				controller.taskC2DatePicker2.setValue(LocalDate.of(2020, 12, 24));
+				for (CheckBox i : controller.taskC2DynamicListView.getItems()) {
+					i.setSelected(true);
+				}
+				controller.onTaskC2ConfirmClicked(null);
+				controller.onTaskC2ResetClicked(null);
+				for (CheckBox i :controller.taskC2DynamicListView.getItems()) {
+					assertFalse(i.isSelected());
+				}
+			}
+		});
+	}
+	
+	@Test
 	public void testSelectData() {
 		Platform.runLater(new Runnable() {
 
@@ -161,6 +220,31 @@ public class testGUI extends ApplicationTest {
 			 
 		 });
 		 assertTrue(true);
+	}
+	
+	@Test
+	public void testForecastController() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				controller.forecastDynamicListView.getItems().get(1).setSelected(true);
+				controller.forecastChoiceData.setValue("Daily COVID Cases");
+				controller.ForecastConfirmClicked(null);
+				assertNotNull(controller.ForecastChart.getData());
+				
+				controller.ForecastResetClicked(null);
+				for(CheckBox i : controller.forecastDynamicListView.getItems()) {
+					assertFalse(i.isSelected());
+				}
+				
+				assertNull(controller.forecastChoiceData.getValue());
+				
+				controller.forecastDynamicListView.getItems().get(1).setSelected(true);
+				controller.forecastChoiceData.setValue("Daily COVID Deaths");
+				controller.ForecastConfirmClicked(null);
+				assertNotNull(controller.ForecastChart.getData());			
+			}
+		});
 	}
 
 }

@@ -59,6 +59,9 @@ public class CaseDataAnalysis {
 					if (data != null) {
 						CaseObject object = data.getCaseObject(code);
 						result.add(object);
+						if (data.isMissing()) {
+							isMissing = true;
+						}
 					}
 				}
 			}
