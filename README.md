@@ -5,7 +5,7 @@ Team ID: T21
 
 Name: Lau Cheuk Hei Desmond
 
-GitHubID: chdlau
+GitHubID: chdlau / desmondchlau
 
 Email: chdlau@connect.ust.hk
 
