@@ -37,7 +37,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
+import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
@@ -155,6 +155,7 @@ public class Controller {
 			taskA1ErrorLabel.setVisible(false);
 			taskC1ErrorLabel.setVisible(false);
 			ForecastErrorLabel.setVisible(false);
+			forecastlabels.setVisible(false);
 
 		} catch (Exception e) {
 
@@ -347,10 +348,14 @@ public class Controller {
     private Label taskC1TitleLabel;
     
     @FXML
+    private Group forecastlabels;
+    
+    @FXML
     void ForecastConfirmClicked(ActionEvent event) {
     	//Add picked countries to the list
     	//Terminate the operation if the user has NOT picked any country
     	ForecastErrorLabel.setVisible(false);
+    	forecastlabels.setVisible(false);
     	ForecastChart.getData().clear();
     	
     	ArrayList<String> selectedCountry = new ArrayList<String>();
@@ -475,6 +480,7 @@ public class Controller {
 		pseries.getNode().lookup(".chart-series-line").setStyle("-fx-stroke: rgba(0.0, 0.0, 0.0, 1.0);");
 		
 		ForecastChart.setVisible(true);
+		forecastlabels.setVisible(true);
 		ForecastChart.setLegendVisible(false);
 	}
 
@@ -576,6 +582,7 @@ public class Controller {
     	});
     	
 		ForecastChart.setVisible(true);
+		forecastlabels.setVisible(true);
 		ForecastChart.setLegendVisible(false);
         
     }
@@ -589,6 +596,7 @@ public class Controller {
     	ForecastErrorLabel.setVisible(false);
     	ForecastChart.getData().clear();
     	ForecastChart.setVisible(false);
+    	forecastlabels.setVisible(false);
     }
     
     

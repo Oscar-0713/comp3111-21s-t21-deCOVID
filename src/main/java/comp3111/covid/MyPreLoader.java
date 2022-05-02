@@ -11,7 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+/**
+ * This is the starting screen of the application. Note that the FXML loader is differ from the existing main application.
+ * Do not edit any algorithm from this class unleass you know what's going on.
+ * 
+ * The controller and main thread is in the same class for simplicity.
+ * @author Oscar Tse
+ *
+ */
 public class MyPreLoader extends Preloader{
 	
 	private Stage preLoaderStage;
@@ -28,6 +35,9 @@ public class MyPreLoader extends Preloader{
 		
 	}
 	
+	/**
+	 * Run when initialize the class
+	 */
 	@Override
 	public void init() throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(SPLASH_UI_FILE));
@@ -36,6 +46,9 @@ public class MyPreLoader extends Preloader{
 		scene = new Scene(root1);
 	}
 	
+	/**
+	 * Run to start the splash screen
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -47,7 +60,10 @@ public class MyPreLoader extends Preloader{
 		preLoaderStage.getIcons().add(new Image("/icon.png"));
 		preLoaderStage.show();
 	}
-
+	
+	/**
+	 * Receive info from main application
+	 */
 	@Override
 	public void handleApplicationNotification(Preloader.PreloaderNotification info) {
 
@@ -63,7 +79,9 @@ public class MyPreLoader extends Preloader{
 			}
 		}
 	}
-	
+	/**
+	 * Handle stage change notification from main application thread
+	 */
 	@Override
 	public void handleStateChangeNotification(Preloader.StateChangeNotification info) {
 

@@ -37,6 +37,9 @@ import javafx.stage.Stage;
  * 
  */
 public class MyApplication extends Application {
+	/**
+	 * This thread is for pretending processing data
+	 */
 	private Thread progressThread = new Thread() {
 		public void run() {
 			for (int i = 0; i <COUNT_LIMIT;i++) {
@@ -86,6 +89,7 @@ public class MyApplication extends Application {
    		scene.getStylesheets().add(CSS_SCENE_FILE);
    		stage.setScene(scene);
    		stage.getIcons().add(new Image("/icon.png"));
+   		stage.setResizable(false);
    		notifyPreloader(ProgressMessage.SUCESS);
    		stage.setTitle("Team T-21: COVID-19 Data Explorer");
    		stage.show();

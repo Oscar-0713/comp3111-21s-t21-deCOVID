@@ -12,7 +12,7 @@ import javafx.scene.control.MultipleSelectionModel;
  *
  * @author Oscar Tse
  *
- * @param <T>
+ * @param <T> the type of selection in the list
  */
 public class GUIPreventSelection<T> extends MultipleSelectionModel<T> {
 	/**

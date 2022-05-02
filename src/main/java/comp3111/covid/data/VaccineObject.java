@@ -20,9 +20,9 @@ public class VaccineObject {
 	
 	/**
 	 * Constructor
-	 * @param country
-	 * @param fullyVaccinated
-	 * @param percentageVaccinated
+	 * @param country CountryCode of the target object
+	 * @param fullyVaccinated number of people who get fully vaccinated
+	 * @param percentageVaccinated percentage of ppl get vaccinated
 	 */
 	public VaccineObject(CountryCode country, long fullyVaccinated, float percentageVaccinated) {
 		this.country = country;

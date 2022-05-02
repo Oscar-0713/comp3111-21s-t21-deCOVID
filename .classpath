@@ -45,5 +45,6 @@
 	<classpathentry kind="lib" path="libs/assertj-core-3.13.2.jar"/>
 	<classpathentry kind="lib" path="libs/testfx-core-4.0.15-alpha.jar"/>
 	<classpathentry kind="lib" path="libs/testfx-junit-4.0.15-alpha.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

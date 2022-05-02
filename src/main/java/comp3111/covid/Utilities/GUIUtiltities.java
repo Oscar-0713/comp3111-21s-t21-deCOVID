@@ -4,6 +4,8 @@ package comp3111.covid.Utilities;
 
 import java.awt.Checkbox;
 
+import org.assertj.core.annotations.NonNull;
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -28,7 +30,7 @@ public class GUIUtiltities {
 	}
 	
 	/**
-	 * For table task reset.
+	 * For table task reset button operation
 	 * @param picker DatePicker for resetting to null
 	 * @param list uncheck all checkboxes in the list
 	 */
@@ -40,7 +42,7 @@ public class GUIUtiltities {
 	}
 	
 	/**
-	 * For chart task reset
+	 * For chart task reset button operation
 	 * @param picker1 first datePicker
 	 * @param picker2 second datePicker
 	 * @param list The countryList to reset
@@ -51,5 +53,32 @@ public class GUIUtiltities {
 		for (CheckBox i : list.getItems()) {
 			i.setSelected(false);
 		}
+	}
+	
+	/**
+	 * Set the error label
+	 * @param label of showing error message
+	 * @param error ErrorType of input
+	 */
+	public static void setErrorLabelO(Label label,ErrorLabel error) {
+		String text = "";
+		switch(error) {
+			case ERROR_INVALID_DATE:
+			case ERROR_INVALID_RANGE:
+				text = "Invalid date range!";
+				break;
+			case ERROR_NO_COUNTRY:
+				text = "Please select a country!";
+				break;
+			case ERROR_MISSING_DATE:
+				text = "Please pick a date!";
+				break;
+			case ERROR_TOO_MANY_COUNTRY:
+				text = "Please pick only one country!";
+				break;
+		}
+		label.setVisible(true);
+		label.setTextFill(Color.RED);
+		label.setText(text);
 	}
 }
