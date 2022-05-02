@@ -2,14 +2,12 @@ package comp3111.covid.Utilities;
 
 
 
-import java.awt.Checkbox;
-
-import org.assertj.core.annotations.NonNull;
-
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.paint.Color;
 
 /**
@@ -80,5 +78,26 @@ public class GUIUtiltities {
 		label.setVisible(true);
 		label.setTextFill(Color.RED);
 		label.setText(text);
+	}
+	/**
+	 * Set the column to be non-resizable in TableView
+	 * @param <T> elements of TableView Object
+	 * @param table Target TableView Object
+	 */
+	public static <T> void setNotResizable(TableView<T> table) {
+		for (TableColumn<T, ?> i : table.getColumns()) {
+			i.setResizable(false);
+		}
+	}
+	
+	/**
+	 * Resize the table with proper width
+	 * @param <T> elements of TableView Object
+	 * @param table Target TableView Object
+	 */
+	public static <T> void setSizeOfTable(TableView<T> table) {
+		for (TableColumn<T, ?> i : table.getColumns()) {
+			i.setPrefWidth(200);
+		}
 	}
 }
