@@ -14,8 +14,13 @@ import comp3111.covid.Utilities.CountryCode;
  *
  */
 abstract public class GUISelectHandler {
+	/** Store selected country */
 	protected ArrayList<CountryCode> selectedCountry = new ArrayList<>();
 	
+	/**
+	 * Get the country list which user is selected
+	 * @return selected countryList from user
+	 */
 	public ArrayList<CountryCode> getSelectedCountryList() {
 		return selectedCountry;
 	}
@@ -26,6 +31,9 @@ abstract public class GUISelectHandler {
 	public int getSelectedCountryNum() {
 		return selectedCountry.size();
 	}
-	
+	/**
+	 * Get the hashMap of the date of user input
+	 * @return HashMap with key dependent on type
+	 */
 	public abstract HashMap<String, Date> getSelectedDate();
 }

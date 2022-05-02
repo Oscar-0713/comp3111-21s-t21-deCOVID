@@ -23,7 +23,6 @@ public class CaseDataAnalysis {
 	 * @param dataset the data set from which the data is retrieved
 	 * @param handler the handler used to handle inputs
 	 */
-  
 	public CaseDataAnalysis(String dataset, GUISelectHandler handler) {
 		this.handler = handler;
 		this.dataset = dataset;
@@ -60,6 +59,9 @@ public class CaseDataAnalysis {
 					if (data != null) {
 						CaseObject object = data.getCaseObject(code);
 						result.add(object);
+						if (data.isMissing()) {
+							isMissing = true;
+						}
 					}
 				}
 			}
@@ -69,7 +71,7 @@ public class CaseDataAnalysis {
 	}
 	/**
 	 * Return the result of the requested countries and date
-	 * @return
+	 * @return the result of analysis
 	 */
 	public ArrayList<CaseObject> getResult() {
 		return result;

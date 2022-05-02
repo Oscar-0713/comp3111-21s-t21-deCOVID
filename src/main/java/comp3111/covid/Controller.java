@@ -188,6 +188,14 @@ public class Controller {
 	@FXML
 	private Label taskC1WarnMissingLabel;
 	
+	@FXML
+	private Label taskB2WarnMissingLabel;
+	
+	@FXML
+	private Label taskA2WarnMissingLabel;
+	
+	@FXML
+	private Label taskC2WarnMissingLabel;
 	
 	@FXML
     ListView<CheckBox> forecastDynamicListView;
@@ -199,13 +207,13 @@ public class Controller {
     Label ForecastErrorLabel;
 	
 	@FXML
-	private DatePicker taskC2DatePicker1;
+	DatePicker taskC2DatePicker1;
 	
 	@FXML
-	private DatePicker taskC2DatePicker2;
+	DatePicker taskC2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskC2DynamicListView;
+	ListView<CheckBox> taskC2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskC2Chart;
@@ -229,13 +237,13 @@ public class Controller {
 	private Label taskB2ErrorLabel;
 	
 	@FXML
-	private DatePicker taskA2DatePicker1;
+	DatePicker taskA2DatePicker1;
 	
 	@FXML
-	private DatePicker taskA2DatePicker2;
+	DatePicker taskA2DatePicker2;
 	
 	@FXML
-	private ListView<CheckBox> taskA2DynamicListView;
+	ListView<CheckBox> taskA2DynamicListView;
 	
 	@FXML
 	private LineChart<String, Number> taskA2Chart;
@@ -781,7 +789,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskB1ConfirmClicked(ActionEvent event) {
-    	
+    	taskB1WarnMissingLabel.setVisible(false);
     	taskB1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB1DatePicker.getValue() == null) {
@@ -868,6 +876,7 @@ public class Controller {
     @SuppressWarnings("unchecked")
 	@FXML
     void onTaskC1ConfirmClicked(ActionEvent event) {
+    	taskC1WarnMissingLabel.setVisible(false);
     	taskC1ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskC1DatePicker.getValue() == null) {
@@ -958,6 +967,7 @@ public class Controller {
      */
     @FXML
     void onTaskA2ConfirmClicked(ActionEvent event) {
+    	taskA2WarnMissingLabel.setVisible(false);
     	taskA2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskA2DatePicker1.getValue() == null || taskA2DatePicker2.getValue() == null) {
@@ -1009,10 +1019,14 @@ public class Controller {
     	CaseDataAnalysis analysis = new CaseDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskA2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskA2Chart.getData().clear(); // clear previous data first
         taskA2Chart.setAnimated(false);
         taskA2Chart.getXAxis().setLabel("Date");
+        taskA2Chart.getYAxis().setLabel("Number");
         taskA2Chart.setTitle("Cumulative Confirmed COVID-19 Cases (per 1M)");
         taskA2Chart.getXAxis().setAutoRanging(true);
         taskA2Chart.getYAxis().setAutoRanging(true);
@@ -1049,6 +1063,7 @@ public class Controller {
     
     @FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
+    	taskB2WarnMissingLabel.setVisible(false);
     	taskB2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskB2DatePicker1.getValue() == null || taskB2DatePicker2.getValue() == null) {
@@ -1100,10 +1115,14 @@ public class Controller {
     	DeathDataAnalysis analysis = new DeathDataAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskB2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskB2Chart.getData().clear(); // clear previous data first
         taskB2Chart.setAnimated(false);
         taskB2Chart.getXAxis().setLabel("Date");
+        taskB2Chart.getYAxis().setLabel("Number");
         taskB2Chart.setTitle("Cumulative Confirmed COVID-19 Deaths (per 1M)");
         taskB2Chart.getXAxis().setAutoRanging(true);
         taskB2Chart.getYAxis().setAutoRanging(true);
@@ -1140,6 +1159,7 @@ public class Controller {
     
     @FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
+    	taskC2WarnMissingLabel.setVisible(false);
     	taskC2ErrorLabel.setVisible(false);
     	//User doesn't pick a date
     	if (taskC2DatePicker1.getValue() == null || taskC2DatePicker2.getValue() == null) {
@@ -1170,7 +1190,7 @@ public class Controller {
     	}
     	
     	//Handle the selected date
-
+    	
     	//Add picked countries to the list
     	//Terminate the operation if the user has NOT picked any country
     	ArrayList<String> selectedCountry = new ArrayList<String>();
@@ -1191,6 +1211,9 @@ public class Controller {
     	VaccineAnalysis analysis = new VaccineAnalysis(defaultDataset, handler);
     	
     	//Handle output
+    	if (analysis.getIsMissing()) {
+    		GUIUtiltities.setWarningMessage(taskC2WarnMissingLabel);
+    	}
         //y-axis for the percentage (Number type), x-axis for the Date (String type)
         taskC2Chart.getData().clear(); // clear previous data first
         taskC2Chart.setAnimated(false);

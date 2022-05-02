@@ -42,7 +42,7 @@ public class DataCache {
 	/**
 	 * Insert CSV data to the hashMap
 	 * @param dataset the name of the dataset (with .csv)
-	 * @throws ParseException 
+	 * @throws ParseException if failed to parse from CSV
 	 */
 	public void initalizeData(String dataset) throws ParseException {
 		HashMap<CountryCode, HashMap<Date, DayDataObject>> tempMap = new HashMap<>();
@@ -108,9 +108,9 @@ public class DataCache {
 	
 	/**
 	 * Retrieve the data in the dataCache
-	 * @param dataset
-	 * @param code
-	 * @param date
+	 * @param dataset the name of dataset
+	 * @param code the Country code
+	 * @param date the targeted date
 	 * @return DayDataObject if the object is found, otherwise, return null
 	 */
 	public DayDataObject getData(String dataset, CountryCode code, Date date) {
