@@ -960,11 +960,9 @@ public class Controller {
      */
     @FXML
     void onTaskA2ResetClicked(ActionEvent event) {
-    	taskA2DatePicker1.getEditor().clear();
-    	taskA2DatePicker2.getEditor().clear();
-    	for (int i = 0; i < taskA2DynamicListView.getItems().size();i++) {
-    		taskA2DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskA2DatePicker1, taskA2DynamicListView);
+    	GUIUtiltities.resetSelection(taskA2DatePicker2, taskA2DynamicListView);
+    	taskA2Chart.setVisible(false);
     }
     
     /**
@@ -1058,15 +1056,21 @@ public class Controller {
         taskA2Chart.setVisible(true);
     }
     
+    /**
+     * Task B2: Reset button event
+     * @param event
+     */
     @FXML
     void onTaskB2ResetClicked(ActionEvent event) {
-    	taskB2DatePicker1.getEditor().clear();
-    	taskB2DatePicker2.getEditor().clear();
-    	for (int i = 0; i < taskB2DynamicListView.getItems().size();i++) {
-    		taskB2DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskB2DatePicker1, taskB2DynamicListView);
+    	GUIUtiltities.resetSelection(taskB2DatePicker2, taskB2DynamicListView);
+    	taskB2Chart.setVisible(false);
     }
     
+    /**
+     * Task B2: Confirm button click event
+     * @param event
+     */
     @FXML
     void onTaskB2ConfirmClicked(ActionEvent event) {
     	taskB2WarnMissingLabel.setVisible(false);
@@ -1154,15 +1158,21 @@ public class Controller {
         taskB2Chart.setVisible(true);
     }
     
+    /**
+     * Task C2: Reset button event
+     * @param event
+     */
     @FXML
     void onTaskC2ResetClicked(ActionEvent event) {
-    	taskC2DatePicker1.getEditor().clear();
-    	taskC2DatePicker2.getEditor().clear();
-    	for (int i = 0; i < taskC2DynamicListView.getItems().size();i++) {
-    		taskC2DynamicListView.getItems().get(i).setSelected(false);
-    	}
+    	GUIUtiltities.resetSelection(taskC2DatePicker1, taskC2DynamicListView);
+    	GUIUtiltities.resetSelection(taskC2DatePicker2, taskC2DynamicListView);
+    	taskC2Chart.setVisible(false);
     }
     
+    /**
+     * Task C2: Confirm button click event
+     * @param event
+     */
     @FXML
     void onTaskC2ConfirmClicked(ActionEvent event) {
     	taskC2WarnMissingLabel.setVisible(false);
