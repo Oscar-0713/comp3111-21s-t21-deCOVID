@@ -28,8 +28,8 @@ public class GUIShowHandler {
 	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	/**
 	 * Constructor
-	 * @param dataset
-	 * @throws ParseException
+	 * @param dataset the dataset of showing available country
+	 * @throws ParseException if string parse format is incorrect
 	 */
 	public GUIShowHandler(String dataset) throws ParseException {
 		for (CSVRecord record : DataAnalysis.getFileParser(dataset)) {

@@ -19,12 +19,12 @@ public class DayDataObject {
 	private static double ONE_MILLION = 1000000;
 	/**
 	 * This the original constructor, default as true in "isMissing"
-	 * @param newCase
-	 * @param newDeath
-	 * @param fullyVanccinated
-	 * @param population
-	 * @param totalCase
-	 * @param totalDeath
+	 * @param newCase number of new case
+	 * @param newDeath number of new Death
+	 * @param fullyVanccinated number of new vaccinated
+	 * @param population number of population
+	 * @param totalCase number of total case
+	 * @param totalDeath number of total case
 	 */
 	public DayDataObject(long newCase, long newDeath, long fullyVanccinated, long population, long totalCase, long totalDeath) {
 		this.newCase = newCase;
@@ -34,7 +34,16 @@ public class DayDataObject {
 		this.totalCase = totalCase;
 		this.totalDeath = totalDeath;
 	}
-	
+	/**
+	 * New constructor to make record of data missing
+	 * @param newCase number of new case
+	 * @param newDeath number of new Death
+	 * @param fullyVanccinated number of new vaccinated
+	 * @param population number of population
+	 * @param totalCase number of total case
+	 * @param totalDeath number of total case
+	 * @param isMissing whether the data is missing
+	 */
 	public DayDataObject(long newCase, long newDeath, long fullyVanccinated, long population, long totalCase, long totalDeath, boolean isMissing) {
 		this.newCase = newCase;
 		this.newDeath = newDeath;
@@ -48,7 +57,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get DeathObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return DeathObject
 	 */
 	public DeathObject getDeathObject(CountryCode code) {
@@ -57,7 +66,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get DeathObject, specialized for new death data
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return DeathObject
 	 */
 	public DeathObject getNewDeathObject(CountryCode code) {
@@ -66,7 +75,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get CaseObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getCaseObject(CountryCode code) {
@@ -75,7 +84,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get CaseObject, specialized for new case data
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted CaseObject for display
 	 */
 	public CaseObject getNewCaseObject(CountryCode code) {
@@ -84,7 +93,7 @@ public class DayDataObject {
 	
 	/**
 	 * compatibility interface to get VaccineObject
-	 * @param code
+	 * @param code Country Code to construct the object
 	 * @return The targeted VaccineObject for display
 	 */
 	public VaccineObject getVaccineObject(CountryCode code) {

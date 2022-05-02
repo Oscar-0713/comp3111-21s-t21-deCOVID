@@ -20,10 +20,10 @@ public class DeathObject {
 	
 	
 	/**
-	 * Constructor
-	 * @param country
-	 * @param totalDeath
-	 * @param deathPerMillion
+	 * Constructor (for table)
+	 * @param country Country Code of the object
+	 * @param totalDeath number of total death
+	 * @param deathPerMillion death per million people
 	 */
 	public DeathObject(CountryCode country, long totalDeath, float deathPerMillion) {
 		this.country = country;
@@ -31,7 +31,13 @@ public class DeathObject {
 		this.totalDeathPerMillion = deathPerMillion;
 		constructString();
 	}
-	
+	/**
+	 * Constructor
+	 * @param country Country code of the object
+	 * @param totalDeath total death on that day
+	 * @param deathPerMillion death per million people
+	 * @param newDeaths new deaths om that day
+	 */
 	public DeathObject(CountryCode country, long totalDeath, float deathPerMillion, float newDeaths) {
 		this.country = country;
 		this.totalDeath = totalDeath;
@@ -102,7 +108,10 @@ public class DeathObject {
 	public String getDeathpermillion() {
 		return deathPerMillsionOutput.get();
 	}
-	
+	/**
+	 * Get new deaths of that day
+	 * @return new deaths
+	 */
 	public float getNewDeaths() {
 		return newDeaths;
 	}
