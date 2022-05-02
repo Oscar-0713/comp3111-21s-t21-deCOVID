@@ -171,7 +171,7 @@ public class Controller {
     	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	
     	forecastDynamicListView.setSelectionModel(new GUIPreventSelection<>());
-
+    	textAreaConsole.setEditable(false);
 	}
 	
 	//This element will NOT hook to fxml
@@ -768,6 +768,8 @@ public class Controller {
     	taskA1Table.setItems(taskA1TableList);
     	//System.out.print(taskB1TableList.isEmpty());
     	taskA1Table.setVisible(true);
+    	GUIUtiltities.setNotResizable(taskA1Table);
+    	GUIUtiltities.setSizeOfTable(taskA1Table);
     }
     
     
@@ -858,6 +860,8 @@ public class Controller {
     	taskB1Table.setItems(taskB1TableList);
     	//System.out.print(taskB1TableList.isEmpty());
     	taskB1Table.setVisible(true);
+    	GUIUtiltities.setNotResizable(taskB1Table);
+    	GUIUtiltities.setSizeOfTable(taskB1Table);
     }
     
     /**
@@ -945,6 +949,8 @@ public class Controller {
     	taskC1Table.setItems(taskC1TableList);
     	//System.out.print(taskB1TableList.isEmpty());
     	taskC1Table.setVisible(true);
+    	GUIUtiltities.setNotResizable(taskC1Table);
+    	GUIUtiltities.setSizeOfTable(taskC1Table);
     }
     
     

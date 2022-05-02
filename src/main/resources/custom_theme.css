@@ -210,11 +210,18 @@ Extended by Oscar Tse */
     -fx-background-radius : 2.0em;
 }
 
+/** https://stackoverflow.com/questions/49625102/javafx-how-to-hide-empty-column-cell-in-tableview */
 .table-view {
-	-fx-background-color: #f0f9ff;
+	-fx-background-color: #f4f4f4;
 }
 
-.table-column .column-header-background{
-    -fx-background-color: white;
+.choice-box {
+  -fx-background-color: #ffffff;
+  -fx-mark-color: #28a3f4;
 }
 
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #28a3f4;
+}
