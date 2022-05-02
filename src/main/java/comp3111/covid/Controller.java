@@ -171,7 +171,7 @@ public class Controller {
     	taskA2DynamicListView.setSelectionModel(new GUIPreventSelection<>());
     	
     	forecastDynamicListView.setSelectionModel(new GUIPreventSelection<>());
-
+    	textAreaConsole.setEditable(false);
 	}
 	
 	//This element will NOT hook to fxml
