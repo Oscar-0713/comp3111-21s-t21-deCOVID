@@ -690,6 +690,9 @@ public class Controller {
     @FXML
     void onTaskA1ResetClicked(ActionEvent event) {
     	GUIUtiltities.resetSelection(taskA1DatePicker, taskA1DynamicListView);
+    	taskA1TitleLabel.setVisible(false);
+    	taskA1Table.setVisible(false);
+    	taskA1WarnMissingLabel.setVisible(false);
     }
     
     /**
@@ -781,6 +784,9 @@ public class Controller {
     @FXML
     void onTaskB1ResetClicked(ActionEvent event) {
     	GUIUtiltities.resetSelection(taskB1DatePicker, taskB1DynamicListView);
+    	taskB1TitleLabel.setVisible(false);
+    	taskB1Table.setVisible(false);
+    	taskB1WarnMissingLabel.setVisible(false);
     }
     
     /**
@@ -871,6 +877,9 @@ public class Controller {
     @FXML
     void onTaskC1ResetClicked(ActionEvent event) {
     	GUIUtiltities.resetSelection(taskC1DatePicker, taskC1DynamicListView);
+    	taskC1TitleLabel.setVisible(false);
+    	taskC1Table.setVisible(false);
+    	taskC1WarnMissingLabel.setVisible(false);
     }
     
     /**
