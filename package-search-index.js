@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"comp3111.covid"},{"l":"comp3111.covid.data"},{"l":"comp3111.covid.GUI"},{"l":"comp3111.covid.Utilities"}];updateSearchResults();
