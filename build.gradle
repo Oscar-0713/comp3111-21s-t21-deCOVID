@@ -3,6 +3,7 @@ plugins {
 	id 'org.openjfx.javafxplugin' version '0.0.8'
 	id 'java'
 	id 'jacoco'
+	id "org.springframework.boot" version "2.2.2.RELEASE"
 }
 
 repositories {

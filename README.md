@@ -52,6 +52,7 @@ Input
 [sample input]
     - Date of Interest: "Jul 20, 2021"
     - Countries of Interest:
+  
     ![](./readmeContent/CountryInput.PNG)
 
 Output
@@ -72,6 +73,7 @@ Input
 [sample input]
     - Period of Interest: "from Mar 1, 2020 to Jul 20, 2021"
     - Countries of Interest:
+     
       ![](./readmeContent/CountryInput.PNG)
 Output
 
@@ -82,13 +84,10 @@ Output
       ![](./readmeContent/taskA2Output.PNG)
     ![](./readmeContent/taskA2Output2.PNG)
 ### Task Distribution
-COMP 3111 Teaching Team: Project Description, Project requirements, task description and skeleton code
-
-Oscar TSE, Ngo Chun: Task A1, B1, C1, startup screen and GUI enhancement
-
-Oscar GU, Tin Lok: Task A2, B2, C2
-
-Desmond LAU, Cheuk Hei: Real Time data download, GUI Enhancement, Data-mining and time series analysis
+- COMP 3111 Teaching Team: Project Description, Project requirements, task description and skeleton code
+- Oscar TSE, Ngo Chun: Task A1, B1, C1, startup screen and GUI enhancement
+- Oscar GU, Tin Lok: Task A2, B2, C2
+- Desmond LAU, Cheuk Hei: Real Time data download, GUI Enhancement, Data-mining and time series analysis
 
 ### Contact of respective authors
 COMP 3111 Teaching Team:
@@ -106,15 +105,27 @@ Students:
 ## Project Deliveries
 
 ### Screenshots of the Program
+Starting screen
+![](./readmeContent/startUp.png)
 
+Demo Screen
+![](./readmeContent/tableDemo.png)
+![](./readmeContent/chartDemo.png)
 ### Gannt Chart
-
+![](./readmeContent/GanttChart.png)
 ### Burndown Chart
-
+![](./readmeContent/burndownChart.png)
 ### Javadoc
-The corresponding Javadoc can be viewed at 
-### Unit testing
-The corresponding Unit Testing can be viwed at
+The corresponding Javadoc can be viewed at [here](https://oscar-0713.github.io/comp3111-21s-t21/)
+
+
+### Download
+To use this software, simply run the following commands:
+```bash
+git clone
+gradle run
+```
+Note: It requires related JDK installed in the targeted PC. Please install JDK before running the above commands.
 
 ## Reference
 ### Libararies
