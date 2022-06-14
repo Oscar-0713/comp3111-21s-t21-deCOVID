@@ -116,7 +116,7 @@ Demo Screen
 ### Burndown Chart
 ![](./readmeContent/burndownChart.png)
 ### Javadoc
-The corresponding Javadoc can be viewed at [here](https://oscar-0713.github.io/comp3111-21s-t21/)
+The corresponding Javadoc can be viewed at [here](https://oscar-0713.github.io/comp3111-21s-t21-deCOVID/)
 
 
 ### Download
