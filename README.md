@@ -61,6 +61,7 @@ Output
 - Present data in 3 columns with proper headings of "Country", "Total Cases", and "Total Cases (per 1M)"
 - Present data for the countries of interest in rows
     - [Sample Output] **(The data is this example is not real)**
+    
       ![](./readmeContent/taskA1Output.PNG)
 
 ##### Task A2:
@@ -81,7 +82,9 @@ Output
 - Label the x-axis and y-axis with proper scales
 - Present data in coloured cumulative curves labelled with corresponding countries
     - [sample output] **(The data in this example may not be real)**
+    
       ![](./readmeContent/taskA2Output.PNG)
+      
     ![](./readmeContent/taskA2Output2.PNG)
 ### Task Distribution
 - COMP 3111 Teaching Team: Project Description, Project requirements, task description and skeleton code
@@ -106,14 +109,19 @@ Students:
 
 ### Screenshots of the Program
 Starting screen
+
 ![](./readmeContent/startUp.png)
 
 Demo Screen
+
 ![](./readmeContent/tableDemo.png)
+
 ![](./readmeContent/chartDemo.png)
 ### Gannt Chart
+
 ![](./readmeContent/GanttChart.png)
 ### Burndown Chart
+
 ![](./readmeContent/burndownChart.png)
 ### Javadoc
 The corresponding Javadoc can be viewed at [here](https://oscar-0713.github.io/comp3111-21s-t21-deCOVID/)
